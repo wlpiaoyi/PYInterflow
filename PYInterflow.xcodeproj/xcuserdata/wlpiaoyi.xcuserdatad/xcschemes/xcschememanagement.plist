@@ -9,10 +9,25 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>pyinterflowa.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>155DE3BF1DEEBE2D007CD6BF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1583E0701DFA7DE800AD48EA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1583E07D1DFA7E2800AD48EA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
