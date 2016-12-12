@@ -8,5 +8,6 @@
 
 #import <UIKit/UIKit.h>
 @interface PYPopupWindow : UIWindow
+-(instancetype) initWithFrame:(CGRect)frame windowLevel:(UIWindowLevel) windowLevel;
 
 @end

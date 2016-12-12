@@ -45,7 +45,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         if (self.isShow) return;
         else self.isShow = true;
         
-//        [self param].preWidnow = [UIApplication sharedApplication].keyWindow;
         if (self.baseView == nil) [self param].baseView = (UIView*)[[PYPopupWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
         
         if([self.baseView isKindOfClass:[PYPopupWindow class]]){
@@ -67,7 +66,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 -(void) popupHidden{
     @synchronized(self) {
-        
         if (!self.isShow) {
             return;
         }
@@ -88,7 +86,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 -(void) setCenterPoint:(CGPoint)center{
     [self param].centerPoint = center;
-//    [self param].borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
 }
 
 -(UIEdgeInsets) borderEdgeInsets{
@@ -97,7 +94,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 -(void) setBorderEdgeInsets:(UIEdgeInsets)borderEdgeInsets{
     [self param].borderEdgeInsets = borderEdgeInsets;
-//    [self param].centerPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
 }
 
 -(BOOL) isShow{

@@ -55,9 +55,9 @@ static const void * UIViewRemovePointer = &UIViewRemovePointer;
 }
 -(void) setMoveable:(BOOL)moveable{
     [self params].moveable = moveable;
-    static dispatch_once_t predicate;
+    static dispatch_once_t predicate_view_remove;
     __unsafe_unretained typeof(self) unself = self;
-    dispatch_once(&predicate, ^{
+    dispatch_once(&predicate_view_remove, ^{
         SEL selTouchBegin = @selector(touchesBegan:withEvent:);
         SEL selTouchMove = @selector(touchesMoved:withEvent:);
         SEL selTouchEnd = @selector(touchesEnded:withEvent:);
@@ -66,7 +66,7 @@ static const void * UIViewRemovePointer = &UIViewRemovePointer;
         [unself hook:selTouchMove];
         [unself hook:selTouchEnd];
         [unself hook:selTouchCancel];
-        [NSObject hookWithMethodNames:nil];
+        [UIResponder hookWithMethodNames:nil];
     });
 }
 
@@ -125,7 +125,6 @@ static const void * UIViewRemovePointer = &UIViewRemovePointer;
         if (block) {
             block([self params].transformPoint, touchView);
         }
-//        [touchView setScrollView:touchView enabled:NO deep:0];
     }
     @finally {
         [touchView setOffsetPoint:point];

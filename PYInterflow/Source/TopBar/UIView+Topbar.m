@@ -26,6 +26,8 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 }
 
 -(void) topbarShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topbarHidden) name:@"PYTopbarNotify" object:nil];
     [self topbarParams].message = attributeMessage;
     if(attributeMessage){
         self.frameSize = [[self topbarParams] updateMessageView];
@@ -33,12 +35,8 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     self.borderEdgeInsets = UIEdgeInsetsMake(0, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     self.centerPoint = CGPointMake(0, DisableConstrainsValueMAX);
     
-    if(IOS9_OR_LATER && !(IOS10_OR_LATER)){
-        self.baseView =  [UIApplication sharedApplication].keyWindow;
-    }else{
-        PYPopupWindow * window =  [[PYPopupWindow alloc] initWithFrame:CGRectMake(0, 0, boundsWidth(), self.frameHeight)];
-        self.baseView = window;
-    }
+    PYPopupWindow * window =  [[PYPopupWindow alloc] initWithFrame:CGRectMake(0, 0, boundsWidth(), self.frameHeight) windowLevel:UIWindowLevelStatusBar];
+    self.baseView = window;
     
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         if(IOS8_OR_LATER){
@@ -73,11 +71,13 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [NSThread sleepForTimeInterval:time];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self popupHidden];
+            [self topbarHidden];
         });
     });
-    
-
+}
+-(void) topbarHidden{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self popupHidden];
 }
 -(PYTopbarParam *) topbarParams{
     PYTopbarParam * param = objc_getAssociatedObject(self, PYTopbarPointer);
