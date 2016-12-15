@@ -10,7 +10,7 @@
 #import "pyutilea.h"
 
 @interface PYPopupController : UIViewController
-@property (nonatomic, assign) UIWindow * preWindow;
+@property (nonatomic, strong) UIWindow * preWindow;
 @property (nonatomic, assign) PYPopupWindow * myWindow;
 @end
 
@@ -21,7 +21,12 @@
         
         PYPopupController * vc = [PYPopupController new];
         vc.myWindow = self;
-        vc.preWindow = [UIApplication sharedApplication].keyWindow;
+        UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
+        if([keyWindow isKindOfClass:[PYPopupWindow class]]){
+            vc.preWindow =  ((PYPopupController *)keyWindow.rootViewController).preWindow;
+        }else{
+            vc.preWindow = keyWindow;
+        }
         vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         
         self.rootViewController = vc;

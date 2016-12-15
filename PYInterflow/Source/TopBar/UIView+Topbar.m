@@ -27,6 +27,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 
 -(void) topbarShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PYTopbarNotify" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topbarHidden) name:@"PYTopbarNotify" object:nil];
     [self topbarParams].message = attributeMessage;
     if(attributeMessage){
