@@ -20,5 +20,5 @@
 @property (nonatomic, copy) BlockTouchView blockTouchMove;
 @property (nonatomic, copy) BlockTouchView blockTouchEnd;
 ///<
-
+-(void) removeParams;
 @end

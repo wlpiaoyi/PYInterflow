@@ -41,7 +41,7 @@
     size = [PYUtile getBoundSizeWithAttributeTxt:attributeMessage size:size];
     size.width += STATIC_POPUP_OFFSETWIDTH * 2;
     size.height += STATIC_POPUP_OFFSETWIDTH * 2 + 1;
-    size.width = MIN(size.width, STATIC_POPUP_WIDTH);
+    size.width = MAX(MIN(size.width, STATIC_DIALOG_MAXWIDTH), STATIC_DIALOG_MINWIDTH);
     size.height = MIN(size.height, STATIC_DIALOG_MAXHEIGHT);
     return size;
 }

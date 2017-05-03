@@ -8,7 +8,7 @@
 
 #import "UIView+Popup.h"
 #import "UIView+Remove.h"
-#import "UIViewPopupParam.h"
+#import "PYPopupParam.h"
 #import "pyutilea.h"
 #import <objc/runtime.h>
 
@@ -41,7 +41,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 }
 -(void) popupShow{
     @synchronized(self){
-        
+        self.moveable = self.moveable;
         if (self.isShow) return;
         else self.isShow = true;
         
@@ -50,7 +50,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         if([self.baseView isKindOfClass:[PYPopupWindow class]]){
             [((UIWindow *)self.baseView) makeKeyAndVisible];
         }
-        
         [self removeFromSuperview];
         [self.baseView addSubview:self];
         [self resetBoundPoint];
@@ -141,10 +140,10 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(BlockPopupAnimation) blockHiddenAnimation{
     return [self param].blockHiddenAnimation;
 }
--(UIViewPopupParam *) param{
-    UIViewPopupParam * param = objc_getAssociatedObject(self, UIViewPopupPointer);
+-(PYPopupParam *) param{
+    PYPopupParam * param = objc_getAssociatedObject(self, UIViewPopupPointer);
     if(param == nil){
-        param = [UIViewPopupParam new];
+        param = [PYPopupParam new];
         objc_setAssociatedObject(self, UIViewPopupPointer, param, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return param;

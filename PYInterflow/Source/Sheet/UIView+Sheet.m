@@ -8,6 +8,7 @@
 
 #import "UIView+Sheet.h"
 #import "PYParams.h"
+#import "UIView+Remove.h"
 #import "UIView+Popup.h"
 #import "pyutilea.h"
 #import "PYSheetParam.h"
@@ -48,7 +49,12 @@ static const void *PYSheetPointer = &PYSheetPointer;
                 block(view);
             }];
         }else{
-            block(view);
+            view.alpha = 0;
+            [UIView animateWithDuration:.5 animations:^{
+                view.alpha = 1;
+            } completion:^(BOOL finished) {
+                block(view);
+            }];
         }
     })];
     [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
@@ -61,7 +67,12 @@ static const void *PYSheetPointer = &PYSheetPointer;
                 block(view);
             }];
         }else{
-            block(view);
+            view.alpha = 1;
+            [UIView animateWithDuration:.5 animations:^{
+                view.alpha = 0;
+            } completion:^(BOOL finished) {
+                block(view);
+            }];
         }
     })];
     [self sheetParam].title = attributeTitle;
@@ -82,6 +93,13 @@ static const void *PYSheetPointer = &PYSheetPointer;
     [[self sheetParam].showView popupShow];
 }
 -(void) sheetHidden{
+    if(!(IOS8_OR_LATER)){
+        @unsafeify(self);
+        [[self sheetParam].showView setBlockEnd:^(UIView * _Nullable view) {
+            @strongify(self);
+            [self removeParams];
+        }];
+    }
     [[self sheetParam].showView popupHidden];
 }
 -(void) onclickSheet:(UIButton *) button{

@@ -9,6 +9,14 @@
 #import "UIView+Remove.h"
 #import <objc/runtime.h>
 #import "pyutilea.h"
+//@interface UIViewHookRemoveImp : NSObject<UIViewHookDelegate>
+//-(void) beforeExcuteRemoveFromSuperview:(nonnull BOOL *) isExcute target:(nonnull UIView *) target;
+//@end
+//@implementation  UIViewHookRemoveImp
+//-(void) beforeExcuteRemoveFromSuperview:(nonnull BOOL *) isExcute target:(nonnull UIView *) target{
+//    objc_removeAssociatedObjects(target);
+//}
+//@end
 
 @interface PYViewRemoveParam : NSObject
 /**
@@ -36,7 +44,6 @@
 @end
 
 static const void * UIViewRemovePointer = &UIViewRemovePointer;
-
 @implementation UIView(Removeable)
 -(PYViewRemoveParam *) params{
     PYViewRemoveParam * params = nil;
@@ -66,7 +73,9 @@ static const void * UIViewRemovePointer = &UIViewRemovePointer;
         [unself hook:selTouchMove];
         [unself hook:selTouchEnd];
         [unself hook:selTouchCancel];
-        [UIResponder hookWithMethodNames:nil];
+        if(IOS8_OR_LATER){
+            [UIResponder hookWithMethodNames:nil];
+        }
     });
 }
 
@@ -181,6 +190,10 @@ static const void * UIViewRemovePointer = &UIViewRemovePointer;
 }
 -(void) setOffsetPoint:(CGPoint) offsetPoint{
     [self params].offsetPoint = offsetPoint;
+}
+
+-(void) removeParams{
+    objc_removeAssociatedObjects(self);
 }
 
 @end

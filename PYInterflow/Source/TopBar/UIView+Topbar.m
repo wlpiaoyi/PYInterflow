@@ -50,7 +50,12 @@ const void * PYTopbarPointer = &PYTopbarPointer;
                 block(view);
             }];
         }else{
-            block(view);
+            view.alpha = 0;
+            [UIView animateWithDuration:.5 animations:^{
+                view.alpha = 1;
+            } completion:^(BOOL finished) {
+                block(view);
+            }];
         }
     })];
     [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
@@ -64,7 +69,12 @@ const void * PYTopbarPointer = &PYTopbarPointer;
                 block(view);
             }];
         }else{
-            block(view);
+            view.alpha = 1;
+            [UIView animateWithDuration:.5 animations:^{
+                view.alpha = 0;
+            } completion:^(BOOL finished) {
+                block(view);
+            }];
         }
     })];
     [self popupShow];

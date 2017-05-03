@@ -715,6 +715,7 @@
 				1583E0861DFA7E2800AD48EA /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
