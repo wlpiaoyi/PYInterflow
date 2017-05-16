@@ -48,7 +48,7 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 @implementation PYParams
 
-+(void) loadSheetParamsData{
++(void) loadInterflowParamsData{
     STATIC_SHEET_TITLEC = [UIColor darkGrayColor];
     STATIC_SHEET_TITLEBGC = [UIColor whiteColor];
     STATIC_SHEET_CONTEXTNORMALC = [UIColor grayColor];
@@ -62,18 +62,14 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
     STATIC_SHEET_TITLEFONT = [UIFont boldSystemFontOfSize:18];
     STATIC_SHEET_CONTEXTFONT = [UIFont systemFontOfSize:14];
     STATIC_SHEET_CANCELFONT = STATIC_SHEET_CONTEXTFONT;
-}
-
-+(void) loadDialogParamsData{
+    
     STATIC_DIALOG_BACKGROUNDCLOLOR = [UIColor whiteColor];
     STATIC_DIALOG_BORDERCLOLOR = [UIColor lightGrayColor];
     STATIC_DIALOG_TEXTCLOLOR = [UIColor darkGrayColor];
     STATIC_DIALOG_TITLEFONT = [UIFont systemFontOfSize:18];
     STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
     STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
-}
-
-+(void) loadTopbarParamsData{
+    
     STATIC_TOPBAR_MESSAGEC = [UIColor orangeColor];
     STATIC_TOPBAR_BGC = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:.9];
     STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];

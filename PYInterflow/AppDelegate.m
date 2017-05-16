@@ -17,9 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [PYParams loadSheetParamsData];
-    [PYParams loadDialogParamsData];
-    [PYParams loadTopbarParamsData];
+    [PYParams loadInterflowParamsData];
     return YES;
 }
 

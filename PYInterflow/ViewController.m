@@ -46,7 +46,7 @@
 }
 - (IBAction)popup:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
-    [baseview dialogShowWithTitle:@"alkjalkjdl" message:@"adfasdfads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日你老母ads我日"block:^(UIView * _Nonnull view, NSUInteger index) {
+    [baseview dialogShowWithTitle:@"alkjalkjdl" message:@"a"block:^(UIView * _Nonnull view, NSUInteger index) {
         [view dialogHidden];
     } buttonNames:@[@"确定"]];
 }
