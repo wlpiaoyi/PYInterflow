@@ -45,10 +45,20 @@
 //    [sc addSubview:view];
 }
 - (IBAction)popup:(id)sender {
-    UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
-    [baseview dialogShowWithTitle:@"alkjalkjdl" message:@"a"block:^(UIView * _Nonnull view, NSUInteger index) {
+//    UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
+//    [baseview dialogShowWithTitle:nil message:@"a"block:^(UIView * _Nonnull view, NSUInteger index) {
+//        [view dialogHidden];
+//    } buttonNames:@[@"确定",@"取消"]];
+    
+    NSMutableAttributedString * message = [NSMutableAttributedString new];
+    [message appendAttributedString:[[NSAttributedString alloc] initWithString:@"根据您所选择的时间，在改时间前后一小时内最低价的航班为：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor grayColor]}]];
+    
+    UIView * view = [UIView new];
+    @unsafeify(self);
+    [view dialogShowWithAttributeTitle:nil attributeMessage:message block:^(UIView * _Nonnull view, NSUInteger index) {
+        @strongify(self);
         [view dialogHidden];
-    } buttonNames:@[@"确定"]];
+    } buttonNormalNames:@[@"预定最低价",@"继续预定"] buttonHightLightNames:@[@"预定最低价",@"继续预定"]];
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
@@ -59,7 +69,7 @@
 }
 - (IBAction)onclickTopbar:(id)sender {
     UIView * view = [PYView new];
-    [view topbarShow:3 message:@"adsfadsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了dsf我娱乐 我晕了"];
+    [view topbarShow:3 message:@"请输入正确的格式例如:88.88, 88"];
 }
 -(void) hidden{
     [self.baseview popupHidden];

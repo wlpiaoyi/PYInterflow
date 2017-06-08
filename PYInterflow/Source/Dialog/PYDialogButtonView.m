@@ -117,10 +117,18 @@
     return CGSizeMake(0, height);
 }
 
-+(UIButton*) createButtonWithNormalName:(NSAttributedString*) normalName hightLightedName:(NSAttributedString*) hightLightedName{
++(UIButton*) createButtonWithNormalName:(id) normalName hightLightedName:(id) hightLightedName{
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setAttributedTitle:normalName forState:UIControlStateNormal];
-    [button setAttributedTitle:hightLightedName forState:UIControlStateHighlighted];
+    if([normalName isKindOfClass:[NSString class]]){
+        [button setTitle:normalName forState:UIControlStateNormal];
+    }else if([normalName isKindOfClass:[NSAttributedString class]]){
+        [button setAttributedTitle:normalName forState:UIControlStateNormal];
+    }
+    if([hightLightedName isKindOfClass:[NSString class]]){
+        [button setTitle:hightLightedName forState:UIControlStateHighlighted];
+    }else if([hightLightedName isKindOfClass:[NSAttributedString class]]){
+        [button setAttributedTitle:hightLightedName forState:UIControlStateHighlighted];
+    }
     button.titleLabel.font = STATIC_DIALOG_BUTTONFONT;
     [button setTitleColor:STATIC_DIALOG_TEXTCLOLOR forState:UIControlStateNormal];
     [button setTitleColor:STATIC_DIALOG_BACKGROUNDCLOLOR forState:UIControlStateHighlighted];

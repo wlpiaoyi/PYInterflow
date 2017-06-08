@@ -45,8 +45,8 @@
     s.width = boundsWidth() - STATIC_POPUP_OFFSETWIDTH * 2;
     s.height = 999;
     s = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s];
-    s.width += STATIC_POPUP_OFFSETWIDTH * 2;
-    s.height += STATIC_POPUP_OFFSETWIDTH * 2;
+    s.width += STATIC_POPUP_OFFSETWIDTH * 2 + 1;
+    s.height += STATIC_POPUP_OFFSETWIDTH * 2 + 1;
     s.width = MIN(MAX(s.width, boundsWidth()/2), boundsWidth());
     s.height = MIN(100, s.height);
 //    [self.lableMessage setCornerRadiusAndBorder:s.height/2 borderWidth:0 borderColor:[UIColor clearColor]];

@@ -136,7 +136,6 @@
 		15DB17321DF6920000182429 /* PYMotionNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYMotionNotification.h; sourceTree = "<group>"; };
 		15DB17331DF6920000182429 /* PYOrientationNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYOrientationNotification.h; sourceTree = "<group>"; };
 		15DB17341DF6920000182429 /* PYReachabilityNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYReachabilityNotification.h; sourceTree = "<group>"; };
-		15DB17351DF6920000182429 /* PYReflect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYReflect.h; sourceTree = "<group>"; };
 		15DB17361DF6920000182429 /* PYUncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYUncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		15DB17371DF6920000182429 /* PYUtile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYUtile.h; sourceTree = "<group>"; };
 		15DB17381DF6920000182429 /* pyutilea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pyutilea.h; sourceTree = "<group>"; };
@@ -340,7 +339,6 @@
 				15DB17321DF6920000182429 /* PYMotionNotification.h */,
 				15DB17331DF6920000182429 /* PYOrientationNotification.h */,
 				15DB17341DF6920000182429 /* PYReachabilityNotification.h */,
-				15DB17351DF6920000182429 /* PYReflect.h */,
 				15DB17361DF6920000182429 /* PYUncaughtExceptionHandler.h */,
 				15DB17371DF6920000182429 /* PYUtile.h */,
 				15DB17381DF6920000182429 /* pyutilea.h */,
