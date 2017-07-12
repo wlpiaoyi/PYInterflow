@@ -54,6 +54,7 @@
     [message appendAttributedString:[[NSAttributedString alloc] initWithString:@"根据您所选择的时间，在改时间前后一小时内最低价的航班为：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor grayColor]}]];
     
     UIView * view = [UIView new];
+    view.baseView = self.view;
     @unsafeify(self);
     [view dialogShowWithAttributeTitle:nil attributeMessage:message block:^(UIView * _Nonnull view, NSUInteger index) {
         @strongify(self);

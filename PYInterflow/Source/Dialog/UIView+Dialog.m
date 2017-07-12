@@ -57,9 +57,11 @@ static const void *PYDialogPointer = &PYDialogPointer;
     [[self paramDialog].showView setBlockTouchEnd:(^(CGPoint p, UIView  * _Nonnull touchView){
         [UIView beginAnimations:nil context:nil]; // 开始动画
         [UIView setAnimationDuration:.5]; // 动画时长
-        touchView.transform = CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
+        touchView.transform =
+        touchView.transform = CGAffineTransformIdentity;//CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
+    [self paramDialog].showView.baseView = self.baseView;
     [[self paramDialog].showView popupShow];
 }
 
@@ -92,6 +94,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
         touchView.transform = CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
+    [self paramDialog].showView.baseView = self.baseView;
     [[self paramDialog].showView popupShow];
 }
 

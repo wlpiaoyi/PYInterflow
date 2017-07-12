@@ -50,9 +50,13 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         if([self.baseView isKindOfClass:[PYPopupWindow class]]){
             [((UIWindow *)self.baseView) makeKeyAndVisible];
         }
+        [self param].mantleView = [UIView new];
+        [self param].mantleView.backgroundColor = [UIColor clearColor];
         [self removeFromSuperview];
-        [self.baseView addSubview:self];
-        [self resetBoundPoint];
+        [[self param].mantleView addSubview:self];
+        [[self baseView] addSubview:[self param].mantleView];
+        [self resetAutoLayout];
+        [self resetTransform];
         
         BlockPopupAnimation blockAnimation = [self blockShowAnimation];
         if (!blockAnimation) {
@@ -101,7 +105,14 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(void) setIsShow:(BOOL) isShow{
     [self param].isShow = isShow;
 }
--(void) resetBoundPoint{
+-(void) resetTransform{
+    @synchronized(self) {
+        CATransform3D transform = CATransform3DIdentity;
+        transform = CATransform3DScale(transform, 1, 1,1);
+        self.layer.transform = transform;
+    }
+}
+-(void) resetAutoLayout{
     @synchronized(self) {
         CGSize s = self.frameSize;
         CGPoint p = self.centerPoint;
@@ -115,11 +126,8 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self centerPointer:p]];
         [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:PYEdgeInsetsItemNull()]];
         [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self size:s]];
+        [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:[self param].mantleView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()]];
         [self param].lc = lc;
-        
-        CATransform3D transform = CATransform3DIdentity;
-        transform = CATransform3DScale(transform, 1, 1,1);
-        self.layer.transform = transform;
     }
 }
 -(UIView*) baseView{

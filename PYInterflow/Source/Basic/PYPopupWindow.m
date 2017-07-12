@@ -10,7 +10,7 @@
 #import "pyutilea.h"
 
 @interface PYPopupController : UIViewController
-@property (nonatomic, strong) UIWindow * preWindow;
+//@property (nonatomic) UIWindow * orgWindow;
 @property (nonatomic, assign) PYPopupWindow * myWindow;
 @end
 
@@ -41,12 +41,6 @@
     isInit = true;
     PYPopupController * vc = [PYPopupController new];
     vc.myWindow = self;
-    UIWindow * keyWindow = [UIApplication sharedApplication].keyWindow;
-    if([keyWindow isKindOfClass:[PYPopupWindow class]]){
-        vc.preWindow =  ((PYPopupController *)keyWindow.rootViewController).preWindow;
-    }else{
-        vc.preWindow = keyWindow;
-    }
     vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     self.rootViewController = vc;
     [self makeKeyAndVisible];
@@ -90,18 +84,28 @@
         [self setNeedsStatusBarAppearanceUpdate];
     }
 }
-- (BOOL)prefersStatusBarHidden {
-    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
-        return [self.preWindow.rootViewController prefersStatusBarHidden];
-    }else{
-        return [super prefersStatusBarHidden];
-    }
-}
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    return [self.preWindow.rootViewController supportedInterfaceOrientations];
-}
-// Returns interface orientation masks.
-- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    return [self.preWindow.rootViewController preferredInterfaceOrientationForPresentation];
-}
+//- (BOOL)prefersStatusBarHidden {
+//    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
+//        return [self.orgWindow.rootViewController prefersStatusBarHidden];
+//    }else{
+//        return [super prefersStatusBarHidden];
+//    }
+//}
+//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+//    return [self.orgWindow.rootViewController supportedInterfaceOrientations];
+//}
+//// Returns interface orientation masks.
+//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+//    return [self.orgWindow.rootViewController preferredInterfaceOrientationForPresentation];
+//}
+//-(UIWindow *) orgWindow{
+//    if([[UIApplication sharedApplication].keyWindow isKindOfClass:[PYPopupWindow class]]){
+//        for (UIWindow * window in [UIApplication sharedApplication].windows) {
+//            if(![window isKindOfClass:[PYPopupWindow class]]){
+//                return window;
+//            }
+//        }
+//    }
+//    return [UIApplication sharedApplication].keyWindow;
+//}
 @end

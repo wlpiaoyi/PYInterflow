@@ -31,6 +31,7 @@
 
 //基础层
 @property (nonatomic, strong, nonnull) UIView * baseView;
+@property (nonatomic, strong, nonnull) UIView * mantleView;
 //@property (nonatomic, assign, nullable) UIWindow * preWidnow;
 @property (nonatomic) CGRect frameOrg;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc;

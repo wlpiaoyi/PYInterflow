@@ -44,6 +44,7 @@ typedef NS_ENUM(NSInteger, PYPopupEnum) {
 -(void) popupShow;
 -(void) popupHidden;
 
--(void) resetBoundPoint;
+-(void) resetTransform;
+-(void) resetAutoLayout;
 
 @end

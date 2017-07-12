@@ -43,7 +43,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
             view.alpha = 0;
             view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
             [UIView animateWithDuration:.5 animations:^{
-                [view resetBoundPoint];
+                [view resetAutoLayout];
+                [view resetTransform];
                 view.alpha = 1;
             } completion:^(BOOL finished) {
                 block(view);
@@ -59,7 +60,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
     })];
     [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         if(IOS8_OR_LATER){
-            [view resetBoundPoint];
+            [view resetAutoLayout];
+            [view resetTransform];
             [UIView animateWithDuration:.5 animations:^{
                 view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
                 view.alpha = 0;
@@ -90,6 +92,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
         @strongify(self);
         [[self sheetParam] clearTargetView];
     }];
+    [self sheetParam].showView.baseView = self.baseView;
     [[self sheetParam].showView popupShow];
 }
 -(void) sheetHidden{

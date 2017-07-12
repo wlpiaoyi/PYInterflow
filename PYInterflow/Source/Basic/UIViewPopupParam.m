@@ -143,16 +143,16 @@
         }
         if (self.isShow == false) {
             [view removeFromSuperview];
+            [self.mantleView removeFromSuperview];
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
-            
             if([self.baseView isKindOfClass:[PYPopupWindow class]]){
                 self.baseView.hidden = true;
-                for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
-                    [self.baseView removeConstraint:lc];
-                    [view removeConstraint:lc];
-                }
+            }
+            for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
+                [self.baseView removeConstraint:lc];
+                [view removeConstraint:lc];
             }
         }
         if(!(IOS8_OR_LATER)){

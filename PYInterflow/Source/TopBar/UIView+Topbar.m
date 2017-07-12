@@ -44,7 +44,8 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             view.alpha = 0;
             view.transform = CGAffineTransformMakeTranslation(0, -view.bounds.size.height);
             [UIView animateWithDuration:.5 animations:^{
-                [view resetBoundPoint];
+                [view resetAutoLayout];
+                [view resetTransform];
                 view.alpha = 1;
             } completion:^(BOOL finished) {
                 block(view);
@@ -60,7 +61,8 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     })];
     [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         if(IOS8_OR_LATER){
-            [view resetBoundPoint];
+            [view resetAutoLayout];
+            [view resetTransform];
             view.alpha = 1;
             [UIView animateWithDuration:.5 animations:^{
                 view.transform = CGAffineTransformMakeTranslation(0, -view.bounds.size.height);
