@@ -13,7 +13,6 @@
 #import <objc/runtime.h>
 #import "PYDialogParam.h"
 
-
 static const void *PYDialogPointer = &PYDialogPointer;
 
 @implementation UIView(Dialog)
@@ -32,8 +31,8 @@ static const void *PYDialogPointer = &PYDialogPointer;
 -(void) dialogShowWithTitle:(nullable NSString *) title message:(nullable NSString *) message block:(nullable BlockDialogOpt) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
     [self paramDialog].attributeTitle = [PYDialogParam parseDialogTitle:title];
     [self paramDialog].attributeMessage = [PYDialogParam parseDialogMessage:message];
-    [self paramDialog].normalButtonNames = [PYDialogParam parseNormalButtonNames:buttonNames];
-    [self paramDialog].hightLightedButtonNames = [PYDialogParam parseHihtLightedButtonName:buttonNames];
+    [self paramDialog].normalButtonNames = [PYDialogParam parseNormalButtonNames:buttonNames hasStyle:BlockDialogButtonStyle == nil];
+    [self paramDialog].hightLightedButtonNames = [PYDialogParam parseHihtLightedButtonName:buttonNames hasStyle:BlockDialogButtonStyle == nil];
     [self dialogShowWithAttributeTitle:[self paramDialog].attributeTitle attributeMessage:[self paramDialog].attributeMessage block:block buttonNormalNames:[self paramDialog].normalButtonNames buttonHightLightNames:[self paramDialog].hightLightedButtonNames];
 }
 -(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle attributeMessage:(nullable NSAttributedString *) attributeMessage block:(nullable BlockDialogOpt) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{
@@ -67,8 +66,8 @@ static const void *PYDialogPointer = &PYDialogPointer;
 
 -(void) dialogShowWithTitle:(nullable NSString *) title block:(nullable BlockDialogOpt) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
     [self paramDialog].attributeTitle = [PYDialogParam parseDialogTitle:title];
-    [self paramDialog].normalButtonNames = [PYDialogParam parseNormalButtonNames:buttonNames];
-    [self paramDialog].hightLightedButtonNames = [PYDialogParam parseHihtLightedButtonName:buttonNames];
+    [self paramDialog].normalButtonNames = [PYDialogParam parseNormalButtonNames:buttonNames hasStyle:BlockDialogButtonStyle == nil];
+    [self paramDialog].hightLightedButtonNames = [PYDialogParam parseHihtLightedButtonName:buttonNames hasStyle:BlockDialogButtonStyle == nil];
     [self dialogShowWithAttributeTitle:[self paramDialog].attributeTitle block:block buttonNormalNames:[self paramDialog].normalButtonNames buttonHightLightNames:[self paramDialog].hightLightedButtonNames];
 }
 -(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle block:(nullable BlockDialogOpt) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{

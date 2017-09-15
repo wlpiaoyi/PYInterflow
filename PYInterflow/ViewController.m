@@ -51,15 +51,23 @@
 //    } buttonNames:@[@"确定",@"取消"]];
     
     NSMutableAttributedString * message = [NSMutableAttributedString new];
-    [message appendAttributedString:[[NSAttributedString alloc] initWithString:@"根据您所选择的时间，在改时间前后一小时内最低价的航班为：" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor grayColor]}]];
+    [message appendAttributedString:[[NSAttributedString alloc] initWithString:@"根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor grayColor]}]];
     
+//    [[NSMutableAttributedString alloc] initWithString:@"提示" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayColor]}]
     UIView * view = [UIView new];
-    view.baseView = self.view;
-    @unsafeify(self);
-    [view dialogShowWithAttributeTitle:nil attributeMessage:message block:^(UIView * _Nonnull view, NSUInteger index) {
-        @strongify(self);
+    BlockDialogButtonStyle  = ^(UIButton * _Nonnull button){
+        [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(5, 5, 5, 5) relationToItems:PYEdgeInsetsItemNull()];
+        [button setCornerRadiusAndBorder:4 borderWidth:0 borderColor:[UIColor grayColor]];
+        UIColor * ColorTHBase = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:1.00];
+        UIColor * ColorTHBaseLight = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:0.1];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [button setTitleColor:ColorTHBase forState:UIControlStateHighlighted];
+        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBase] forState:UIControlStateNormal];
+        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBaseLight] forState:UIControlStateHighlighted];
+    };
+    [view dialogShowWithTitle:@"adsfads" message:@"dd" block:^(UIView * _Nonnull view, NSUInteger index) {
         [view dialogHidden];
-    } buttonNormalNames:@[@"预定最低价",@"继续预定"] buttonHightLightNames:@[@"预定最低价",@"继续预定"]];
+    } buttonNames:@[@"预定最低价",@"继续预定"]];
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];

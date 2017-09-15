@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PYParams.h"
+
 @interface PYDialogParam : NSObject
 
 @property (nonatomic, retain, nullable) id userInfo;
@@ -39,8 +40,8 @@
 
 +(nullable NSMutableAttributedString *) parseDialogTitle:(nullable NSString *) title;
 +(nullable NSMutableAttributedString *) parseDialogMessage:(nullable NSString *)dialogMessage;
-+(nullable NSArray<NSMutableAttributedString *> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names;
-+(nullable NSArray<NSMutableAttributedString *> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names;
++(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle;
++(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle;
 
 
 @end

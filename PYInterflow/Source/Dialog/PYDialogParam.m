@@ -12,6 +12,7 @@
 #import "PYDialogTitleView.h"
 #import "PYDialogMessageView.h"
 #import "PYDialogButtonView.h"
+
 @interface PYDialogParam()
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsContext;
 @property (nonatomic, assign, nullable) UIView * targetView;
@@ -19,7 +20,7 @@
 @end
 
 @implementation PYDialogParam
--(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action{
+-(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action {
     if(self = [super init]){
         self.lcsContext = [NSMutableArray new];
         self.targetView = target;
@@ -61,7 +62,7 @@
 }
 -(CGSize) updateButtonView{
     if(self.buttonView == nil){
-        self.buttonView = [[PYDialogButtonView alloc] initWithTarget:self.targetView action:self.action];
+        self.buttonView = [[PYDialogButtonView alloc] initWithTarget:self.targetView action:self.action blockSetButtonLayout:BlockDialogButtonStyle];
         [self.contextView addSubview:self.buttonView];
         [PYParams setView:self.buttonView shadowOffset:CGSizeMake(0, -2)];
         self.lcButtonHeight = [PYViewAutolayoutCenter persistConstraint:self.buttonView size:CGSizeMake(DisableConstrainsValueMAX, 0)].allValues.firstObject;
@@ -109,7 +110,8 @@
     [attMsg addAttribute:NSFontAttributeName value:STATIC_DIALOG_MESSAGEFONT range:NSMakeRange(0, attMsg.length)];
     return attMsg;
 }
-+(nullable NSArray<NSMutableAttributedString *> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names{
++(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names hasStyle:(BOOL) hasStyle{
+    if(!hasStyle) return names;
     NSMutableArray<NSMutableAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
         NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
@@ -120,7 +122,8 @@
     }
     return ats;
 }
-+(nullable NSArray<NSMutableAttributedString *> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names{
++(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle{
+    if(!hasStyle) return names;
     NSMutableArray<NSMutableAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
         NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];

@@ -58,7 +58,7 @@
 		1583E07C1DFA7E2800AD48EA /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "include/$(PRODUCT_NAME)";
+			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
 				1583E0D21DFA824200AD48EA /* UIView+Topbar.h in CopyFiles */,

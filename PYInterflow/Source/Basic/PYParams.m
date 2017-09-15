@@ -9,6 +9,8 @@
 #import "PYParams.h"
 
 
+void (^BlockDialogButtonStyle)(UIButton * _Nonnull button);
+
 CGFloat PYPopupAnimationTime = 10.0;
 CGFloat PYPopupAnimationTimeOffset = .05;
 CGFloat STATIC_POPUP_BORDERWIDTH = .5;

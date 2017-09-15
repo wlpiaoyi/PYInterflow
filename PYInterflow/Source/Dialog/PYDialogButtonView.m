@@ -12,6 +12,7 @@
 @interface PYDialogButtonView()
 @property (nonatomic, assign, nonnull) id target;
 @property (nonatomic, nonnull) SEL action;
+@property (nonatomic, copy, nullable) void (^blockSetButtonLayout)(UIButton * _Nonnull button);
 @end
 
 @implementation PYDialogButtonView{
@@ -19,8 +20,7 @@
     NSMutableArray<NSLayoutConstraint *> * lcs;
     UIView * topLine;
 }
-
--(instancetype) initWithTarget:(id) target action:(SEL) action{
+-(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action blockSetButtonLayout:(void (^_Nonnull)(UIButton * _Nonnull button)) blockSetButtonLayout{
     if(self = [super init]){
         lcs = [NSMutableArray new];
         self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
@@ -31,6 +31,7 @@
         [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemNull()];
         self.target = target;
         self.action = action;
+        self.blockSetButtonLayout = blockSetButtonLayout;
         topLine = line;
     }
     return self;
@@ -55,6 +56,7 @@
     if(self.normalButtonNames.count == 2){
         lineCenter = [UIView new];
         lineCenter.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
+        lineCenter.hidden = self.blockSetButtonLayout != nil;
         [self addSubview:lineCenter];
         [PYViewAutolayoutCenter persistConstraint:lineCenter size:CGSizeMake(STATIC_POPUP_BORDERWIDTH, DisableConstrainsValueMAX)];
         [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter centerPointer:CGPointMake(0, DisableConstrainsValueMAX)].allValues];
@@ -63,20 +65,30 @@
     }
     
     UIView * line = nil;
-    UIButton * preButton = nil;
+    UIView * preBView = nil;
     CGFloat height = 0;
     for (NSAttributedString * normalButtonName in self.normalButtonNames) {
-        int index = preButton ? preButton.tag + 1 : 0;
+        int index = preBView ? (int)preBView.tag + 1 : 0;
         UIButton *button = [PYDialogButtonView createButtonWithNormalName:normalButtonName hightLightedName:self.hightLightedButtonNames[index]];
         button.tag = index;
         [button addTarget:self.target action:self.action forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:button];
-        [PYViewAutolayoutCenter persistConstraint:button size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BUTTON_HEIGHT)];
+        UIView * bView = [UIView new];
+        bView.backgroundColor = [UIColor clearColor];
+        bView.tag = index;
+        [bView addSubview:button];
+        if(self.blockSetButtonLayout){
+            _blockSetButtonLayout(button);
+        }else{
+            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        }
+        [self addSubview:bView];
+        [PYViewAutolayoutCenter persistConstraint:bView size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BUTTON_HEIGHT)];
         if(lineCenter){
             if(line == nil){
                 line = [UIView new];
                 line.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
                 [self addSubview:line];
+                line.hidden = self.blockSetButtonLayout != nil;
                 [toFontViews addObject:line];
                 [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
                 PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
@@ -86,30 +98,31 @@
             line = [UIView new];
             line.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
             [self addSubview:line];
+            line.hidden = self.blockSetButtonLayout != nil;
             [toFontViews addObject:line];
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
-            e.top = (__bridge void * _Nullable)(preButton);
+            e.top = (__bridge void * _Nullable)(preBView);
             [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e].allValues];
             [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
         }
         if(lineCenter){
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
             e.top = (__bridge void * _Nullable)(line);
-            if(button.tag == 0){
+            if(bView.tag == 0){
                 e = PYEdgeInsetsItemNull();
                 e.right = (__bridge void * _Nullable)(lineCenter);
             }else{
                 e.left = (__bridge void * _Nullable)(lineCenter);
             }
-            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
+            [PYViewAutolayoutCenter persistConstraint:bView relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
             height = STATIC_POPUP_BUTTON_HEIGHT + STATIC_POPUP_BORDERWIDTH;
         }else{
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
             e.top = (__bridge void * _Nullable)(line);
-            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
+            [PYViewAutolayoutCenter persistConstraint:bView relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
             height += STATIC_POPUP_BUTTON_HEIGHT  + STATIC_POPUP_BORDERWIDTH;
         }
-        preButton = button;
+        preBView = bView;
     }
     for (UIView * line in toFontViews) {
         [line bringSubviewToFront:line.superview];
@@ -129,11 +142,12 @@
     }else if([hightLightedName isKindOfClass:[NSAttributedString class]]){
         [button setAttributedTitle:hightLightedName forState:UIControlStateHighlighted];
     }
-    button.titleLabel.font = STATIC_DIALOG_BUTTONFONT;
     [button setTitleColor:STATIC_DIALOG_TEXTCLOLOR forState:UIControlStateNormal];
     [button setTitleColor:STATIC_DIALOG_BACKGROUNDCLOLOR forState:UIControlStateHighlighted];
     [button setBackgroundImage:[UIImage imageWithColor:STATIC_DIALOG_BACKGROUNDCLOLOR] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageWithColor:STATIC_DIALOG_BORDERCLOLOR] forState:UIControlStateHighlighted];
+    button.titleLabel.font = STATIC_DIALOG_BUTTONFONT;
+    
     return button;
 }
 
