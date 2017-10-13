@@ -28,7 +28,7 @@
         self.targetView.backgroundColor = STATIC_TOPBAR_BGC;
         [self.targetView addSubview:l];
         self.lableMessage = l;
-        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(0, STATIC_POPUP_OFFSETWIDTH, 0, STATIC_POPUP_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
+        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
         UISwipeGestureRecognizer * sgr = [[UISwipeGestureRecognizer alloc] initWithTarget:targetView action:@selector(popupHidden)];
         sgr.direction = UISwipeGestureRecognizerDirectionUp;
         [targetView addGestureRecognizer:sgr];
@@ -42,14 +42,11 @@
     self.lableMessage.hidden = NO;
     self.lableMessage.attributedText = self.message;
     CGSize s = self.targetView.frameSize;
-    s.width = boundsWidth() - STATIC_POPUP_OFFSETWIDTH * 2;
+    s.width = boundsWidth();
     s.height = 999;
-    s = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s];
-    s.width += STATIC_POPUP_OFFSETWIDTH * 2 + 1;
-    s.height += STATIC_POPUP_OFFSETWIDTH * 2 + 1;
-    s.width = MIN(MAX(s.width, boundsWidth()/2), boundsWidth());
-    s.height = MIN(100, s.height);
-//    [self.lableMessage setCornerRadiusAndBorder:s.height/2 borderWidth:0 borderColor:[UIColor clearColor]];
+    s.height = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].height;
+    s.height += 1;
+    s.height = MAX(20, MIN(100, s.height));
     return s;
 }
 

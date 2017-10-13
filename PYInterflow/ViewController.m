@@ -45,29 +45,24 @@
 //    [sc addSubview:view];
 }
 - (IBAction)popup:(id)sender {
-//    UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
-//    [baseview dialogShowWithTitle:nil message:@"a"block:^(UIView * _Nonnull view, NSUInteger index) {
-//        [view dialogHidden];
-//    } buttonNames:@[@"确定",@"取消"]];
-    
-    NSMutableAttributedString * message = [NSMutableAttributedString new];
-    [message appendAttributedString:[[NSAttributedString alloc] initWithString:@"根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据根据" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14],NSForegroundColorAttributeName:[UIColor grayColor]}]];
-    
-//    [[NSMutableAttributedString alloc] initWithString:@"提示" attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:[UIColor grayColor]}]
     UIView * view = [UIView new];
-    BlockDialogButtonStyle  = ^(UIButton * _Nonnull button){
-        [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(5, 5, 5, 5) relationToItems:PYEdgeInsetsItemNull()];
-        [button setCornerRadiusAndBorder:4 borderWidth:0 borderColor:[UIColor grayColor]];
-        UIColor * ColorTHBase = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:1.00];
-        UIColor * ColorTHBaseLight = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:0.1];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [button setTitleColor:ColorTHBase forState:UIControlStateHighlighted];
-        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBase] forState:UIControlStateNormal];
-        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBaseLight] forState:UIControlStateHighlighted];
-    };
-    [view dialogShowWithTitle:@"adsfads" message:@"dd" block:^(UIView * _Nonnull view, NSUInteger index) {
+    [view dialogShowWithTitle:nil message:@"应用有JS更新，需要重新加载吗?" block:^(UIView * _Nonnull view, NSUInteger index) {
         [view dialogHidden];
-    } buttonNames:@[@"预定最低价",@"继续预定"]];
+    } buttonNames:@[@"下次",@"立即"]];
+//    UIView * view = [UIView new];
+//    BlockDialogButtonStyle  = ^(UIButton * _Nonnull button){
+//        [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(5, 5, 5, 5) relationToItems:PYEdgeInsetsItemNull()];
+//        [button setCornerRadiusAndBorder:4 borderWidth:0 borderColor:[UIColor grayColor]];
+//        UIColor * ColorTHBase = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:1.00];
+//        UIColor * ColorTHBaseLight = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:0.1];
+//        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//        [button setTitleColor:ColorTHBase forState:UIControlStateHighlighted];
+//        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBase] forState:UIControlStateNormal];
+//        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBaseLight] forState:UIControlStateHighlighted];
+//    };
+//    [view dialogShowWithTitle:@"adsfads" message:@"dd" block:^(UIView * _Nonnull view, NSUInteger index) {
+//        [view dialogHidden];
+//    } buttonNames:@[@"预定最低价",@"继续预定"]];
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];

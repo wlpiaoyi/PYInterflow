@@ -7,7 +7,7 @@
 //
 
 #import "PYParams.h"
-
+#import "PYUtile.h"
 
 void (^BlockDialogButtonStyle)(UIButton * _Nonnull button);
 
@@ -15,7 +15,7 @@ CGFloat PYPopupAnimationTime = 10.0;
 CGFloat PYPopupAnimationTimeOffset = .05;
 CGFloat STATIC_POPUP_BORDERWIDTH = .5;
 CGFloat STATIC_POPUP_WIDTH = 280;
-CGFloat STATIC_POPUP_OFFSETWIDTH = 8;
+CGFloat STATIC_POPUP_OFFSETWIDTH = 2;
 CGFloat STATIC_POPUP_TITLE_HEIGHT = 38;
 CGFloat STATIC_POPUP_BUTTON_HEIGHT = 38;
 
@@ -25,7 +25,7 @@ UIColor * _Nonnull STATIC_DIALOG_TEXTCLOLOR;
 UIFont * _Nonnull STATIC_DIALOG_TITLEFONT;
 UIFont * _Nonnull STATIC_DIALOG_MESSAGEFONT;
 UIFont * _Nonnull STATIC_DIALOG_BUTTONFONT;
-CGFloat STATIC_DIALOG_MINWIDTH = 160;
+CGFloat STATIC_DIALOG_MINWIDTH = 200;
 CGFloat STATIC_DIALOG_MAXWIDTH = 280;
 CGFloat STATIC_DIALOG_MAXHEIGHT = 400;
 
@@ -73,7 +73,7 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
     STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
     
     STATIC_TOPBAR_MESSAGEC = [UIColor orangeColor];
-    STATIC_TOPBAR_BGC = [UIColor colorWithRed:.3 green:.3 blue:.3 alpha:.9];
+    STATIC_TOPBAR_BGC = kRGBA(60, 65, 70, 250);
     STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];
 }
 
