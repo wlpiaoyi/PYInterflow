@@ -33,16 +33,16 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     if(attributeMessage){
         self.frameSize = [[self topbarParams] updateMessageView];
     }
-    self.borderEdgeInsets = UIEdgeInsetsMake(0, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
-    self.centerPoint = CGPointMake(0, DisableConstrainsValueMAX);
+    self.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, 50, DisableConstrainsValueMAX);
+    self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
     
-    PYPopupWindow * window =  [[PYPopupWindow alloc] initWithFrame:CGRectMake(0, 0, boundsWidth(), self.frameHeight) windowLevel:UIWindowLevelStatusBar];
-    self.baseView = window;
+//    PYPopupWindow * window =  [PYPopupWindow instanceForFrame:CGRectMake(0, boundsHeight() - self.frameHeight, boundsWidth(), self.frameHeight)];
+    self.popupBaseView = [PYUtile getCurrenWindow];
     
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         if(IOS8_OR_LATER){
             view.alpha = 0;
-            view.transform = CGAffineTransformMakeTranslation(0, -view.bounds.size.height);
+//            view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
             [UIView animateWithDuration:.5 animations:^{
                 [view resetAutoLayout];
                 [view resetTransform];
@@ -65,7 +65,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             [view resetTransform];
             view.alpha = 1;
             [UIView animateWithDuration:.5 animations:^{
-                view.transform = CGAffineTransformMakeTranslation(0, -view.bounds.size.height);
+//                view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
                 view.alpha = 0;
             } completion:^(BOOL finished) {
                 block(view);
@@ -79,7 +79,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             }];
         }
     })];
-    [self popupShow];
+    [self popupShowForHasContentView:NO];
                                                                               
     dispatch_async(dispatch_get_global_queue(0, 0), ^{
         [NSThread sleepForTimeInterval:time];

@@ -23,7 +23,7 @@
 //@property (nonatomic) CGSize offsetSize;
 
 //=====================显示和隐藏时候的回调=========================>
-@property (nonatomic,copy, nullable) void (^blockStart)(UIView * _Nullable view);
+@property (nonatomic,copy, nullable) void (^popupBlockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^blockEnd)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) BlockPopupAnimation blockShowAnimation;
 @property (nonatomic,copy, nullable) BlockPopupAnimation blockHiddenAnimation;

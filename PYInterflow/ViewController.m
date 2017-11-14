@@ -24,7 +24,6 @@
 @end
 @interface ViewController ()
 @property (nonatomic, strong) UIView * baseview;
-
 @end
 
 @implementation ViewController
@@ -45,35 +44,29 @@
 //    [sc addSubview:view];
 }
 - (IBAction)popup:(id)sender {
-    UIView * view = [UIView new];
-    [view dialogShowWithTitle:nil message:@"应用有JS更新，需要重新加载吗?" block:^(UIView * _Nonnull view, NSUInteger index) {
-        [view dialogHidden];
-    } buttonNames:@[@"下次",@"立即"]];
-//    UIView * view = [UIView new];
-//    BlockDialogButtonStyle  = ^(UIButton * _Nonnull button){
-//        [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(5, 5, 5, 5) relationToItems:PYEdgeInsetsItemNull()];
-//        [button setCornerRadiusAndBorder:4 borderWidth:0 borderColor:[UIColor grayColor]];
-//        UIColor * ColorTHBase = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:1.00];
-//        UIColor * ColorTHBaseLight = [UIColor colorWithRed:0.937 green:0.357 blue:0.369 alpha:0.1];
-//        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//        [button setTitleColor:ColorTHBase forState:UIControlStateHighlighted];
-//        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBase] forState:UIControlStateNormal];
-//        [button setBackgroundImage:[UIImage imageWithColor:ColorTHBaseLight] forState:UIControlStateHighlighted];
-//    };
-//    [view dialogShowWithTitle:@"adsfads" message:@"dd" block:^(UIView * _Nonnull view, NSUInteger index) {
-//        [view dialogHidden];
-//    } buttonNames:@[@"预定最低价",@"继续预定"]];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"标题" message:@"这个是UIAlertController的默认样式" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIView * view = [PYView new];
+        [view dialogShowWithTitle:nil message:[NSString stringWithFormat:@"%@ %@\n %@ ¥%ld\n马上预订？", @"adfadsadfs", @"adsfadfadf", @"adfads",3398] block:^(UIView * _Nonnull view, NSUInteger index) {
+            [view dialogHidden];
+        } buttonNames:@[@"其他舱位",@"确认",@"取消"]];
+    }];
+    [alertController addAction:cancelAction];
+    [alertController addAction:okAction];
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
     [baseview setBackgroundColor:[UIColor redColor]];
-    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" block:^(UIView * _Nullable view, int index) {
-        NSLog(@"");
-    }];
+    [baseview sheetShow];
+//    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" block:^(UIView * _Nullable view, int index) {
+//        NSLog(@"");
+//    }];
 }
 - (IBAction)onclickTopbar:(id)sender {
     UIView * view = [PYView new];
-    [view topbarShow:3 message:@"请输入正确的格式例如:88.88, 88"];
+    [view topbarShow:3 message:@"请输入正确的格式例如！"];
 }
 -(void) hidden{
     [self.baseview popupHidden];

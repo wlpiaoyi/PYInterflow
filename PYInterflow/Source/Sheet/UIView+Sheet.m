@@ -84,21 +84,21 @@ static const void *PYSheetPointer = &PYSheetPointer;
     [self sheetParam].cancelHighlighted = highlightedCanel;
     CGFloat headHeight =  [[self sheetParam] updateHeadView];
     [self sheetParam].showView.frameSize = CGSizeMake(DisableConstrainsValueMAX, headHeight + self.frameHeight);
-    [self sheetParam].showView.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0);
-    [self sheetParam].showView.centerPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    [self sheetParam].showView.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0);
+    [self sheetParam].showView.popupCenterPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     [[self sheetParam] mergeTargetView];
     @unsafeify(self);
-    [[self sheetParam].showView setBlockEnd:^(UIView * _Nullable view) {
+    [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
         @strongify(self);
         [[self sheetParam] clearTargetView];
     }];
-    [self sheetParam].showView.baseView = self.baseView;
+    [self sheetParam].showView.popupBaseView = self.popupBaseView;
     [[self sheetParam].showView popupShow];
 }
 -(void) sheetHidden{
     if(!(IOS8_OR_LATER)){
         @unsafeify(self);
-        [[self sheetParam].showView setBlockEnd:^(UIView * _Nullable view) {
+        [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
             @strongify(self);
             [self removeParams];
         }];

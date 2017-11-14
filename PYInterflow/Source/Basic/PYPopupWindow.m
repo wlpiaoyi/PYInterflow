@@ -10,42 +10,36 @@
 #import "pyutilea.h"
 
 @interface PYPopupController : UIViewController
-//@property (nonatomic) UIWindow * orgWindow;
 @property (nonatomic, assign) PYPopupWindow * myWindow;
+@property (nonatomic, assign) UIWindow * orgWindow;
 @end
 
 @implementation PYPopupWindow{
-@private bool isInit;
+@private
+    bool isInit;
 }
--(instancetype) init{
-    if(self = [super init]){
-        [self initParams];
-    }
-    return self;
-}
--(instancetype) initWithFrame:(CGRect)frame{
-    if(self = [super initWithFrame:frame]){
-        [self initParams];
-    }
-    return self;
-}
--(instancetype) initWithFrame:(CGRect)frame windowLevel:(UIWindowLevel) windowLevel{
-    if(self = [super initWithFrame:frame]){
-        [self initParams];
-        self.windowLevel =windowLevel;
-    }
-    return self;
-}
--(void) initParams{
+kINITPARAMS{
     if(isInit) return;
     isInit = true;
-    PYPopupController * vc = [PYPopupController new];
-    vc.myWindow = self;
-    vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-    self.rootViewController = vc;
     [self makeKeyAndVisible];
     [self setBackgroundColor:[UIColor clearColor]];
-    self.windowLevel = UIWindowLevelAlert;
+    self.windowLevel = UIWindowLevelStatusBar;
+}
++(instancetype) instanceForFrame:(CGRect)frame{
+    PYPopupWindow * window;
+    @synchronized(self){
+        PYPopupController * vc = [PYPopupController new];
+        UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
+        if([orgWindow isKindOfClass:[PYPopupWindow class]]){
+            orgWindow = ((PYPopupController*)((PYPopupWindow*)orgWindow).rootViewController).orgWindow;
+        }
+        vc.orgWindow = orgWindow;
+        vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
+        window = [[PYPopupWindow alloc] initWithFrame:frame];
+        window.rootViewController = vc;
+        vc.myWindow = window;
+    }
+    return window;
 }
 -(void) addSubview:(UIView *)view{
     if(view == self.rootViewController.view){
@@ -61,6 +55,12 @@
 }
 @end
 @implementation PYPopupController{
+@private
+    BOOL __prefersStatusBarHidden;
+    BOOL __preferredStatusBarStyle;
+    BOOL __supportedInterfaceOrientations;
+    BOOL __shouldAutorotate;
+    BOOL __preferredInterfaceOrientationForPresentation;
 }
 -(instancetype) init{
     if(self = [super init]){
@@ -69,43 +69,85 @@
 }
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PYTopbarNotify" object:nil];
-    }
 }
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
-    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"PYTopbarNotify" object:nil];
-    }
+    kAssign(self);
+    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+        [NSThread sleepForTimeInterval:0.2];
+        kDISPATCH_MAIN_THREAD(^{
+            kStrong(self);
+            [self setNeedsStatusBarAppearanceUpdate];
+        });
+    });
 }
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation{
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
-        [self setNeedsStatusBarAppearanceUpdate];
-    }
+    [self setNeedsStatusBarAppearanceUpdate];
 }
-//- (BOOL)prefersStatusBarHidden {
-//    if(!CGSizeEqualToSize([UIScreen mainScreen].bounds.size, self.myWindow.bounds.size)){
-//        return [self.orgWindow.rootViewController prefersStatusBarHidden];
-//    }else{
-//        return [super prefersStatusBarHidden];
-//    }
-//}
-//- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-//    return [self.orgWindow.rootViewController supportedInterfaceOrientations];
-//}
-//// Returns interface orientation masks.
-//- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-//    return [self.orgWindow.rootViewController preferredInterfaceOrientationForPresentation];
-//}
-//-(UIWindow *) orgWindow{
-//    if([[UIApplication sharedApplication].keyWindow isKindOfClass:[PYPopupWindow class]]){
-//        for (UIWindow * window in [UIApplication sharedApplication].windows) {
-//            if(![window isKindOfClass:[PYPopupWindow class]]){
-//                return window;
-//            }
-//        }
-//    }
-//    return [UIApplication sharedApplication].keyWindow;
-//}
+- (BOOL)prefersStatusBarHidden {
+    UIViewController * orgVc = self.orgWindow.rootViewController;
+    BOOL result;
+    if(__prefersStatusBarHidden){
+        result = [super preferredStatusBarStyle];
+    }else{
+        __prefersStatusBarHidden = true;
+        result = [orgVc prefersStatusBarHidden];
+        __prefersStatusBarHidden = false;
+    }
+    return result;
+}
+-(UIStatusBarStyle) preferredStatusBarStyle{
+    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIStatusBarStyle result;
+    if(__preferredStatusBarStyle){
+        result = [super preferredStatusBarStyle];
+    }else{
+        __preferredStatusBarStyle = true;
+        result = [orgVc preferredStatusBarStyle];
+        __preferredStatusBarStyle = false;;
+    }
+    return result;
+}
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIInterfaceOrientationMask result;
+    if(__supportedInterfaceOrientations){
+        result = [super supportedInterfaceOrientations];
+    }else{
+        __supportedInterfaceOrientations = true;
+        result = [orgVc supportedInterfaceOrientations];
+        __supportedInterfaceOrientations = false;
+    }
+    return result;
+}
+
+- (BOOL)shouldAutorotate{
+    UIViewController * orgVc = self.orgWindow.rootViewController;
+    BOOL result;
+    if(__shouldAutorotate){
+        result = [super shouldAutorotate];
+    }else{
+        __shouldAutorotate = true;
+        result = [orgVc shouldAutorotate];
+        __shouldAutorotate = false;
+    }
+    return result;
+}
+// Returns interface orientation masks.
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIInterfaceOrientation result;
+    if(__preferredInterfaceOrientationForPresentation){
+         result = [super preferredInterfaceOrientationForPresentation];
+    }else{
+        __preferredInterfaceOrientationForPresentation = true;
+        result = [orgVc preferredInterfaceOrientationForPresentation];
+        __preferredInterfaceOrientationForPresentation = false;
+    }
+    return result;
+}
+
+-(void) dealloc{
+}
 @end

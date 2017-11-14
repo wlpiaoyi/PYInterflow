@@ -143,7 +143,7 @@
         }
         if (self.isShow == false) {
             [view removeFromSuperview];
-            [self.mantleView removeFromSuperview];
+            [self.contentView removeFromSuperview];
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;

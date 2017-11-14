@@ -48,7 +48,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     [self paramDialog].showView.frameSize = CGSizeMake(MAX(MAX(titleSize.width, dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
     [self.superview sendSubviewToBack:self];
     @unsafeify(self);
-    [[self paramDialog].showView setBlockEnd:^(UIView * _Nullable view) {
+    [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
         @strongify(self);
         [[self paramDialog] clearTargetView];
     }];
@@ -60,7 +60,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
         touchView.transform = CGAffineTransformIdentity;//CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
-    [self paramDialog].showView.baseView = self.baseView;
+    [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
 }
 
@@ -80,10 +80,10 @@ static const void *PYDialogPointer = &PYDialogPointer;
     CGSize dialogSize = self.frameSize;
     [[self paramDialog] mergeTargetView];
     [self paramDialog].showView.frameSize = CGSizeMake(MAX(MAX(titleSize.width, dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
-    [self paramDialog].showView.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
-    [self paramDialog].showView.centerPoint = CGPointMake(0, 0);
+    [self paramDialog].showView.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    [self paramDialog].showView.popupCenterPoint = CGPointMake(0, 0);
     [self.superview sendSubviewToBack:self];
-    [[self paramDialog].showView setBlockEnd:^(UIView * _Nullable view) {
+    [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
         [[view paramDialog] clearTargetView];
     }];
     [self paramDialog].showView.moveable = IOS8_OR_LATER;
@@ -93,14 +93,14 @@ static const void *PYDialogPointer = &PYDialogPointer;
         touchView.transform = CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
-    [self paramDialog].showView.baseView = self.baseView;
+    [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
 }
 
 -(void) dialogHidden{
     if(!(IOS8_OR_LATER)){
         @unsafeify(self);
-        [[self paramDialog].showView setBlockEnd:^(UIView * _Nullable view) {
+        [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
             @strongify(self);
             [self removeParams];
         }];

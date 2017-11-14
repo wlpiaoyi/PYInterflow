@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "PYInterflow/UIResponder+Hook2.m"
-            timestampString = "503738369.218802"
+            filePath = "PYInterflow/Source/Basic/PYPopupWindow.m"
+            timestampString = "531828019.20185"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
-            landmarkName = "+hookMethodWithName2:"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "-viewWillTransitionToSize:withTransitionCoordinator:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
