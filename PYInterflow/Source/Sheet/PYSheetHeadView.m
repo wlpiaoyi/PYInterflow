@@ -61,9 +61,9 @@
         l.backgroundColor = [UIColor clearColor];
         [self addSubview: l];
         PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
-        e.left = (__bridge void * _Nullable)(self.cancelButton);
-        e.right = (__bridge void * _Nullable)(self.confirmButton);
-        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e];
+        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, DisableConstrainsValueMAX) relationToItems:e];
+        [PYViewAutolayoutCenter persistConstraint:l size:CGSizeMake(160, DisableConstrainsValueMAX)];
+        [PYViewAutolayoutCenter persistConstraint:l centerPointer:CGPointMake(0, DisableConstrainsValueMAX)];
         self.titleLable = l;
     }
     [self.line.superview bringSubviewToFront:self.line];

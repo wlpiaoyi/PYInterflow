@@ -131,11 +131,21 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
             [self removeConstraint:lc];
         }
         NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc =  [NSMutableDictionary new];
-        [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self centerPointer:p]];
-        [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:PYEdgeInsetsItemNull()]];
+        NSDictionary<NSString *, NSLayoutConstraint *> * templc = [PYViewAutolayoutCenter persistConstraint:self centerPointer:p];
+        for (NSString * key in templc) {
+            [lc setObject:templc[key] forKey:key];
+        }
+        templc = [PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:PYEdgeInsetsItemNull()];
+        for (NSString * key in templc) {
+            [lc setObject:templc[key] forKey:key];
+        }
         [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self size:s]];
-        if(self.popupContentView)
-            [lc setDictionary:[PYViewAutolayoutCenter persistConstraint:self.popupContentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()]];
+        if(self.popupContentView){
+            templc = [PYViewAutolayoutCenter persistConstraint:self.popupContentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+            for (NSString * key in templc) {
+                [lc setObject:templc[key] forKey:key];
+            }
+        }
         [self param].lc = lc;
     }
 }

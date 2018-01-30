@@ -59,10 +59,19 @@
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
     [baseview setBackgroundColor:[UIColor redColor]];
-    [baseview sheetShow];
-//    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" block:^(UIView * _Nullable view, int index) {
+    [baseview sheetShowWithTitle:@"日期选择"  buttonConfirme:@"确认" buttonCancel:@"取消" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+        
+    }];
+//    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:nil blockSelected:^(UIView * _Nullable view, NSUInteger index) {
 //        NSLog(@"");
 //    }];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        [NSThread sleepForTimeInterval:2];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            baseview.sheetShowView.frameSize = CGSizeMake(DisableConstrainsValueMAX, 200);
+//            [baseview.sheetShowView resetAutoLayout];
+//        });
+//    });
 }
 - (IBAction)onclickTopbar:(id)sender {
     UIView * view = [PYView new];

@@ -91,3 +91,52 @@
 }
 
 @end
+
+@interface PYSheetItemDelegate()<UITableViewDelegate, UITableViewDataSource>
+kPNARA UITableView * tableView;
+kPNSNN NSArray <NSAttributedString *> * itemAttributes;
+kPNCNA void (^blockSelected)(NSUInteger index);
+@end
+
+@implementation PYSheetItemDelegate
+-(instancetype) initWithTableView:(UITableView *) tableView itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSUInteger index)) blockSelected{
+    self = [super init];
+    _tableView = tableView;
+    self.itemAttributes = itemAttributes;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.blockSelected = blockSelected;
+    return self;
+}
+
++(CGFloat) getCellHeight{
+    return 38;
+}
+
+#pragma UITableViewDelegate ==>
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return [PYSheetItemDelegate getCellHeight];
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if(self.blockSelected){
+        _blockSelected(indexPath.row);
+    }
+}
+#pragma UITableViewDelegate <==
+
+#pragma UITableViewDataSource ==>
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.itemAttributes.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"pysheetparam"];
+    if(cell == nil){
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pysheetparam"];
+    }
+    cell.textLabel.attributedText = self.itemAttributes[indexPath.row];
+    return cell;
+}
+#pragma UITableViewDataSource <==
+@end

@@ -16,6 +16,9 @@
 static const void *PYDialogPointer = &PYDialogPointer;
 
 @implementation UIView(Dialog)
+-(UIView *) dialogShowView{
+    return [self paramDialog].showView;
+}
 -(void) setDialogUserInfo:(id)dialogUserInfo{
     [self paramDialog].userInfo = dialogUserInfo;
 }

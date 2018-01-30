@@ -14,30 +14,54 @@
 #import "PYSheetParam.h"
 #import <objc/runtime.h>
 
+
 static const void *PYSheetPointer = &PYSheetPointer;
 
 @implementation UIView(Sheet)
 -(void) sheetShow{
-    [self sheetShowWithTitle:nil buttonConfirme:nil buttonCancel:nil block:nil];
+    [self sheetShowWithTitle:nil buttonConfirme:nil buttonCancel:nil blockOpt:nil];
 }
+-(void) sheetShowWithTitle:(nullable NSString *) title
+                    buttonConfirme:(nullable NSString *) confirme
+                    buttonCancel:(nullable NSString *) canel
+                    blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt{
+    [self sheetShowWithTitle:title buttonConfirme:confirme buttonCancel:canel itemStrings:nil blockOpt:blcokOpt blockSelected:nil];
+}
+
 -(void) sheetShowWithTitle:(nullable NSString *) title
             buttonConfirme:(nullable NSString *) confirme
             buttonCancel:(nullable NSString *) canel
-            block:(void (^)(UIView * _Nullable view, int index)) blcok{
+            itemStrings:(nullable NSArray<NSString *> *) itemStrings
+            blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
+            blockSelected:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokSelected;{
     NSAttributedString * attitle = [PYSheetParam parseDialogTitle:title];
-   NSAttributedString * confirmNormal = [PYSheetParam parseNormalButtonName:confirme];
-   NSAttributedString * confirmHighlighted = [PYSheetParam parseHightlightedButtonName:confirme];
-   NSAttributedString * cancelNormal = [PYSheetParam parseNormalButtonName:canel];;
-   NSAttributedString * cancelHighlighted = [PYSheetParam parseHightlightedButtonName:canel];
-    [self sheetShowWithAttributeTitle:attitle buttonNormalAttributeConfirme:confirmNormal buttonNormalAttributeCancel:cancelNormal buttonHighlightedAttributeConfirme:confirmHighlighted buttonHighlightedAttributeCancel:cancelHighlighted block:blcok];
+    NSAttributedString * confirmNormal = (confirme && confirme.length > 0) ? [PYSheetParam parseNormalButtonName:confirme] : nil;
+    NSAttributedString * confirmHighlighted = (confirme && confirme.length > 0) ? [PYSheetParam parseHightlightedButtonName:confirme] : nil;
+    NSAttributedString * cancelNormal = (canel && canel.length > 0) ? [PYSheetParam parseNormalButtonName:canel] : nil;
+    NSAttributedString * cancelHighlighted = (canel && canel.length > 0) ? [PYSheetParam parseHightlightedButtonName:canel] : nil;
+    NSMutableArray<NSAttributedString *> * itemAttributes = [NSMutableArray new];
+    for (NSString * string in itemStrings) {
+        NSMutableAttributedString *item = [[NSMutableAttributedString alloc] initWithString:string];
+        NSRange range = NSMakeRange(0, item.length);
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        [item addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_TEXTCLOLOR range:range];//颜色
+        [item addAttribute:NSFontAttributeName value:STATIC_DIALOG_MESSAGEFONT range:range];
+        [item addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
+        [itemAttributes addObject:item];
+    }
+    [self sheetShowWithAttributeTitle:attitle buttonNormalAttributeConfirme:confirmNormal buttonNormalAttributeCancel:cancelNormal buttonHighlightedAttributeConfirme:confirmHighlighted buttonHighlightedAttributeCancel:cancelHighlighted itemAttributes:itemAttributes blockOpt:blcokOpt blockSelected:blcokSelected];
 }
 -(void) sheetShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle
         buttonNormalAttributeConfirme:(nullable NSAttributedString *) normalConfirme
         buttonNormalAttributeCancel:(nullable NSAttributedString *) normalCanel
         buttonHighlightedAttributeConfirme:(nullable NSAttributedString *) highlightedconfirme
         buttonHighlightedAttributeCancel:(nullable NSAttributedString *) highlightedCanel
-        block:(void (^)(UIView * _Nullable view, int index)) blcok{
-    [self sheetParam].block = blcok;
+        itemAttributes:(nullable NSArray<NSAttributedString *> *) itemAttributes
+        blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
+        blockSelected:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokSelected{
+    [self sheetParam].blockOpt = blcokOpt;
+    [self sheetParam].blockSelected = blcokSelected;
     [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         if(IOS8_OR_LATER){
             view.alpha = 0;
@@ -93,6 +117,24 @@ static const void *PYSheetPointer = &PYSheetPointer;
         [[self sheetParam] clearTargetView];
     }];
     [self sheetParam].showView.popupBaseView = self.popupBaseView;
+    if(itemAttributes && itemAttributes.count > 0){
+        UITableView * tableView = [[UITableView alloc]init];
+        tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        tableView.separatorColor = [UIColor lightGrayColor];
+        [[self sheetParam].showView addSubview:tableView];
+        [self sheetParam].itemDelegate = [[PYSheetItemDelegate alloc] initWithTableView:tableView itemAttributes:itemAttributes blockSelected:^(NSUInteger index) {
+            @strongify(self);
+            if([self sheetParam].blockSelected) [self sheetParam].blockSelected(self, index);
+            [self sheetHidden];
+        }];
+        PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
+        e.top = (__bridge void * _Nullable)([self sheetParam].headView);
+        tableView.scrollEnabled = itemAttributes.count > 8;
+        [PYViewAutolayoutCenter persistConstraint:tableView relationmargins:UIEdgeInsetsZero relationToItems:e];
+        [self sheetParam].showView.frameSize = CGSizeMake(DisableConstrainsValueMAX, headHeight + MIN(8, itemAttributes.count) * [PYSheetItemDelegate getCellHeight]);
+        
+    }
     [[self sheetParam].showView popupShow];
 }
 -(void) sheetHidden{
@@ -106,8 +148,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
     [[self sheetParam].showView popupHidden];
 }
 -(void) onclickSheet:(UIButton *) button{
-    if([self sheetParam].block){
-        [self sheetParam].block(self, (int)button.tag);
+    if([self sheetParam].blockOpt){
+        [self sheetParam].blockOpt(self, (int)button.tag);
     }
     [self sheetHidden];
 }
@@ -120,5 +162,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
     }
     return param;
 }
-
+-(nonnull UIView *) sheetShowView{
+    return [self sheetParam].showView;
+}
 @end
+
