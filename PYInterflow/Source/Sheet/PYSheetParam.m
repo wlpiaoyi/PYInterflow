@@ -10,20 +10,34 @@
 #import "PYParams.h"
 #import "PYSheetHeadView.h"
 #import "pyutilea.h"
+#import "UIView+Popup.h"
 
 @interface PYSheetParam()
 @property (nonatomic, strong) NSLayoutConstraint * lcHeadViewHight;
+@property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsSafe;
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsContext;
 @end
 
 @implementation PYSheetParam
 -(nullable instancetype) initWithTarget:(nullable UIView *) target action:(nullable SEL) action{
     if(self = [super init]){
+        self.isHiddenOnClick = true;
         self.targetView = target;
         self.action = action;
         self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [PYParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
+        UILabel * l = [UILabel new];
+        l.textColor = [UIColor whiteColor];
+        l.textAlignment = NSTextAlignmentCenter;
+        l.font = [UIFont systemFontOfSize:18];
+        l.text = @"非安全区域!";
+        self.safeOutBottomView = l;
+        self.safeOutRightView = [UIView new];
+        self.safeOutLeftView = [UIView new];
+        self.safeOutBottomView.backgroundColor =
+        self.safeOutRightView.backgroundColor =
+        self.safeOutLeftView.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.7];
     }
     return self;
 }
@@ -56,11 +70,47 @@
     e.top = (__bridge void * _Nullable)(self.headView);
     [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.targetView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
 }
+-(void) mergesafeOutBottomView{
+    if(self.lcsSafe){
+        self.lcsSafe = [NSMutableArray new];
+    }else{
+        for (NSLayoutConstraint * lc in self.lcsContext) {
+            [self.safeOutBottomView.superview removeConstraint:lc];
+        }
+        [self.lcsSafe removeAllObjects];
+    }
+    [self.safeOutBottomView removeFromSuperview];
+    [self.safeOutRightView removeFromSuperview];
+    [self.safeOutLeftView removeFromSuperview];
+    [self.showView.superview addSubview:self.safeOutBottomView];
+    [self.showView.superview addSubview:self.safeOutRightView];
+    [self.showView.superview addSubview:self.safeOutLeftView];
+    PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
+    e.top = (__bridge void * _Nullable)(self.showView);
+    [self.lcsSafe addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.safeOutBottomView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+    
+    e = PYEdgeInsetsItemNull();
+    e.right = (__bridge void * _Nullable)(self.showView);
+    e.bottom  = (__bridge void * _Nullable)(self.safeOutBottomView);
+    [self.lcsSafe addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.safeOutLeftView relationmargins:UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0) relationToItems:e].allValues];
+    NSLayoutConstraint *equalsConstraint= [NSLayoutConstraint constraintWithItem:self.safeOutLeftView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.showView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+    [self.safeOutLeftView.superview addConstraint:equalsConstraint];
+    [self.lcsSafe addObject:equalsConstraint];
+    
+    e = PYEdgeInsetsItemNull();
+    e.left = (__bridge void * _Nullable)(self.showView);
+    e.bottom  = (__bridge void * _Nullable)(self.safeOutBottomView);
+    [self.lcsSafe addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.safeOutRightView relationmargins:UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0) relationToItems:e].allValues];
+    equalsConstraint= [NSLayoutConstraint constraintWithItem:self.safeOutRightView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self.showView attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+    [self.safeOutRightView.superview addConstraint:equalsConstraint];
+    [self.lcsSafe addObject:equalsConstraint];
+}
 
 -(void) clearTargetView{
     for (NSLayoutConstraint * lc in self.lcsContext) {
         [self.showView removeConstraint:lc];
     }
+    [self.lcsContext removeAllObjects];
     [self.targetView removeFromSuperview];
 }
 

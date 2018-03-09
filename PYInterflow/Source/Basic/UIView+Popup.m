@@ -135,7 +135,9 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         for (NSString * key in templc) {
             [lc setObject:templc[key] forKey:key];
         }
-        templc = [PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:PYEdgeInsetsItemNull()];
+        PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
+        eii.topActive = eii.bottomActive = eii.leftActive = eii.rightActive = true;
+        templc = [PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:eii];
         for (NSString * key in templc) {
             [lc setObject:templc[key] forKey:key];
         }

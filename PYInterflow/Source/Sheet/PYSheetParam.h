@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PYUtile.h"
 
 @interface PYSheetItemDelegate:NSObject
 -(nonnull instancetype) initWithTableView:(nonnull UITableView *) tableView itemAttributes:(nonnull NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSUInteger index)) blockSelected;
 +(CGFloat) getCellHeight;
 @end
 @interface PYSheetParam : NSObject
-
+kPNA BOOL isHiddenOnClick;
 @property (nonatomic, strong, nullable)  NSAttributedString * title;
 @property (nonatomic, strong, nullable)  NSAttributedString * confirmNormal;
 @property (nonatomic, strong, nullable)  NSAttributedString * cancelNormal;
@@ -25,10 +26,13 @@
 @property (nonatomic, strong, nullable) UIView * showView;
 @property (nonatomic, strong, nullable) PYSheetItemDelegate * itemDelegate;
 @property (nonatomic, assign, nonnull) UIView * targetView;
+@property (nonatomic, strong, nonnull) UIView * safeOutBottomView;
+@property (nonatomic, strong, nonnull) UIView * safeOutLeftView;
+@property (nonatomic, strong, nonnull) UIView * safeOutRightView;
 @property (nonatomic, nonnull) SEL action;
 -(nullable instancetype) initWithTarget:(nullable UIView *) target action:(nullable SEL) action;
 -(CGFloat) updateHeadView;
-
+-(void) mergesafeOutBottomView;
 -(void) mergeTargetView;
 -(void) clearTargetView;
 

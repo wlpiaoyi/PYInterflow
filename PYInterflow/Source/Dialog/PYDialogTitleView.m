@@ -25,7 +25,8 @@
         l.textAlignment = NSTextAlignmentCenter;
         l.backgroundColor = [UIColor clearColor];
         labelMessage = l;
-        lcsOffV = [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()].allValues;
+        NSDictionary * dict = [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
+        lcsOffV = dict.allValues;
         self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
         UIView * line = [UIView new];
         line.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;

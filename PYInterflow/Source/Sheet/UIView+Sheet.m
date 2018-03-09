@@ -18,6 +18,12 @@
 static const void *PYSheetPointer = &PYSheetPointer;
 
 @implementation UIView(Sheet)
+-(void) setSheetIsHiddenOnClick:(BOOL)sheetIsHiddenOnClick{
+    [self sheetParam].isHiddenOnClick = sheetIsHiddenOnClick;
+}
+-(BOOL) sheetIsHiddenOnClick{
+    return [self sheetParam].isHiddenOnClick;
+}
 -(void) sheetShow{
     [self sheetShowWithTitle:nil buttonConfirme:nil buttonCancel:nil blockOpt:nil];
 }
@@ -122,20 +128,19 @@ static const void *PYSheetPointer = &PYSheetPointer;
         tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         tableView.separatorColor = [UIColor lightGrayColor];
-        [[self sheetParam].showView addSubview:tableView];
+        [[self sheetParam].targetView addSubview:tableView];
         [self sheetParam].itemDelegate = [[PYSheetItemDelegate alloc] initWithTableView:tableView itemAttributes:itemAttributes blockSelected:^(NSUInteger index) {
             @strongify(self);
             if([self sheetParam].blockSelected) [self sheetParam].blockSelected(self, index);
             [self sheetHidden];
         }];
         PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
-        e.top = (__bridge void * _Nullable)([self sheetParam].headView);
         tableView.scrollEnabled = itemAttributes.count > 8;
         [PYViewAutolayoutCenter persistConstraint:tableView relationmargins:UIEdgeInsetsZero relationToItems:e];
         [self sheetParam].showView.frameSize = CGSizeMake(DisableConstrainsValueMAX, headHeight + MIN(8, itemAttributes.count) * [PYSheetItemDelegate getCellHeight]);
-        
     }
     [[self sheetParam].showView popupShow];
+    [[self sheetParam] mergesafeOutBottomView];
 }
 -(void) sheetHidden{
     if(!(IOS8_OR_LATER)){
@@ -151,7 +156,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
     if([self sheetParam].blockOpt){
         [self sheetParam].blockOpt(self, (int)button.tag);
     }
-    [self sheetHidden];
+    if([self sheetParam].isHiddenOnClick)[self sheetHidden];
 }
 
 -(PYSheetParam *) sheetParam{

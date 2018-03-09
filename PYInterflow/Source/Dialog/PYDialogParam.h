@@ -10,7 +10,6 @@
 #import "PYParams.h"
 
 @interface PYDialogParam : NSObject
-
 @property (nonatomic, retain, nullable) id userInfo;
 
 @property (nonatomic, strong, nullable) NSAttributedString * attributeTitle;
