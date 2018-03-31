@@ -11,6 +11,7 @@
 #import "PYSheetHeadView.h"
 #import "pyutilea.h"
 #import "UIView+Popup.h"
+#import "PYMoveView.h"
 
 @interface PYSheetParam()
 @property (nonatomic, strong) NSLayoutConstraint * lcHeadViewHight;
@@ -24,7 +25,7 @@
         self.isHiddenOnClick = true;
         self.targetView = target;
         self.action = action;
-        self.showView = [UIView new];
+        self.showView = [PYMoveView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [PYParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
         UILabel * l = [UILabel new];

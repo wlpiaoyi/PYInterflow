@@ -8,7 +8,6 @@
 
 #import "UIView+Dialog.h"
 #import "UIView+Popup.h"
-#import "UIView+Remove.h"
 #import "pyutilea.h"
 #import <objc/runtime.h>
 #import "PYDialogParam.h"
@@ -55,8 +54,8 @@ static const void *PYDialogPointer = &PYDialogPointer;
         @strongify(self);
         [[self paramDialog] clearTargetView];
     }];
-    [self paramDialog].showView.moveable = IOS8_OR_LATER;
-    [[self paramDialog].showView setBlockTouchEnd:(^(CGPoint p, UIView  * _Nonnull touchView){
+//    [self paramDialog].showView.moveable = IOS8_OR_LATER;
+    [[self paramDialog].showView setBlockTouchEnded:(^(CGPoint p, UIView  * _Nonnull touchView){
         [UIView beginAnimations:nil context:nil]; // 开始动画
         [UIView setAnimationDuration:.5]; // 动画时长
         touchView.transform =
@@ -89,8 +88,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
         [[view paramDialog] clearTargetView];
     }];
-    [self paramDialog].showView.moveable = IOS8_OR_LATER;
-    [[self paramDialog].showView setBlockTouchEnd:(^(CGPoint p, UIView  * _Nonnull touchView){
+    [[self paramDialog].showView setBlockTouchEnded:(^(CGPoint p, UIView  * _Nonnull touchView){
         [UIView beginAnimations:nil context:nil]; // 开始动画
         [UIView setAnimationDuration:.5]; // 动画时长
         touchView.transform = CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
@@ -105,7 +103,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
         @unsafeify(self);
         [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
             @strongify(self);
-            [self removeParams];
+            [self removeParam];
         }];
     }
     [[self paramDialog].showView popupHidden];

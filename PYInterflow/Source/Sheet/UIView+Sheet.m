@@ -8,7 +8,6 @@
 
 #import "UIView+Sheet.h"
 #import "PYParams.h"
-#import "UIView+Remove.h"
 #import "UIView+Popup.h"
 #import "pyutilea.h"
 #import "PYSheetParam.h"
@@ -147,7 +146,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
         @unsafeify(self);
         [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
             @strongify(self);
-            [self removeParams];
+            [self removeParam];
         }];
     }
     [[self sheetParam].showView popupHidden];

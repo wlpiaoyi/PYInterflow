@@ -28,7 +28,7 @@
         self.contextView = [UIView new];
         [self.contextView setBackgroundColor:STATIC_DIALOG_BACKGROUNDCLOLOR];
         [self.contextView setCornerRadiusAndBorder:5 borderWidth:.5 borderColor:STATIC_DIALOG_BORDERCLOLOR];
-        self.showView = [UIView new];
+        self.showView = [PYMoveView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [PYParams setView:self.showView shadowOffset:CGSizeMake(2, 2)];
         [self.showView addSubview:self.contextView];

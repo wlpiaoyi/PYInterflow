@@ -8,7 +8,7 @@
 
 #import "PYPopupParam.h"
 #import "pyutilea.h"
-#import "UIView+Remove.h"
+#import "UIView+Popup.h"
 #import <objc/runtime.h>
 
 @implementation PYPopupParam{
@@ -156,7 +156,7 @@
             }
         }
         if(!(IOS8_OR_LATER)){
-            [view removeParams];
+            [view removeParam];
         }
     };
     return blockEnd;

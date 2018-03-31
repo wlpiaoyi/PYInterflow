@@ -11,7 +11,7 @@
 
 @interface PYPopupController : UIViewController
 @property (nonatomic, assign) PYPopupWindow * myWindow;
-@property (nonatomic, assign) UIWindow * orgWindow;
+@property (nonatomic, strong) UIWindow * orgWindow;
 @end
 
 @implementation PYPopupWindow{
@@ -52,6 +52,10 @@ kINITPARAMS{
     }
 }
 -(void) dealloc{
+    if(self.rootViewController && [self.rootViewController isKindOfClass:[PYPopupController class]]){
+        ((PYPopupController*)self.rootViewController).orgWindow = nil;
+        self.rootViewController = nil;
+    }
 }
 @end
 @implementation PYPopupController{
@@ -86,6 +90,7 @@ kINITPARAMS{
     [self setNeedsStatusBarAppearanceUpdate];
 }
 - (BOOL)prefersStatusBarHidden {
+    if(!self.orgWindow) return NO;
     UIViewController * orgVc = self.orgWindow.rootViewController;
     BOOL result;
     if(__prefersStatusBarHidden){
@@ -98,6 +103,7 @@ kINITPARAMS{
     return result;
 }
 -(UIStatusBarStyle) preferredStatusBarStyle{
+    if(!self.orgWindow) return NO;
     UIViewController * orgVc = self.orgWindow.rootViewController;
     UIStatusBarStyle result;
     if(__preferredStatusBarStyle){
@@ -110,6 +116,7 @@ kINITPARAMS{
     return result;
 }
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
+    if(!self.orgWindow) return NO;
     UIViewController * orgVc = self.orgWindow.rootViewController;
     UIInterfaceOrientationMask result;
     if(__supportedInterfaceOrientations){
@@ -123,6 +130,7 @@ kINITPARAMS{
 }
 
 - (BOOL)shouldAutorotate{
+    if(!self.orgWindow) return NO;
     UIViewController * orgVc = self.orgWindow.rootViewController;
     BOOL result;
     if(__shouldAutorotate){
@@ -136,6 +144,7 @@ kINITPARAMS{
 }
 // Returns interface orientation masks.
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
+    if(!self.orgWindow) return UIInterfaceOrientationUnknown;
     UIViewController * orgVc = self.orgWindow.rootViewController;
     UIInterfaceOrientation result;
     if(__preferredInterfaceOrientationForPresentation){

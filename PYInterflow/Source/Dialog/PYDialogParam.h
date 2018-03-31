@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PYParams.h"
+#import "PYMoveView.h"
 
 @interface PYDialogParam : NSObject
 @property (nonatomic, retain, nullable) id userInfo;
@@ -21,7 +22,7 @@
 @property (nonatomic, strong, nullable) UIView * messageView;
 @property (nonatomic, strong, nullable) UIView * buttonView;
 @property (nonatomic, strong, nullable) UIView * contextView;
-@property (nonatomic, strong, nullable) UIView * showView;
+@property (nonatomic, strong, nullable) PYMoveView * showView;
 
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcTitleHeight;
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcButtonHeight;

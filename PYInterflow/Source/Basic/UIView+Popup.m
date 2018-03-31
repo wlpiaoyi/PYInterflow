@@ -7,7 +7,6 @@
 //
 
 #import "UIView+Popup.h"
-#import "UIView+Remove.h"
 #import "PYPopupParam.h"
 #import "pyutilea.h"
 #import <objc/runtime.h>
@@ -45,7 +44,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 }
 -(void) popupShowForHasContentView:(BOOL) hasContentView{
     @synchronized(self){
-        self.moveable = self.moveable;
         if (self.popupIsShow) return;
         else self.popupIsShow = true;
         [self removeFromSuperview];
@@ -180,6 +178,9 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         objc_setAssociatedObject(self, UIViewPopupPointer, param, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return param;
+}
+-(void) removeParam{
+    objc_removeAssociatedObjects(self);
 }
 @end
 

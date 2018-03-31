@@ -10,7 +10,6 @@
 #import "ViewController.h"
 #import  "PYHook.h"
 #import "pyutilea.h"
-#import "UIView+Remove.h"
 #import "UIView+Dialog.h"
 #import "UIView+Popup.h"
 #import "UIView+sheet.h"
@@ -48,7 +47,7 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIView * view = [PYView new];
-        [view dialogShowWithTitle:nil message:[NSString stringWithFormat:@"%@ %@\n %@ ¥%ld\n马上预订？", @"adfadsadfs", @"adsfadfadf", @"adfads",3398] block:^(UIView * _Nonnull view, NSUInteger index) {
+        [view dialogShowWithTitle:@"sdfsdf" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账" block:^(UIView * _Nonnull view, NSUInteger index) {
             [view dialogHidden];
         } buttonNames:@[@"其他舱位",@"确认",@"取消"]];
     }];
