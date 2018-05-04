@@ -9,6 +9,8 @@
 #import "PYParams.h"
 #import "PYUtile.h"
 
+void * _Nonnull PY_OBJ_OrgWindow;
+
 void (^BlockDialogButtonStyle)(UIButton * _Nonnull button);
 
 CGFloat PYPopupAnimationTime = 10.0;
@@ -18,6 +20,9 @@ CGFloat STATIC_POPUP_WIDTH = 280;
 CGFloat STATIC_POPUP_OFFSETWIDTH = 2;
 CGFloat STATIC_POPUP_TITLE_HEIGHT = 38;
 CGFloat STATIC_POPUP_BUTTON_HEIGHT = 38;
+
+
+UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
 
 UIColor * _Nonnull STATIC_DIALOG_BACKGROUNDCLOLOR;
 UIColor * _Nonnull STATIC_DIALOG_BORDERCLOLOR;
@@ -65,7 +70,7 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
     STATIC_SHEET_TITLEFONT = [UIFont boldSystemFontOfSize:18];
     STATIC_SHEET_CONTEXTFONT = [UIFont systemFontOfSize:14];
     STATIC_SHEET_CANCELFONT = STATIC_SHEET_CONTEXTFONT;
-    
+    STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
     STATIC_DIALOG_BACKGROUNDCLOLOR = [UIColor whiteColor];
     STATIC_DIALOG_BORDERCLOLOR = [UIColor lightGrayColor];
     STATIC_DIALOG_TEXTCLOLOR = [UIColor darkGrayColor];

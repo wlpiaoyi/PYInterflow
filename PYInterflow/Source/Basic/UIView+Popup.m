@@ -11,6 +11,8 @@
 #import "pyutilea.h"
 #import <objc/runtime.h>
 
+
+
 static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 @implementation UIView(Popup)
@@ -55,7 +57,13 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         if(hasContentView){
             [self param].contentView = [UIView new];
-            self.popupContentView.backgroundColor = [UIColor clearColor];
+            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = 186186100;
+            [button addTarget:self action:@selector(popupTapContentView) forControlEvents:UIControlEventTouchDown];
+            [self.popupContentView addSubview:button];
+            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
+            self.popupContentView.backgroundColor = STATIC_CONTENT_BACKGROUNDCLOLOR;
             [self.popupContentView addSubview:self];
             [self.popupBaseView addSubview:self.popupContentView];
         }else{
@@ -70,6 +78,13 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         BlockPopupEndAnmation blockEnd = [[self param] creteDefaultBlcokPopupShowEndAnmation];
         blockAnimation(self, blockEnd);
+    }
+}
+-(void) popupTapContentView{
+    if(self.popupBlockTap){
+        self.popupBlockTap(self);
+    }else{
+        [self popupHidden];
     }
 }
 
@@ -149,7 +164,12 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         [self param].lc = lc;
     }
 }
-
+-(void) setPopupBlockTap:(void (^)(UIView * _Nullable))popupBlockTap{
+    [self param].popupBlockTap = popupBlockTap;
+}
+-(void (^)(UIView * _Nullable)) popupBlockTap{
+    return [self param].popupBlockTap;
+}
 -(UIView*) popupBaseView{
     return [self param].baseView;
 }

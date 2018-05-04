@@ -11,6 +11,7 @@
 #import "PYParams.h"
 
 @interface PYMoveView : UIView
+kPNA BOOL isMoveable;
 kPNCNA BlockTouchView blockTouchBegin;
 kPNCNA BlockTouchView blockTouchMoved;
 kPNCNA BlockTouchView blockTouchEnded;

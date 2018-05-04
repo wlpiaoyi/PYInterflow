@@ -48,8 +48,9 @@
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIView * view = [PYView new];
         [view dialogShowWithTitle:@"sdfsdf" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账" block:^(UIView * _Nonnull view, NSUInteger index) {
+            
             [view dialogHidden];
-        } buttonNames:@[@"其他舱位",@"确认",@"取消"]];
+        } buttonNames:@[@"其他舱位",@"确认"]];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -63,7 +64,9 @@
 //    [baseview sheetShowWithTitle:@"日期选择"  buttonConfirme:@"确认" buttonCancel:@"取消" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
 //
 //    }];
-    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:nil blockSelected:^(UIView * _Nullable view, NSUInteger index) {
+    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+        NSLog(@"");
+    } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
         NSLog(@"");
     }];
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

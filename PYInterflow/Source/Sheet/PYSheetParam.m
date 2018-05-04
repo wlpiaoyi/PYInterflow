@@ -25,7 +25,7 @@
         self.isHiddenOnClick = true;
         self.targetView = target;
         self.action = action;
-        self.showView = [PYMoveView new];
+        self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [PYParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
         UILabel * l = [UILabel new];

@@ -8,10 +8,10 @@
 
 #import "PYPopupWindow.h"
 #import "pyutilea.h"
+#import "PYParams.h"
 
 @interface PYPopupController : UIViewController
 @property (nonatomic, assign) PYPopupWindow * myWindow;
-@property (nonatomic, strong) UIWindow * orgWindow;
 @end
 
 @implementation PYPopupWindow{
@@ -29,11 +29,6 @@ kINITPARAMS{
     PYPopupWindow * window;
     @synchronized(self){
         PYPopupController * vc = [PYPopupController new];
-        UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
-        if([orgWindow isKindOfClass:[PYPopupWindow class]]){
-            orgWindow = ((PYPopupController*)((PYPopupWindow*)orgWindow).rootViewController).orgWindow;
-        }
-        vc.orgWindow = orgWindow;
         vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         window = [[PYPopupWindow alloc] initWithFrame:frame];
         window.rootViewController = vc;
@@ -53,7 +48,6 @@ kINITPARAMS{
 }
 -(void) dealloc{
     if(self.rootViewController && [self.rootViewController isKindOfClass:[PYPopupController class]]){
-        ((PYPopupController*)self.rootViewController).orgWindow = nil;
         self.rootViewController = nil;
     }
 }
@@ -90,8 +84,7 @@ kINITPARAMS{
     [self setNeedsStatusBarAppearanceUpdate];
 }
 - (BOOL)prefersStatusBarHidden {
-    if(!self.orgWindow) return NO;
-    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIViewController * orgVc = [PYUtile getCurrentController];
     BOOL result;
     if(__prefersStatusBarHidden){
         result = [super preferredStatusBarStyle];
@@ -103,21 +96,19 @@ kINITPARAMS{
     return result;
 }
 -(UIStatusBarStyle) preferredStatusBarStyle{
-    if(!self.orgWindow) return NO;
-    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIViewController * orgVc = [PYUtile getCurrentController];
     UIStatusBarStyle result;
     if(__preferredStatusBarStyle){
         result = [super preferredStatusBarStyle];
     }else{
         __preferredStatusBarStyle = true;
         result = [orgVc preferredStatusBarStyle];
-        __preferredStatusBarStyle = false;;
+        __preferredStatusBarStyle = false;
     }
     return result;
 }
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations{
-    if(!self.orgWindow) return NO;
-    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIViewController * orgVc = [PYUtile getCurrentController];
     UIInterfaceOrientationMask result;
     if(__supportedInterfaceOrientations){
         result = [super supportedInterfaceOrientations];
@@ -130,8 +121,7 @@ kINITPARAMS{
 }
 
 - (BOOL)shouldAutorotate{
-    if(!self.orgWindow) return NO;
-    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIViewController * orgVc = [PYUtile getCurrentController];
     BOOL result;
     if(__shouldAutorotate){
         result = [super shouldAutorotate];
@@ -144,8 +134,7 @@ kINITPARAMS{
 }
 // Returns interface orientation masks.
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation{
-    if(!self.orgWindow) return UIInterfaceOrientationUnknown;
-    UIViewController * orgVc = self.orgWindow.rootViewController;
+    UIViewController * orgVc = [PYUtile getCurrentController];
     UIInterfaceOrientation result;
     if(__preferredInterfaceOrientationForPresentation){
          result = [super preferredInterfaceOrientationForPresentation];

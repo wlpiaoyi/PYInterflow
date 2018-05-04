@@ -11,6 +11,7 @@
 #import "PYPopupWindow.h"
 
 @interface PYPopupParam : NSObject
+@property (nonatomic,copy, nullable) void (^popupBlockTap)(UIView * _Nullable view);
 //是否正在进行动画
 @property (nonatomic) BOOL isAnimationing;
 //是否显示了
@@ -32,7 +33,6 @@
 //基础层
 @property (nonatomic, strong, nonnull) UIView * baseView;
 @property (nonatomic, strong, nonnull) UIView * contentView;
-//@property (nonatomic, assign, nullable) UIWindow * preWidnow;
 @property (nonatomic) CGRect frameOrg;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc;
 

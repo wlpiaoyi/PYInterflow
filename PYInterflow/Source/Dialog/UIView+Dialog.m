@@ -54,7 +54,6 @@ static const void *PYDialogPointer = &PYDialogPointer;
         @strongify(self);
         [[self paramDialog] clearTargetView];
     }];
-//    [self paramDialog].showView.moveable = IOS8_OR_LATER;
     [[self paramDialog].showView setBlockTouchEnded:(^(CGPoint p, UIView  * _Nonnull touchView){
         [UIView beginAnimations:nil context:nil]; // 开始动画
         [UIView setAnimationDuration:.5]; // 动画时长
@@ -94,18 +93,18 @@ static const void *PYDialogPointer = &PYDialogPointer;
         touchView.transform = CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
+    [[self paramDialog].showView setBlockTouchEnded:(^(CGPoint p, UIView  * _Nonnull touchView){
+        [UIView beginAnimations:nil context:nil]; // 开始动画
+        [UIView setAnimationDuration:.5]; // 动画时长
+        touchView.transform =
+        touchView.transform = CGAffineTransformIdentity;//CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
+        [UIView commitAnimations];
+    })];
     [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
 }
 
 -(void) dialogHidden{
-    if(!(IOS8_OR_LATER)){
-        @unsafeify(self);
-        [[self paramDialog].showView setPopupBlockEnd:^(UIView * _Nullable view) {
-            @strongify(self);
-            [self removeParam];
-        }];
-    }
     [[self paramDialog].showView popupHidden];
 }
 

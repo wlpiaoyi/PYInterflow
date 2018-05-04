@@ -140,15 +140,9 @@ static const void *PYSheetPointer = &PYSheetPointer;
     }
     [[self sheetParam].showView popupShow];
     [[self sheetParam] mergesafeOutBottomView];
+//    [self sheetParam].showView.popupTapHidden = YES;
 }
 -(void) sheetHidden{
-    if(!(IOS8_OR_LATER)){
-        @unsafeify(self);
-        [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
-            @strongify(self);
-            [self removeParam];
-        }];
-    }
     [[self sheetParam].showView popupHidden];
 }
 -(void) onclickSheet:(UIButton *) button{

@@ -29,7 +29,7 @@ NSInteger PYDMV_offsetValueNum;
         contentView = [UIView new];
         contentView.backgroundColor = [UIColor clearColor];
         [scrollView addSubview:contentView];
-        [PYViewAutolayoutCenter persistConstraint:contentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        [PYViewAutolayoutCenter persistConstraint:contentView relationmargins:UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, DisableConstrainsValueMAX) relationToItems:PYEdgeInsetsItemNull()];
         [PYViewAutolayoutCenter persistConstraint:contentView centerPointer:CGPointMake(0, DisableConstrainsValueMAX)];
         lcContentViewW = [PYViewAutolayoutCenter persistConstraint:contentView size:CGSizeMake(0, DisableConstrainsValueMAX)].allValues.firstObject;
         UILabel * l = [UILabel new];
@@ -48,9 +48,9 @@ NSInteger PYDMV_offsetValueNum;
     _attributeMessage = attributeMessage;
     messageLabel.attributedText = attributeMessage;
     CGSize contentSize = [PYDialogMessageView getContentSize:attributeMessage];
+    lcContentViewW.constant = contentSize.width;
     contentSize.width = 0;
     scrollView.contentSize = contentSize;
-    lcContentViewW.constant = contentSize.width;
 }
 +(CGSize) getContentSize:(nullable NSAttributedString *) attributeMessage{
     if(attributeMessage == nil || attributeMessage.length == 0){
