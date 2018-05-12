@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -51,13 +51,26 @@
                                     <action selector="onclickTopbar:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7fv-0G-Q7B"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MK9-n2-i5B">
+                                <rect key="frame" x="0.0" y="140" width="375" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Nqj-GP-CRO"/>
+                                </constraints>
+                                <state key="normal" title="show notify"/>
+                                <connections>
+                                    <action selector="onclickNotify:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gGt-TO-CyE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="MK9-n2-i5B" firstAttribute="top" secondItem="1T6-yg-saw" secondAttribute="bottom" id="2hc-be-4bk"/>
                             <constraint firstItem="uWw-Vj-UnA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="98Z-b3-eFM"/>
                             <constraint firstAttribute="trailing" secondItem="wtw-bW-was" secondAttribute="trailing" id="I7v-Ie-eg5"/>
+                            <constraint firstItem="MK9-n2-i5B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qa0-Xn-fbP"/>
                             <constraint firstItem="1T6-yg-saw" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qce-QV-a0z"/>
                             <constraint firstItem="uWw-Vj-UnA" firstAttribute="top" secondItem="wtw-bW-was" secondAttribute="bottom" id="SBV-nX-iJ0"/>
+                            <constraint firstAttribute="trailing" secondItem="MK9-n2-i5B" secondAttribute="trailing" id="SFM-oI-5gF"/>
                             <constraint firstAttribute="trailing" secondItem="1T6-yg-saw" secondAttribute="trailing" id="Uaj-lU-P3h"/>
                             <constraint firstAttribute="trailing" secondItem="uWw-Vj-UnA" secondAttribute="trailing" id="fSB-a2-sia"/>
                             <constraint firstItem="1T6-yg-saw" firstAttribute="top" secondItem="uWw-Vj-UnA" secondAttribute="bottom" id="kem-6c-qde"/>

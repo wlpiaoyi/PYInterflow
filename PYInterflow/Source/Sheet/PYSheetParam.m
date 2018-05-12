@@ -12,12 +12,22 @@
 #import "pyutilea.h"
 #import "UIView+Popup.h"
 #import "PYMoveView.h"
+@interface PYSheetTableView : UITableView
+kPNANA NSArray<NSNumber *>* selectedIndexs;
+kSOULDLAYOUTPForType(PYSheetTableView)
+@end
+
+@interface PYSheetItemDelegate()<UITableViewDelegate, UITableViewDataSource>
+kPNSNN NSArray <NSAttributedString *> * itemAttributes;
+kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
+@end
 
 @interface PYSheetParam()
 @property (nonatomic, strong) NSLayoutConstraint * lcHeadViewHight;
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsSafe;
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsContext;
 @end
+
 
 @implementation PYSheetParam
 -(nullable instancetype) initWithTarget:(nullable UIView *) target action:(nullable SEL) action{
@@ -141,21 +151,68 @@
     return attTitle;
 }
 
+-(void) setSheetIndexs:(NSArray<NSNumber *>*)sheetIndexs{
+    _sheetIndexs = sheetIndexs;
+    if(self.itemDelegate){
+        self.itemDelegate.selectedIndexs = sheetIndexs;
+    }
+}
+
 @end
 
-@interface PYSheetItemDelegate()<UITableViewDelegate, UITableViewDataSource>
-kPNARA UITableView * tableView;
-kPNSNN NSArray <NSAttributedString *> * itemAttributes;
-kPNCNA void (^blockSelected)(NSUInteger index);
+@interface PYSheetItemCell : UITableViewCell
+kPNA BOOL isMutipleSelected;
+@end
+
+@implementation PYSheetItemCell{
+@private
+    UIButton * buttonMSelected;
+    UIButton * buttonRSelected;
+}
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(nullable NSString *)reuseIdentifier{
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.contentView addSubview:button];
+    button.userInteractionEnabled = NO;
+    [button setImage:[UIImage imageNamed:@"PYInterflow.bundle/choose_valid.png"] forState:UIControlStateSelected];
+    [button setAutotLayotDict:@{@"y":@(0), @"top":@(0), @"right":@(0), @"bottom":@(0), @"w":@(40)}];
+    buttonMSelected = button;
+    button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.contentView addSubview:button];
+    button.userInteractionEnabled = NO;
+    [button setImage:[UIImage imageNamed:@"PYInterflow.bundle/radio_valid.png"] forState:UIControlStateSelected];
+    [button setAutotLayotDict:@{@"y":@(0), @"top":@(0), @"left":@(0), @"bottom":@(0), @"w":@(40)}];
+    buttonRSelected = button;
+    
+    return self;
+}
+-(void) setIsMutipleSelected:(BOOL)isMutipleSelected{
+    _isMutipleSelected = isMutipleSelected;
+    buttonMSelected.hidden = !isMutipleSelected;
+    buttonRSelected.hidden = isMutipleSelected;
+}
+
+
+-(void) setSelected:(BOOL)selected animated:(BOOL)animated{
+    [super setSelected:selected animated:animated];
+    buttonMSelected.selected = selected;
+    buttonRSelected.selected = selected;
+}
+
 @end
 
 @implementation PYSheetItemDelegate
--(instancetype) initWithTableView:(UITableView *) tableView itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSUInteger index)) blockSelected{
+-(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected{
     self = [super init];
-    _tableView = tableView;
+    _tableView = [PYSheetTableView new];
+    self.tableView.allowsMultipleSelection = allowsMultipleSelection;
     self.itemAttributes = itemAttributes;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    self.tableView.separatorColor = [UIColor lightGrayColor];
     self.blockSelected = blockSelected;
     return self;
 }
@@ -163,15 +220,27 @@ kPNCNA void (^blockSelected)(NSUInteger index);
 +(CGFloat) getCellHeight{
     return 38;
 }
+-(void) setSelectedIndexs:(NSArray<NSNumber *>*)selectedIndexs{
+    _selectedIndexs = selectedIndexs;
+    ((PYSheetTableView *)self.tableView).selectedIndexs = selectedIndexs;
+}
 
 #pragma UITableViewDelegate ==>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return [PYSheetItemDelegate getCellHeight];
 }
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(tableView.allowsMultipleSelection)[self tableView:tableView didSelectRowAtIndexPath:indexPath];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSMutableArray<NSNumber *> * selectedIndexs = [NSMutableArray new];
+    for (NSIndexPath * indexPath in tableView.indexPathsForSelectedRows) {
+        [selectedIndexs addObject:@(indexPath.row)];
+    }
+    self.selectedIndexs = selectedIndexs;
     if(self.blockSelected){
-        _blockSelected(indexPath.row);
+        _blockSelected(_selectedIndexs);
     }
 }
 #pragma UITableViewDelegate <==
@@ -182,12 +251,30 @@ kPNCNA void (^blockSelected)(NSUInteger index);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"pysheetparam"];
+    PYSheetItemCell * cell = [tableView dequeueReusableCellWithIdentifier:@"pysheetparam"];
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pysheetparam"];
+        cell = [[PYSheetItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pysheetparam"];
     }
+    cell.isMutipleSelected = tableView.allowsMultipleSelection;
     cell.textLabel.attributedText = self.itemAttributes[indexPath.row];
     return cell;
 }
 #pragma UITableViewDataSource <==
+@end
+
+@implementation PYSheetTableView
+-(void) setSelectedIndexs:(NSArray<NSNumber *> *)sheetIndexs{
+    _selectedIndexs = sheetIndexs;
+    NSInteger index = _selectedIndexs.count;
+    while (index >= 0) {
+        --index;
+        [self deselectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO];
+    }
+    for (NSNumber * oIndex in sheetIndexs) {
+        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:oIndex.integerValue inSection:0] animated:YES scrollPosition:UITableViewScrollPositionBottom];
+    }
+}
+kSOULDLAYOUTMSTARTForType(PYSheetTableView)
+if(self.selectedIndexs) self.selectedIndexs = self.selectedIndexs;
+kSOULDLAYOUTMEND
 @end

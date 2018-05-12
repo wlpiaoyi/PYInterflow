@@ -119,6 +119,12 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(void) setPopupEdgeInsets:(UIEdgeInsets)borderEdgeInsets{
     [self param].borderEdgeInsets = borderEdgeInsets;
 }
+-(PYEdgeInsetsItem) popupEdgeInsetItems{
+    return [self param].borderEdgeInsetItems;
+}
+-(void) setPopupEdgeInsetItems:(PYEdgeInsetsItem)popupEdgeInsetItems{
+    [self param].borderEdgeInsetItems = popupEdgeInsetItems;
+}
 
 -(BOOL) popupIsShow{
     return [self param].isShow;
@@ -129,7 +135,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(void) resetTransform{
     @synchronized(self) {
         CATransform3D transform = CATransform3DIdentity;
-        transform = CATransform3DScale(transform, 1, 1,1);
+        transform = CATransform3DScale(transform, 1, 1, 1);
         self.layer.transform = transform;
     }
 }
@@ -148,9 +154,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         for (NSString * key in templc) {
             [lc setObject:templc[key] forKey:key];
         }
-        PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
-        eii.topActive = eii.bottomActive = eii.leftActive = eii.rightActive = true;
-        templc = [PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:eii];
+        templc = [PYViewAutolayoutCenter persistConstraint:self relationmargins:e relationToItems:self.popupEdgeInsetItems];
         for (NSString * key in templc) {
             [lc setObject:templc[key] forKey:key];
         }

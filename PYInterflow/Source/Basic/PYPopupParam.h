@@ -20,8 +20,8 @@
 @property (nonatomic) CGPoint centerPoint;
 //显示靠近边缘的偏移量
 @property (nonatomic) UIEdgeInsets borderEdgeInsets;
-//显示框的大小
-//@property (nonatomic) CGSize offsetSize;
+//显示靠近边缘的参照
+@property (nonatomic) PYEdgeInsetsItem borderEdgeInsetItems;
 
 //=====================显示和隐藏时候的回调=========================>
 @property (nonatomic,copy, nullable) void (^blockStart)(UIView * _Nullable view);

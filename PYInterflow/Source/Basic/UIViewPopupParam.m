@@ -19,6 +19,9 @@
         self.centerPoint = CGPointMake(0, 0);
         self.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
         self.frameOrg = CGRectMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+        PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
+        eii.topActive = eii.bottomActive = eii.leftActive = eii.rightActive = true;
+        self.borderEdgeInsetItems = eii;
     }
     return self;
 }

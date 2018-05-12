@@ -10,18 +10,21 @@
 #import "PYUtile.h"
 
 @interface PYSheetItemDelegate:NSObject
--(nonnull instancetype) initWithTableView:(nonnull UITableView *) tableView itemAttributes:(nonnull NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSUInteger index)) blockSelected;
+kPNCNA NSArray<NSNumber *>* selectedIndexs;
+kPNRNN UITableView * tableView;
+-(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected;
 +(CGFloat) getCellHeight;
 @end
 @interface PYSheetParam : NSObject
 kPNA BOOL isHiddenOnClick;
+kPNCNA NSArray<NSNumber *>* sheetIndexs;
 @property (nonatomic, strong, nullable)  NSAttributedString * title;
 @property (nonatomic, strong, nullable)  NSAttributedString * confirmNormal;
 @property (nonatomic, strong, nullable)  NSAttributedString * cancelNormal;
 @property (nonatomic, strong, nullable)  NSAttributedString * confirmHighlighted;
 @property (nonatomic, strong, nullable)  NSAttributedString * cancelHighlighted;
 @property (nonatomic, copy, nullable) void (^blockOpt)(UIView * _Nullable view, NSUInteger index);
-@property (nonatomic, copy, nullable) void (^blockSelected)(UIView * _Nullable view, NSUInteger index);
+@property (nonatomic, copy, nullable) BOOL (^blockSelecteds)(UIView * _Nullable view);
 @property (nonatomic, strong, nullable) UIView * headView;
 @property (nonatomic, strong, nullable) UIView * showView;
 @property (nonatomic, strong, nullable) PYSheetItemDelegate * itemDelegate;

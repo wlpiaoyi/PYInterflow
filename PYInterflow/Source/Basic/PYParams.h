@@ -9,7 +9,7 @@
 #ifndef PYParams_h
 #define PYParams_h
 #import <UIKit/UIKit.h>
-#import "PYUtile.h"
+#import "pyutilea.h"
 
 extern void (^_Nullable BlockDialogButtonStyle)(UIButton * _Nonnull button);
 
@@ -56,7 +56,7 @@ extern UIColor * _Nonnull STATIC_TOPBAR_BGC;
 extern UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 
-typedef void (^BlockTouchView)(CGPoint transformPoint, UIView  * _Nonnull touchView);
+typedef void (^BlockTouchView)(CGPoint touhMove, UIView  * _Nonnull touchView);
 typedef void (^BlockPopupEndAnmation) (UIView * _Nonnull view);
 typedef void (^BlockPopupAnimation) (UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block);
 typedef void(^BlockDialogOpt)(UIView * _Nonnull view, NSUInteger index);

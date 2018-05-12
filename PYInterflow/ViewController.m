@@ -13,7 +13,8 @@
 #import "UIView+Dialog.h"
 #import "UIView+Popup.h"
 #import "UIView+sheet.h"
-#import "UIView+Topbar.h"
+#import "UIView+Toast.h"
+#import "UIView+Notify.h"
 #import "pyutilea.h"
 @interface PYView:UIView
 @end
@@ -58,7 +59,7 @@
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
-    [baseview setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor greenColor]];
+//    [baseview setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor greenColor]];
     [baseview setBackgroundColor:[UIColor redColor]];
 //    [baseview sheetShow];
 //    [baseview sheetShowWithTitle:@"日期选择"  buttonConfirme:@"确认" buttonCancel:@"取消" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
@@ -69,6 +70,15 @@
     } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
         NSLog(@"");
     }];
+//    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
+//        NSArray * a = view.sheetIndexs;
+//        NSLog(@"%@",a);
+//    } blockSelecteds:^BOOL(UIView * _Nullable view) {
+//        NSArray * a = view.sheetIndexs;
+//        NSLog(@"%@",a);
+//        return NO;
+//    }];
+    baseview.sheetIndexs = @[@(0),@(6)];
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [NSThread sleepForTimeInterval:2];
 //        dispatch_async(dispatch_get_main_queue(), ^{
@@ -79,7 +89,13 @@
 }
 - (IBAction)onclickTopbar:(id)sender {
     UIView * view = [PYView new];
-    [view topbarShow:3 message:@"请输入正确的格式例如！"];
+    [view toastShow:3 message:@"请输入正确的格式例如"];
+}
+- (IBAction)onclickNotify:(id)sender {
+    UIView * view = [PYView new];
+    [view notifyShow:3 message:@"请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" blockTap:^(UIView * _Nonnull targetView) {
+        NSLog(@"sss");
+    }];
 }
 -(void) hidden{
     [self.baseview popupHidden];

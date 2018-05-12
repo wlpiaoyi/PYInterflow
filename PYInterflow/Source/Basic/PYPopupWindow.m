@@ -66,14 +66,11 @@ kINITPARAMS{
     return self;
 }
 
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration{
-}
-
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     kAssign(self);
-    kDISPATCH_GLOBAL_QUEUE_DEFAULT(^{
+    threadJoinGlobal(^{
         [NSThread sleepForTimeInterval:0.2];
-        kDISPATCH_MAIN_THREAD(^{
+        threadJoinMain(^{
             kStrong(self);
             [self setNeedsStatusBarAppearanceUpdate];
         });
