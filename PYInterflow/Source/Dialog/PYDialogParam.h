@@ -33,7 +33,7 @@
 
 -(CGSize) updateTitleView;
 -(CGSize) updateMessageView;
--(CGSize) updateButtonView;
+-(CGSize) updateButtonView:(CGFloat) width;
 
 -(void) mergeTargetView;
 -(void) clearTargetView;

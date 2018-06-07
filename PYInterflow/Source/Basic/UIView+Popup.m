@@ -50,7 +50,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         else self.popupIsShow = true;
         [self removeFromSuperview];
         
-        if (self.popupBaseView == nil) self.popupBaseView = (UIView*)[PYPopupWindow instanceForFrame:[UIScreen mainScreen].bounds];
+        if (self.popupBaseView == nil) self.popupBaseView = (UIView*)[PYPopupWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
         
         if([self.popupBaseView isKindOfClass:[PYPopupWindow class]]){
             [((UIWindow *)self.popupBaseView) makeKeyAndVisible];
@@ -78,6 +78,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         BlockPopupEndAnmation blockEnd = [[self param] creteDefaultBlcokPopupShowEndAnmation];
         blockAnimation(self, blockEnd);
+        if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
     }
 }
 -(void) popupTapContentView{
@@ -101,6 +102,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         BlockPopupEndAnmation blockEnd = [[self param]creteDefaultBlcokPopupHiddenEndAnmation];
         block(self,blockEnd);
+        if(self.popupHasEffect) [PYPopupParam REV_EFFECT_VALUE];
     }
 }
 
@@ -179,6 +181,12 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 }
 -(void) setPopupBaseView:(UIView*) view{
     [self param].baseView = view;
+}
+-(BOOL) popupHasEffect{
+    return  [self param].hasEffect;
+}
+-(void) setPopupHasEffect:(BOOL)popupHasEffect{
+    [self param].hasEffect = popupHasEffect;
 }
 -(UIView*) popupContentView{
     return [self param].contentView;

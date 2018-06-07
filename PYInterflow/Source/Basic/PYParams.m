@@ -8,11 +8,13 @@
 
 #import "PYParams.h"
 #import "PYUtile.h"
+#import "PYPopupParam.h"
 
 void * _Nonnull PY_OBJ_OrgWindow;
 
 void (^BlockDialogButtonStyle)(UIButton * _Nonnull button);
-
+BOOL STATIC_POPUP_HASEFFECT = NO;
+CGFloat PYPopupEffectCpuUsage = .05;
 CGFloat PYPopupAnimationTime = 10.0;
 CGFloat PYPopupAnimationTimeOffset = .05;
 CGFloat STATIC_POPUP_BORDERWIDTH = .5;
@@ -54,6 +56,8 @@ UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
 UIColor * _Nonnull STATIC_TOPBAR_BGC;
 UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
+NSString * STATIC_POPUP_EFFECTE_NOTIFY = @"pypeffn";
+
 @implementation PYParams
 
 +(void) loadInterflowParamsData{
@@ -78,9 +82,10 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
     STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
     STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
     
-    STATIC_TOPBAR_MESSAGEC = [UIColor orangeColor];
-    STATIC_TOPBAR_BGC = kRGBA(60, 65, 70, 250);
+    STATIC_TOPBAR_MESSAGEC = [UIColor blackColor];
+    STATIC_TOPBAR_BGC = kRGBA(60*1.5, 65*1.5, 70*1.5, 220);
     STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];
+    [PYPopupParam RECIRCLE_REFRESH_EFFECT];
 }
 
 +(void) setView:(UIView *) view shadowOffset:(CGSize) size{

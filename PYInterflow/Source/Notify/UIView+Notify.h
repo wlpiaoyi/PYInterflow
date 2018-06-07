@@ -10,12 +10,15 @@
 
 @interface UIView(Notify)
 /**
- 通知显示
+ 文字通知显示
  */
 ///=================================>
--(void) notifyShow:(CGFloat) time message:(nullable NSString *) message blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
--(void) notifyShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
--(void) notifyShow;
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap;
 ///<=================================
+
+-(void) notifyShow;
 -(void) notifyHidden;
 @end

@@ -9,9 +9,11 @@
 #import "PYPopupWindow.h"
 #import "pyutilea.h"
 #import "PYParams.h"
+#import "PYPopupParam.h"
 
 @interface PYPopupController : UIViewController
 @property (nonatomic, assign) PYPopupWindow * myWindow;
+-(instancetype) initForEffect:(BOOL) hasEffect;
 @end
 
 @implementation PYPopupWindow{
@@ -25,10 +27,10 @@ kINITPARAMS{
     [self setBackgroundColor:[UIColor clearColor]];
     self.windowLevel = UIWindowLevelStatusBar;
 }
-+(instancetype) instanceForFrame:(CGRect)frame{
++(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect{
     PYPopupWindow * window;
     @synchronized(self){
-        PYPopupController * vc = [PYPopupController new];
+        PYPopupController * vc = [[PYPopupController alloc] initForEffect:hasEffect];
         vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
         window = [[PYPopupWindow alloc] initWithFrame:frame];
         window.rootViewController = vc;
@@ -41,10 +43,14 @@ kINITPARAMS{
         [super addSubview:view];
     }else{
         for (UIView * subView in self.rootViewController.view.subviews) {
+            if(subView.tag == 1862938) continue;
             [subView removeFromSuperview];
         }
         [self.rootViewController.view addSubview:view];
     }
+}
+-(void) setFrame:(CGRect)frame{
+    [super setFrame:frame];
 }
 -(void) dealloc{
     if(self.rootViewController && [self.rootViewController isKindOfClass:[PYPopupController class]]){
@@ -59,13 +65,30 @@ kINITPARAMS{
     BOOL __supportedInterfaceOrientations;
     BOOL __shouldAutorotate;
     BOOL __preferredInterfaceOrientationForPresentation;
+    UIImageView * _bgView;
+    BOOL _hasEffect;
 }
--(instancetype) init{
+
+-(instancetype) initForEffect:(BOOL) hasEffect{
     if(self = [super init]){
+        _hasEffect = hasEffect;
+        if(hasEffect){
+            _bgView = [UIImageView new];
+            _bgView.backgroundColor = [UIColor clearColor];
+            [self.view addSubview:_bgView];
+            [_bgView setAutotLayotDict:@{@"top":@(0), @"left":@(0), @"right":@(0), @"bottom":@(0)}];
+            _bgView.tag = 1862938;
+            [_bgView.superview sendSubviewToBack:_bgView];
+            kNOTIF_ADD(self, STATIC_POPUP_EFFECTE_NOTIFY, refresh:);
+        }
     }
     return self;
 }
-
+-(void) refresh:(NSNotification *) notify{
+    if(_bgView){
+        _bgView.image = notify.object;
+    }
+}
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     kAssign(self);
     threadJoinGlobal(^{
@@ -144,5 +167,8 @@ kINITPARAMS{
 }
 
 -(void) dealloc{
+    if(_hasEffect){
+        kNOTIF_REMV(self, STATIC_POPUP_EFFECTE_NOTIFY);
+    }
 }
 @end

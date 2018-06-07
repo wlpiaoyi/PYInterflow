@@ -38,17 +38,12 @@ kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
         self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [PYParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
-        UILabel * l = [UILabel new];
-        l.textColor = [UIColor whiteColor];
-        l.textAlignment = NSTextAlignmentCenter;
-        l.font = [UIFont systemFontOfSize:18];
-        l.text = @"非安全区域!";
-        self.safeOutBottomView = l;
+        self.safeOutBottomView = [UIView new];
         self.safeOutRightView = [UIView new];
         self.safeOutLeftView = [UIView new];
         self.safeOutBottomView.backgroundColor =
         self.safeOutRightView.backgroundColor =
-        self.safeOutLeftView.backgroundColor = [UIColor colorWithRed:.8 green:.8 blue:.8 alpha:.7];
+        self.safeOutLeftView.backgroundColor = [UIColor colorWithRGBHex:0xFFFFFF77];
     }
     return self;
 }
@@ -162,6 +157,7 @@ kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
 
 @interface PYSheetItemCell : UITableViewCell
 kPNA BOOL isMutipleSelected;
+-(void) setPYSelected:(BOOL)selected;
 @end
 
 @implementation PYSheetItemCell{
@@ -182,7 +178,7 @@ kPNA BOOL isMutipleSelected;
     [self.contentView addSubview:button];
     button.userInteractionEnabled = NO;
     [button setImage:[UIImage imageNamed:@"PYInterflow.bundle/radio_valid.png"] forState:UIControlStateSelected];
-    [button setAutotLayotDict:@{@"y":@(0), @"top":@(0), @"left":@(0), @"bottom":@(0), @"w":@(40)}];
+    [button setAutotLayotDict:@{@"y":@(0), @"top":@(0), @"right":@(0), @"bottom":@(0), @"w":@(40)}];
     buttonRSelected = button;
     
     return self;
@@ -194,19 +190,20 @@ kPNA BOOL isMutipleSelected;
 }
 
 
--(void) setSelected:(BOOL)selected animated:(BOOL)animated{
-    [super setSelected:selected animated:animated];
+-(void) setPYSelected:(BOOL)selected{
     buttonMSelected.selected = selected;
     buttonRSelected.selected = selected;
 }
 
 @end
 
-@implementation PYSheetItemDelegate
+@implementation PYSheetItemDelegate{
+@private BOOL _allowsMultipleSelection;
+}
 -(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected{
     self = [super init];
     _tableView = [PYSheetTableView new];
-    self.tableView.allowsMultipleSelection = allowsMultipleSelection;
+    _allowsMultipleSelection = allowsMultipleSelection;
     self.itemAttributes = itemAttributes;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -230,14 +227,21 @@ kPNA BOOL isMutipleSelected;
     return [PYSheetItemDelegate getCellHeight];
 }
 
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(tableView.allowsMultipleSelection)[self tableView:tableView didSelectRowAtIndexPath:indexPath];
-}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
-    NSMutableArray<NSNumber *> * selectedIndexs = [NSMutableArray new];
-    for (NSIndexPath * indexPath in tableView.indexPathsForSelectedRows) {
-        [selectedIndexs addObject:@(indexPath.row)];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSMutableArray<NSNumber *> * selectedIndexs = self.selectedIndexs ? ([self.selectedIndexs isKindOfClass:[NSMutableArray class]] ? self.selectedIndexs : [self.selectedIndexs mutableCopy]) : [NSMutableArray new];
+    bool isSelected = true;
+    NSNumber * row = @(indexPath.row);
+    if(!_allowsMultipleSelection){
+        [selectedIndexs removeAllObjects];
+    }else{
+        if([self.selectedIndexs containsObject:row]){
+            [selectedIndexs removeObject:row];
+            isSelected = false;
+        }
     }
+    if(isSelected)[selectedIndexs addObject:row];
     self.selectedIndexs = selectedIndexs;
     if(self.blockSelected){
         _blockSelected(_selectedIndexs);
@@ -255,7 +259,11 @@ kPNA BOOL isMutipleSelected;
     if(cell == nil){
         cell = [[PYSheetItemCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pysheetparam"];
     }
-    cell.isMutipleSelected = tableView.allowsMultipleSelection;
+    [cell setPYSelected:NO];
+    if([self.selectedIndexs containsObject:@(indexPath.row)]){
+        [cell setPYSelected:YES];
+    }
+    cell.isMutipleSelected = _allowsMultipleSelection;
     cell.textLabel.attributedText = self.itemAttributes[indexPath.row];
     return cell;
 }
@@ -265,14 +273,7 @@ kPNA BOOL isMutipleSelected;
 @implementation PYSheetTableView
 -(void) setSelectedIndexs:(NSArray<NSNumber *> *)sheetIndexs{
     _selectedIndexs = sheetIndexs;
-    NSInteger index = _selectedIndexs.count;
-    while (index >= 0) {
-        --index;
-        [self deselectRowAtIndexPath:[NSIndexPath indexPathForRow:index inSection:0] animated:NO];
-    }
-    for (NSNumber * oIndex in sheetIndexs) {
-        [self selectRowAtIndexPath:[NSIndexPath indexPathForRow:oIndex.integerValue inSection:0] animated:YES scrollPosition:UITableViewScrollPositionBottom];
-    }
+    [self reloadData];
 }
 kSOULDLAYOUTMSTARTForType(PYSheetTableView)
 if(self.selectedIndexs) self.selectedIndexs = self.selectedIndexs;

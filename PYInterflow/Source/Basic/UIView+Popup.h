@@ -31,6 +31,7 @@ typedef NS_ENUM(NSInteger, PYPopupEnum) {
 @property (nonatomic) UIEdgeInsets popupEdgeInsets;
 //显示靠近边缘的参照
 @property (nonatomic) PYEdgeInsetsItem popupEdgeInsetItems;
+
 @property (nonatomic,copy, nullable) void (^popupBlockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^popupBlockEnd)(UIView * _Nullable view);
 //=====================显示和隐藏自定义动画=========================>
@@ -42,6 +43,7 @@ typedef NS_ENUM(NSInteger, PYPopupEnum) {
 //popupBlockTap == nil  点击空白区域隐藏
 @property (nonatomic,copy, nullable) void (^popupBlockTap)(UIView * _Nullable view);
 
+@property (nonatomic, assign) BOOL popupHasEffect;
 @property (nonatomic, strong, nonnull) UIView * popupBaseView;
 @property (nonatomic, readonly, nullable) UIView * popupContentView;
 

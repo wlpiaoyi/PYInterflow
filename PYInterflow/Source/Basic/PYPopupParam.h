@@ -31,6 +31,7 @@
 ///<=====================显示和隐藏时候的回调=========================
 
 //基础层
+@property (nonatomic, assign) BOOL hasEffect;
 @property (nonatomic, strong, nonnull) UIView * baseView;
 @property (nonatomic, strong, nonnull) UIView * contentView;
 @property (nonatomic) CGRect frameOrg;
@@ -41,4 +42,8 @@
 
 -(nonnull BlockPopupAnimation) creteDefaultBlcokPopupHiddenAnmation;
 -(nonnull BlockPopupEndAnmation) creteDefaultBlcokPopupHiddenEndAnmation;
+
++(void) ADD_EFFECT_VALUE;
++(void) REV_EFFECT_VALUE;
++(void) RECIRCLE_REFRESH_EFFECT;
 @end

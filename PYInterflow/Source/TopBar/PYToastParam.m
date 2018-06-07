@@ -15,6 +15,7 @@
 @property (nonatomic, assign, nonnull) UIView * contentView;
 @property (nonatomic, assign, nonnull) UIView * baseView;
 @property (nonatomic, strong, nonnull) UILabel * lableMessage;
+kPNSNA UIImageView * imageView;
 @end
 
 @implementation PYToastParam
@@ -30,11 +31,11 @@
         contentView.backgroundColor = STATIC_TOPBAR_BGC;
         [contentView addSubview:l];
         self.lableMessage = l;
-        [contentView setCornerRadiusAndBorder:5 borderWidth:2 borderColor:[UIColor whiteColor]];
+        [contentView setCornerRadiusAndBorder:5 borderWidth:2 borderColor:STATIC_TOPBAR_MESSAGEC];
         self.contentView = contentView;
         [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3, STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
         self.baseView = targetView;
-        [targetView setShadowColor:[UIColor grayColor].CGColor shadowRadius:2];
+        [targetView setShadowColor:[UIColor whiteColor].CGColor shadowRadius:2];
         [self.baseView addSubview:self.contentView];
         [PYViewAutolayoutCenter persistConstraint:self.contentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self.baseView action:@selector(popupHidden)];
@@ -48,9 +49,9 @@
     if(!self.message) return CGSizeMake(0, 0);
     self.lableMessage.hidden = NO;
     self.lableMessage.attributedText = self.message;
-    CGSize s = CGSizeMake(9999, 20);
+    CGSize s = CGSizeMake(99999, 9999);
     s.width = MIN(boundsWidth()-40, [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].width + STATIC_POPUP_OFFSETWIDTH * 6 + 1);
-    s.height = 999;
+    s.height = 99999;
     s.height = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].height;
     s.height += STATIC_POPUP_OFFSETWIDTH * 4 + 1;
     return s;

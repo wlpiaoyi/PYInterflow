@@ -8,5 +8,5 @@
 
 #import <UIKit/UIKit.h>
 @interface PYPopupWindow : UIWindow
-+(instancetype) instanceForFrame:(CGRect)frame;
++(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect;
 @end

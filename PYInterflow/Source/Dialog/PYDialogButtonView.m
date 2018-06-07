@@ -51,9 +51,13 @@
     
     NSHashTable<UIView *> * toFontViews = [NSHashTable weakObjectsHashTable];
     [toFontViews addObject:topLine];
+    CGSize frameSize;
+    short columns,rows;
+    [PYDialogButtonView CHECKForSize:&frameSize columnsp:&columns rows:&rows width:self.targetWith attributeButtonNames:self.normalButtonNames];
+    self.frameSize = frameSize;
     
     UIView * lineCenter = nil;
-    if(self.normalButtonNames.count == 2){
+    if(columns == 2){
         lineCenter = [UIView new];
         lineCenter.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
         lineCenter.hidden = self.blockSetButtonLayout != nil;
@@ -151,16 +155,34 @@
     return button;
 }
 
-+(CGSize) getSize:(nullable NSArray<NSAttributedString *> *) attributeButtonNames{
++(void) CHECKForSize:(nonnull CGSize *) sizep  columnsp:(nonnull short *) columnsp rows:(nonnull short *) rows  width:(CGFloat) width attributeButtonNames:(nullable NSArray<NSAttributedString *> *) attributeButtonNames{
 
-    if(attributeButtonNames == nil || attributeButtonNames.count == 0) return CGSizeMake(0, 0);
+    if(attributeButtonNames == nil || attributeButtonNames.count == 0){
+        *sizep = CGSizeMake(width, 0);
+        *columnsp = 0;
+        *rows = 0;
+        return;
+    }
+    CGFloat tempw = 0;
     
     if(attributeButtonNames.count == 2){
-        return CGSizeMake(0, STATIC_POPUP_BUTTON_HEIGHT);
-    }else{
-        return CGSizeMake(0, STATIC_POPUP_BUTTON_HEIGHT * attributeButtonNames.count);
+        tempw = [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.firstObject size:CGSizeMake(999, 10)].width;
+        tempw = MAX(tempw, [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.lastObject size:CGSizeMake(999, 10)].width);
+        if(tempw < width/2){
+            *sizep =  CGSizeMake(width, STATIC_POPUP_BUTTON_HEIGHT);
+            *columnsp = 2;
+            *rows = 1;
+            return;
+        }
     }
     
+    for (NSAttributedString * attributeButtonName in attributeButtonNames) {
+        tempw = MAX(tempw, [PYUtile getBoundSizeWithAttributeTxt:attributeButtonName size:CGSizeMake(999, 10)].width);
+    }
+    
+    *sizep = CGSizeMake(width, STATIC_POPUP_BUTTON_HEIGHT * attributeButtonNames.count);
+    *columnsp = 1;
+    *rows = attributeButtonNames.count;
 }
 
 @end

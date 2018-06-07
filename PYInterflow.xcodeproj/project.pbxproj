@@ -10,6 +10,9 @@
 		150112801DF7C2B400A45FA8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1501127F1DF7C2B400A45FA8 /* icon.png */; };
 		150D04AD20A57E680051B2E7 /* UIView+Notify.m in Sources */ = {isa = PBXBuildFile; fileRef = 150D04AC20A57E680051B2E7 /* UIView+Notify.m */; };
 		150D04B020A586810051B2E7 /* PYNotifyParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 150D04AF20A586800051B2E7 /* PYNotifyParam.m */; };
+		150D04B420A6B4B80051B2E7 /* UIView+Notify.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 150D04AB20A57E680051B2E7 /* UIView+Notify.h */; };
+		150D04B520A6B4C40051B2E7 /* PYNotifyParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 150D04AF20A586800051B2E7 /* PYNotifyParam.m */; };
+		150D04B620A6B4C40051B2E7 /* UIView+Notify.m in Sources */ = {isa = PBXBuildFile; fileRef = 150D04AC20A57E680051B2E7 /* UIView+Notify.m */; };
 		155D77BD206F2CB200B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D77BB206F2CB200B2CDDB /* PYMoveView.h */; };
@@ -22,7 +25,7 @@
 		1583E0591DFA51BC00AD48EA /* PYParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03B1DFA51BC00AD48EA /* PYParams.m */; };
 		1583E05A1DFA51BC00AD48EA /* PYPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */; };
 		1583E05B1DFA51BC00AD48EA /* UIView+Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */; };
-		1583E05D1DFA51BC00AD48EA /* UIViewPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* UIViewPopupParam.m */; };
+		1583E05D1DFA51BC00AD48EA /* PYPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* PYPopupParam.m */; };
 		1583E05E1DFA51BC00AD48EA /* PYDialogButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0461DFA51BC00AD48EA /* PYDialogButtonView.m */; };
 		1583E05F1DFA51BC00AD48EA /* PYDialogMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0481DFA51BC00AD48EA /* PYDialogMessageView.m */; };
 		1583E0601DFA51BC00AD48EA /* PYDialogParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E04A1DFA51BC00AD48EA /* PYDialogParam.m */; };
@@ -37,7 +40,7 @@
 		1583E0871DFA7EBF00AD48EA /* PYParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03B1DFA51BC00AD48EA /* PYParams.m */; };
 		1583E0881DFA7EBF00AD48EA /* PYPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */; };
 		1583E0891DFA7EBF00AD48EA /* UIView+Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */; };
-		1583E08B1DFA7EBF00AD48EA /* UIViewPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* UIViewPopupParam.m */; };
+		1583E08B1DFA7EBF00AD48EA /* PYPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* PYPopupParam.m */; };
 		1583E08C1DFA7EBF00AD48EA /* PYDialogButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0461DFA51BC00AD48EA /* PYDialogButtonView.m */; };
 		1583E08D1DFA7EBF00AD48EA /* PYDialogMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0481DFA51BC00AD48EA /* PYDialogMessageView.m */; };
 		1583E08E1DFA7EBF00AD48EA /* PYDialogParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E04A1DFA51BC00AD48EA /* PYDialogParam.m */; };
@@ -65,6 +68,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				150D04B420A6B4B80051B2E7 /* UIView+Notify.h in CopyFiles */,
 				155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */,
 				1583E0D21DFA824200AD48EA /* UIView+Toast.h in CopyFiles */,
 				1583E09C1DFA7EF100AD48EA /* PYParams.h in CopyFiles */,
@@ -101,8 +105,8 @@
 		1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPopupWindow.m; sourceTree = "<group>"; };
 		1583E03E1DFA51BC00AD48EA /* UIView+Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Popup.h"; sourceTree = "<group>"; };
 		1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Popup.m"; sourceTree = "<group>"; };
-		1583E0421DFA51BC00AD48EA /* UIViewPopupParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewPopupParam.h; sourceTree = "<group>"; };
-		1583E0431DFA51BC00AD48EA /* UIViewPopupParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewPopupParam.m; sourceTree = "<group>"; };
+		1583E0421DFA51BC00AD48EA /* PYPopupParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPopupParam.h; sourceTree = "<group>"; };
+		1583E0431DFA51BC00AD48EA /* PYPopupParam.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPopupParam.m; sourceTree = "<group>"; };
 		1583E0451DFA51BC00AD48EA /* PYDialogButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYDialogButtonView.h; sourceTree = "<group>"; };
 		1583E0461DFA51BC00AD48EA /* PYDialogButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYDialogButtonView.m; sourceTree = "<group>"; };
 		1583E0471DFA51BC00AD48EA /* PYDialogMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYDialogMessageView.h; sourceTree = "<group>"; };
@@ -188,18 +192,6 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
-		150D04AA20A57DB10051B2E7 /* Notify */ = {
-			isa = PBXGroup;
-			children = (
-				150D04AE20A586800051B2E7 /* PYNotifyParam.h */,
-				150D04AF20A586800051B2E7 /* PYNotifyParam.m */,
-				150D04AB20A57E680051B2E7 /* UIView+Notify.h */,
-				150D04AC20A57E680051B2E7 /* UIView+Notify.m */,
-			);
-			name = Notify;
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		155DE3B71DEEBE2D007CD6BF = {
 			isa = PBXGroup;
 			children = (
@@ -267,8 +259,8 @@
 			isa = PBXGroup;
 			children = (
 				1583E0391DFA51BC00AD48EA /* Basic */,
+				15F2A9DE20A880F00023ACCE /* Notify */,
 				1583E0441DFA51BC00AD48EA /* Dialog */,
-				150D04AA20A57DB10051B2E7 /* Notify */,
 				1583E04F1DFA51BC00AD48EA /* Sheet */,
 				1583E0581DFA51BC00AD48EA /* Toast */,
 			);
@@ -284,8 +276,8 @@
 				1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */,
 				1583E03E1DFA51BC00AD48EA /* UIView+Popup.h */,
 				1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */,
-				1583E0421DFA51BC00AD48EA /* UIViewPopupParam.h */,
-				1583E0431DFA51BC00AD48EA /* UIViewPopupParam.m */,
+				1583E0421DFA51BC00AD48EA /* PYPopupParam.h */,
+				1583E0431DFA51BC00AD48EA /* PYPopupParam.m */,
 				155D77BB206F2CB200B2CDDB /* PYMoveView.h */,
 				155D77BC206F2CB200B2CDDB /* PYMoveView.m */,
 			);
@@ -388,6 +380,17 @@
 			path = pyutilea;
 			sourceTree = "<group>";
 		};
+		15F2A9DE20A880F00023ACCE /* Notify */ = {
+			isa = PBXGroup;
+			children = (
+				150D04AE20A586800051B2E7 /* PYNotifyParam.h */,
+				150D04AF20A586800051B2E7 /* PYNotifyParam.m */,
+				150D04AB20A57E680051B2E7 /* UIView+Notify.h */,
+				150D04AC20A57E680051B2E7 /* UIView+Notify.m */,
+			);
+			path = Notify;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -487,7 +490,7 @@
 			files = (
 				155D77BD206F2CB200B2CDDB /* PYMoveView.m in Sources */,
 				1583E05B1DFA51BC00AD48EA /* UIView+Popup.m in Sources */,
-				1583E05D1DFA51BC00AD48EA /* UIViewPopupParam.m in Sources */,
+				1583E05D1DFA51BC00AD48EA /* PYPopupParam.m in Sources */,
 				155DE3CB1DEEBE2D007CD6BF /* ViewController.m in Sources */,
 				155DE3C81DEEBE2D007CD6BF /* AppDelegate.m in Sources */,
 				1583E0691DFA52A000AD48EA /* UIView+Toast.m in Sources */,
@@ -512,11 +515,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				150D04B520A6B4C40051B2E7 /* PYNotifyParam.m in Sources */,
+				150D04B620A6B4C40051B2E7 /* UIView+Notify.m in Sources */,
 				155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */,
 				1583E0871DFA7EBF00AD48EA /* PYParams.m in Sources */,
 				1583E0881DFA7EBF00AD48EA /* PYPopupWindow.m in Sources */,
 				1583E0891DFA7EBF00AD48EA /* UIView+Popup.m in Sources */,
-				1583E08B1DFA7EBF00AD48EA /* UIViewPopupParam.m in Sources */,
+				1583E08B1DFA7EBF00AD48EA /* PYPopupParam.m in Sources */,
 				1583E08C1DFA7EBF00AD48EA /* PYDialogButtonView.m in Sources */,
 				1583E08D1DFA7EBF00AD48EA /* PYDialogMessageView.m in Sources */,
 				1583E08E1DFA7EBF00AD48EA /* PYDialogParam.m in Sources */,

@@ -48,10 +48,10 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIView * view = [PYView new];
-        [view dialogShowWithTitle:@"sdfsdf" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账" block:^(UIView * _Nonnull view, NSUInteger index) {
+        [view dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
             
             [view dialogHidden];
-        } buttonNames:@[@"其他舱位",@"确认"]];
+        } buttonNames:@[@"其他舱位其他舱位其他舱位",@"确认"]];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -62,9 +62,11 @@
 //    [baseview setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor greenColor]];
     [baseview setBackgroundColor:[UIColor redColor]];
 //    [baseview sheetShow];
+    
 //    [baseview sheetShowWithTitle:@"日期选择"  buttonConfirme:@"确认" buttonCancel:@"取消" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
 //
 //    }];
+    
     [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
         NSLog(@"");
     } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
@@ -75,7 +77,9 @@
 //        NSLog(@"%@",a);
 //    } blockSelecteds:^BOOL(UIView * _Nullable view) {
 //        NSArray * a = view.sheetIndexs;
-//        NSLog(@"%@",a);
+//        if(a.count == 1){
+//            view.sheetIndexs = @[@(0)];
+//        }
 //        return NO;
 //    }];
     baseview.sheetIndexs = @[@(0),@(6)];
@@ -89,11 +93,11 @@
 }
 - (IBAction)onclickTopbar:(id)sender {
     UIView * view = [PYView new];
-    [view toastShow:3 message:@"请输入正确的格式例如"];
+    [view toastShow:3 message:@"\n请输入正确的格式例如"];
 }
 - (IBAction)onclickNotify:(id)sender {
     UIView * view = [PYView new];
-    [view notifyShow:3 message:@"请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" blockTap:^(UIView * _Nonnull targetView) {
+    [view notifyShow:50 message:@"\n请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" color:nil blockTap:^(UIView * _Nonnull targetView) {
         NSLog(@"sss");
     }];
 }

@@ -63,7 +63,6 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             [view resetTransform];
             view.alpha = 1;
             [UIView animateWithDuration:.5 animations:^{
-//                view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
                 view.alpha = 0;
             } completion:^(BOOL finished) {
                 block(view);
@@ -77,6 +76,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             }];
         }
     })];
+    self.popupHasEffect = NO;
     [self popupShowForHasContentView:NO];
     if(time > 0){
         dispatch_async(dispatch_get_global_queue(0, 0), ^{

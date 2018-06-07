@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface PYDialogButtonView : UIView
-
+@property (nonatomic, assign) CGFloat targetWith;
 @property (nonatomic, strong, nullable) NSArray<NSAttributedString *> * normalButtonNames;
 @property (nonatomic, strong, nullable) NSArray<NSAttributedString *> * hightLightedButtonNames;
 -(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action blockSetButtonLayout:(void (^_Nonnull)(UIButton * _Nonnull button)) blockSetButtonLayout;
 -(CGSize) reloadButtons;
-
-+(CGSize) getSize:(nullable NSArray<NSAttributedString *> *) attributeButtonNames;
 
 @end

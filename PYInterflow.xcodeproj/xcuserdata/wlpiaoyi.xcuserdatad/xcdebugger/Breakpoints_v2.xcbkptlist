@@ -9,14 +9,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "lib/pyutile/pyutilea/PYViewAutolayoutCenter.h"
-            timestampString = "542192086.490293"
+            filePath = "PYInterflow/Source/Dialog/PYDialogButtonView.m"
+            timestampString = "549525782.2513649"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
-            landmarkName = "PYViewAutolayoutCenter"
-            landmarkType = "2">
+            startingLineNumber = "160"
+            endingLineNumber = "160"
+            landmarkName = "+CHECKForSize:columnsp:rows:width:attributeButtonNames:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

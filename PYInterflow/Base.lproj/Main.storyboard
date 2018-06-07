@@ -21,6 +21,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="FQF-hc-2hX">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtw-bW-was">
                                 <rect key="frame" x="0.0" y="20" width="375" height="40"/>
                                 <constraints>
@@ -65,6 +68,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="MK9-n2-i5B" firstAttribute="top" secondItem="1T6-yg-saw" secondAttribute="bottom" id="2hc-be-4bk"/>
+                            <constraint firstItem="FQF-hc-2hX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="4XN-2V-Diu"/>
                             <constraint firstItem="uWw-Vj-UnA" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="98Z-b3-eFM"/>
                             <constraint firstAttribute="trailing" secondItem="wtw-bW-was" secondAttribute="trailing" id="I7v-Ie-eg5"/>
                             <constraint firstItem="MK9-n2-i5B" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Qa0-Xn-fbP"/>
@@ -72,10 +76,13 @@
                             <constraint firstItem="uWw-Vj-UnA" firstAttribute="top" secondItem="wtw-bW-was" secondAttribute="bottom" id="SBV-nX-iJ0"/>
                             <constraint firstAttribute="trailing" secondItem="MK9-n2-i5B" secondAttribute="trailing" id="SFM-oI-5gF"/>
                             <constraint firstAttribute="trailing" secondItem="1T6-yg-saw" secondAttribute="trailing" id="Uaj-lU-P3h"/>
+                            <constraint firstItem="FQF-hc-2hX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="YAK-S8-7hc"/>
                             <constraint firstAttribute="trailing" secondItem="uWw-Vj-UnA" secondAttribute="trailing" id="fSB-a2-sia"/>
                             <constraint firstItem="1T6-yg-saw" firstAttribute="top" secondItem="uWw-Vj-UnA" secondAttribute="bottom" id="kem-6c-qde"/>
                             <constraint firstItem="wtw-bW-was" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lK6-lJ-syw"/>
+                            <constraint firstAttribute="bottom" secondItem="FQF-hc-2hX" secondAttribute="bottom" id="nlE-23-JK9"/>
                             <constraint firstItem="wtw-bW-was" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="pKY-za-lNK"/>
+                            <constraint firstAttribute="trailing" secondItem="FQF-hc-2hX" secondAttribute="trailing" id="z2m-Vb-Srh"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -84,4 +91,7 @@
             <point key="canvasLocation" x="12" y="82.3088455772114"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon.png" width="288" height="288"/>
+    </resources>
 </document>

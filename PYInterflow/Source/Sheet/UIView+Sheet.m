@@ -60,8 +60,9 @@ static const void *PYSheetPointer = &PYSheetPointer;
         [item addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:range];
         [itemAttributes addObject:item];
     }
+    kAssign(self);
     [self sheetShowWithMutipleSeleted:NO attributeTitle:attitle buttonNormalAttributeConfirme:confirmNormal buttonNormalAttributeCancel:cancelNormal buttonHighlightedAttributeConfirme:confirmHighlighted buttonHighlightedAttributeCancel:cancelHighlighted itemAttributes:itemAttributes blockOpt:blcokOpt blockSelecteds:^BOOL(UIView * _Nullable view) {
-
+        kStrong(self);
         if(blcokSelected)blcokSelected(view, self.sheetIndexs.firstObject.integerValue);
         return YES;
     }];

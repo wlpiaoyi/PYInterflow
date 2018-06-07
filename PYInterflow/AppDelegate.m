@@ -17,6 +17,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    STATIC_POPUP_HASEFFECT = YES;
     [PYParams loadInterflowParamsData];
     return YES;
 }

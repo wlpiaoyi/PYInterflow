@@ -60,7 +60,7 @@
     ((PYDialogMessageView *)(self.messageView)).attributeMessage = self.attributeMessage;
     return [PYDialogMessageView getSize:self.attributeMessage];
 }
--(CGSize) updateButtonView{
+-(CGSize) updateButtonView:(CGFloat) width{
     if(self.buttonView == nil){
         self.buttonView = [[PYDialogButtonView alloc] initWithTarget:self.targetView action:self.action blockSetButtonLayout:BlockDialogButtonStyle];
         [self.contextView addSubview:self.buttonView];
@@ -71,6 +71,7 @@
     PYDialogButtonView * view = (PYDialogButtonView *)self.buttonView;
     view.normalButtonNames = self.normalButtonNames;
     view.hightLightedButtonNames = self.hightLightedButtonNames;
+    view.targetWith = width;
     CGSize size = [view reloadButtons];
     self.lcButtonHeight.constant = size.height;
     return size;

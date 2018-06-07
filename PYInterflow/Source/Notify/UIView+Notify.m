@@ -17,17 +17,42 @@
 const void * PYNotifyPointer = &PYNotifyPointer;
 
 
+@interface PYNotifyUIViewcontrollerHookOrientation : NSObject <UIViewcontrollerHookOrientationDelegate>
+kPNA BOOL isExcute;
+@end
+
+@implementation PYNotifyUIViewcontrollerHookOrientation
+
+
+-(BOOL) aftlerExcuteShouldAutorotateWithTarget:(nonnull UIViewController *) target result:(BOOL)result{
+    if(_isExcute){
+        return NO;
+    }
+    return result;
+}
+
+@end
+
+static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOrientation;
+
 @implementation UIView(Notify)
 
 /**
  通知显示
  */
 ///=================================>
--(void) notifyShow:(CGFloat) time message:(nullable NSString *) message blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
-    [self notifyShow:time attributeMessage:[PYNotifyParam parseNotifyMessage:message] blockTap:blockTap];
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+    [self notifyShow:time attributeMessage:[PYNotifyParam parseNotifyMessage:message color:nil] blockTap:blockTap];
 }
 
--(void) notifyShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+    [self notifyShow:time attributeMessage:attributeMessage color:nil blockTap:blockTap];
+}
+
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+    [self notifyShow:time attributeMessage:[PYNotifyParam parseNotifyMessage:message color:color] blockTap:blockTap];
+}
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PYNotifyHidden" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyHidden) name:@"PYNotifyHidden" object:nil];
@@ -37,9 +62,13 @@ const void * PYNotifyPointer = &PYNotifyPointer;
         self.frameSize = [[self notifyParams] updateMessageView];
     }
     [self notifyShow];
-    if(time > 0){
+    [self notifyParams].timeRemainning = time;
+    if([self notifyParams].timeRemainning > 0){
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [NSThread sleepForTimeInterval:time];
+            while ([self notifyParams].timeRemainning) {
+                [self notifyParams].timeRemainning--;
+                [NSThread sleepForTimeInterval:1];
+            }
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self notifyHidden];
             });
@@ -48,7 +77,14 @@ const void * PYNotifyPointer = &PYNotifyPointer;
 }
 -(void) notifyShow{
     
-    self.popupEdgeInsets = UIEdgeInsetsMake(0, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    static dispatch_once_t onceToken; dispatch_once(&onceToken, ^{
+        [UIViewController hookMethodOrientation];
+        xPYNotifyUIViewcontrollerHookOrientation = [PYNotifyUIViewcontrollerHookOrientation new];
+        [UIViewController addDelegateOrientation:xPYNotifyUIViewcontrollerHookOrientation];
+    });
+    xPYNotifyUIViewcontrollerHookOrientation.isExcute = true;
+    
+    self.popupEdgeInsets = UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
         view.alpha = 0;
@@ -58,6 +94,7 @@ const void * PYNotifyPointer = &PYNotifyPointer;
                 [view resetAutoLayout];
                 [view resetTransform];
                 view.alpha = 1;
+                view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
             } completion:^(BOOL finished) {
                 block(view);
                 view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
@@ -66,6 +103,7 @@ const void * PYNotifyPointer = &PYNotifyPointer;
             view.alpha = 0;
             [UIView animateWithDuration:.5 animations:^{
                 view.alpha = 1;
+                view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
             } completion:^(BOOL finished) {
                 block(view);
                 view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
@@ -95,12 +133,13 @@ const void * PYNotifyPointer = &PYNotifyPointer;
             }];
         }
     })];
+    self.popupHasEffect = NO;
     [self popupShowForHasContentView:NO];
-    self.popupBaseView.frameHeight = self.frameHeight;
-    
 }
 ///<=================================
 -(void) notifyHidden{
+    [self notifyParams].timeRemainning = 0;
+    xPYNotifyUIViewcontrollerHookOrientation.isExcute = false;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self popupHidden];
 }

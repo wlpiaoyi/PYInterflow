@@ -8,17 +8,107 @@
 
 #import "PYPopupParam.h"
 #import "pyutilea.h"
-#import "UIView+Remove.h"
+#import "UIView+Popup.h"
+#import "PYParams.h"
 #import <objc/runtime.h>
 
+static NSInteger PYPopupEffectRefreshValue = 0;
 @implementation PYPopupParam{
     PYPopupWindow * baseWindow;
 }
+static UIImage * PY_POPUP_IMG;
+
++(void) ADD_EFFECT_VALUE{
+    @synchronized(STATIC_POPUP_EFFECTE_NOTIFY){
+        PYPopupEffectRefreshValue ++;
+        threadJoinGlobal(^{
+            [self REFRESH_EFFECT];
+        });
+    }
+}
++(void) REV_EFFECT_VALUE{
+    @synchronized(STATIC_POPUP_EFFECTE_NOTIFY){
+        PYPopupEffectRefreshValue --;
+    }
+}
+
++(void) RECIRCLE_REFRESH_EFFECT{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+        dispatch_async(queue, ^{
+        
+            float cpuUsage = 0;
+            static NSTimeInterval fpsTimeInterval = .05;
+            NSTimeInterval timePre = [NSDate timeIntervalSinceReferenceDate];
+            NSTimeInterval timeInterval;
+            while (true) {
+                timeInterval = 0;
+                if(PYPopupEffectRefreshValue < 1){
+                    [NSThread sleepForTimeInterval:fpsTimeInterval];
+                    if(cpuUsage > 0) cpuUsage = 0;
+                    continue;
+                }
+                if(cpuUsage < PYPopupEffectCpuUsage){
+                    timePre = [NSDate timeIntervalSinceReferenceDate];
+                    [PYPopupParam REFRESH_EFFECT];
+                    cpuUsage = app_cpu_usage();
+                    timeInterval = [NSDate timeIntervalSinceReferenceDate] - timePre;
+                    if(timeInterval < fpsTimeInterval){
+                        timeInterval = fpsTimeInterval - timeInterval;
+                    }
+                    if(cpuUsage > PYPopupEffectCpuUsage){
+                        timeInterval += cpuUsage * 3;
+                    }
+#ifdef DEBUG
+                    kPrintLogln("popup effect excut for cup usage: %.2f%% time:%ims", cpuUsage * 100, (int)(timeInterval * 1000));
+#endif
+                }else{
+                    cpuUsage = app_cpu_usage();
+                    timeInterval = fpsTimeInterval;
+#ifdef DEBUG
+                    kPrintLogln("popup effect continue for cup usage: %.2f%% time:%ims", cpuUsage * 100, (int)(timeInterval * 1000));
+#endif
+                }
+                [NSThread sleepForTimeInterval:timeInterval];
+            }
+        });
+    });
+}
++(void) REFRESH_EFFECT{
+    static UIColor * tintColor;
+    static dispatch_semaphore_t semaphore;
+    kDISPATCH_ONCE_BLOCK(^{
+        tintColor = [UIColor colorWithRGBHex:0x55668844];
+        semaphore = dispatch_semaphore_create(1);
+    });
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    threadJoinMain(^{
+        UIWindow * window = [UIApplication sharedApplication].delegate.window;
+        CGRect bounds = window.bounds;
+        __block UIImage * image = [window drawViewWithBounds:bounds scale:1];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            image = [image applyEffect:.1 tintColor:tintColor];
+            PY_POPUP_IMG = image;
+            threadJoinMain(^{
+                kNOTIF_POST(STATIC_POPUP_EFFECTE_NOTIFY, PY_POPUP_IMG);
+                dispatch_semaphore_signal(semaphore);
+            });
+        });
+    });
+}
+
+
 -(instancetype) init{
+    [PYPopupParam RECIRCLE_REFRESH_EFFECT];
     if(self = [super init]){
+        _hasEffect = STATIC_POPUP_HASEFFECT;
         self.centerPoint = CGPointMake(0, 0);
         self.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
         self.frameOrg = CGRectMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+        PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
+        eii.topActive = eii.bottomActive = eii.leftActive = eii.rightActive = true;
+        self.borderEdgeInsetItems = eii;
     }
     return self;
 }
@@ -143,20 +233,20 @@
         }
         if (self.isShow == false) {
             [view removeFromSuperview];
+            [self.contentView removeFromSuperview];
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
-            
             if([self.baseView isKindOfClass:[PYPopupWindow class]]){
                 self.baseView.hidden = true;
-                for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
-                    [self.baseView removeConstraint:lc];
-                    [view removeConstraint:lc];
-                }
+            }
+            for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
+                [self.baseView removeConstraint:lc];
+                [view removeConstraint:lc];
             }
         }
         if(!(IOS8_OR_LATER)){
-            [view removeParams];
+            [view removeParam];
         }
     };
     return blockEnd;
