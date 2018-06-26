@@ -12,6 +12,7 @@
 #import "PYPopupParam.h"
 
 @interface PYPopupController : UIViewController
+kPNAR BOOL hasEffect;
 @property (nonatomic, assign) PYPopupWindow * myWindow;
 -(instancetype) initForEffect:(BOOL) hasEffect;
 @end
@@ -66,7 +67,6 @@ kINITPARAMS{
     BOOL __shouldAutorotate;
     BOOL __preferredInterfaceOrientationForPresentation;
     UIImageView * _bgView;
-    BOOL _hasEffect;
 }
 
 -(instancetype) initForEffect:(BOOL) hasEffect{

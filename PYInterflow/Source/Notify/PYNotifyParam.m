@@ -53,6 +53,9 @@ kPNSNA UIImageView * imageView;
         [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3, STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
         [targetView addSubview:contentView];
         [contentView setAutotLayotDict:@{@"left":@(0), @"right":@(0), @"top":@(0), @"bottom":@(0)}];
+        UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onclickSwipe)];
+        swipe.direction = UISwipeGestureRecognizerDirectionUp;
+        [targetView addGestureRecognizer:swipe];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onclickTap)];
         [targetView addGestureRecognizer:tap];
         self.baseView = targetView;
@@ -78,6 +81,9 @@ kPNSNA UIImageView * imageView;
     if(self.blockTap){
         _blockTap(self.baseView);
     }
+    [self onclickSwipe];
+}
+-(void) onclickSwipe{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PYNotifyHidden" object:nil];
 }
 

@@ -208,7 +208,6 @@ static UIImage * PY_POPUP_IMG;
                 if([self.baseView isKindOfClass:[PYPopupWindow class]]){
                     [self baseView].alpha = 0.1;
                 }
-                
             } completion:^(BOOL finished) {
                 @strongify(self);
                 self.isAnimationing = false;

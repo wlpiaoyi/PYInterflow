@@ -10,13 +10,13 @@
 #import "PYParams.h"
 
 extern CGFloat PYPopupAnimationTime;
-typedef NS_ENUM(NSInteger, PYPopupEnum) {
-    PYPopupCenter = 0,
-    PYPopupLeftIn = 1,
-    PYPopupRightIn = 2,
-    PYPopupTopIn = 3,
-    PYPopupBottomIn = 4
-};
+//typedef NS_ENUM(NSInteger, PYPopupEnum) {
+//    PYPopupCenter = 0,
+//    PYPopupLeftIn = 1,
+//    PYPopupRightIn = 2,
+//    PYPopupTopIn = 3,
+//    PYPopupBottomIn = 4
+//};
 /**
  弹出框
  */
