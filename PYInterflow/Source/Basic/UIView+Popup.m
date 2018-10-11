@@ -52,9 +52,10 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         
         if (self.popupBaseView == nil) self.popupBaseView = (UIView*)[PYPopupWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
         
-        if([self.popupBaseView isKindOfClass:[PYPopupWindow class]]){
-            [((UIWindow *)self.popupBaseView) makeKeyAndVisible];
-        }
+//        if([self.popupBaseView isKindOfClass:[PYPopupWindow class]]){
+//            [((UIWindow *)self.popupBaseView) makeKeyAndVisible];
+//        }
+        
         if(hasContentView){
             [self param].contentView = [UIView new];
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -151,6 +152,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
             [self.popupBaseView removeConstraint:lc];
             [self removeConstraint:lc];
         }
+        if(self.superview == nil) return;
         NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc =  [NSMutableDictionary new];
         NSDictionary<NSString *, NSLayoutConstraint *> * templc = [PYViewAutolayoutCenter persistConstraint:self centerPointer:p];
         for (NSString * key in templc) {

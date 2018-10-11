@@ -24,7 +24,11 @@ kPNAR BOOL hasEffect;
 kINITPARAMS{
     if(isInit) return;
     isInit = true;
-    [self makeKeyAndVisible];
+    @synchronized([UIWindow class]){
+        UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
+        [self makeKeyAndVisible];
+        [orgWindow makeKeyWindow];
+    }
     [self setBackgroundColor:[UIColor clearColor]];
     self.windowLevel = UIWindowLevelStatusBar;
 }
