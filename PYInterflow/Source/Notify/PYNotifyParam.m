@@ -61,7 +61,6 @@ kPNSNA UIImageView * imageView;
         self.baseView = targetView;
         self.contentView = contentView;
         kNOTIF_ADD(self, STATIC_POPUP_EFFECTE_NOTIFY, refresh:);
-        [PYPopupParam ADD_EFFECT_VALUE];
     }
     return self;
 }
@@ -73,9 +72,6 @@ kPNSNA UIImageView * imageView;
         r.size = self.baseView.frameSize;
         self.imageView.image = [((UIImage *) notify.object) cutImage:r];
     }
-}
--(void) dealloc{
-    [PYPopupParam REV_EFFECT_VALUE];
 }
 -(void) onclickTap{
     if(self.blockTap){

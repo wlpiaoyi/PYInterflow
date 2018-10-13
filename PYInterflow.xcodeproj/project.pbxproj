@@ -23,7 +23,7 @@
 		155DE3D01DEEBE2D007CD6BF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 155DE3CF1DEEBE2D007CD6BF /* Assets.xcassets */; };
 		155DE3D31DEEBE2D007CD6BF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 155DE3D11DEEBE2D007CD6BF /* LaunchScreen.storyboard */; };
 		1583E0591DFA51BC00AD48EA /* PYInterflowParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03B1DFA51BC00AD48EA /* PYInterflowParams.m */; };
-		1583E05A1DFA51BC00AD48EA /* PYPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */; };
+		1583E05A1DFA51BC00AD48EA /* PYInterflowWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYInterflowWindow.m */; };
 		1583E05B1DFA51BC00AD48EA /* UIView+Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */; };
 		1583E05D1DFA51BC00AD48EA /* PYPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* PYPopupParam.m */; };
 		1583E05E1DFA51BC00AD48EA /* PYDialogButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0461DFA51BC00AD48EA /* PYDialogButtonView.m */; };
@@ -38,7 +38,7 @@
 		1583E06C1DFA53E100AD48EA /* PYToastParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E06B1DFA53E100AD48EA /* PYToastParam.m */; };
 		1583E0831DFA7E2800AD48EA /* pyinterflowa.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1583E0801DFA7E2800AD48EA /* pyinterflowa.h */; };
 		1583E0871DFA7EBF00AD48EA /* PYInterflowParams.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03B1DFA51BC00AD48EA /* PYInterflowParams.m */; };
-		1583E0881DFA7EBF00AD48EA /* PYPopupWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */; };
+		1583E0881DFA7EBF00AD48EA /* PYInterflowWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03D1DFA51BC00AD48EA /* PYInterflowWindow.m */; };
 		1583E0891DFA7EBF00AD48EA /* UIView+Popup.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */; };
 		1583E08B1DFA7EBF00AD48EA /* PYPopupParam.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0431DFA51BC00AD48EA /* PYPopupParam.m */; };
 		1583E08C1DFA7EBF00AD48EA /* PYDialogButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1583E0461DFA51BC00AD48EA /* PYDialogButtonView.m */; };
@@ -101,8 +101,8 @@
 		155DE3D41DEEBE2D007CD6BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1583E03A1DFA51BC00AD48EA /* PYInterflowParams.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYInterflowParams.h; sourceTree = "<group>"; };
 		1583E03B1DFA51BC00AD48EA /* PYInterflowParams.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYInterflowParams.m; sourceTree = "<group>"; };
-		1583E03C1DFA51BC00AD48EA /* PYPopupWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPopupWindow.h; sourceTree = "<group>"; };
-		1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPopupWindow.m; sourceTree = "<group>"; };
+		1583E03C1DFA51BC00AD48EA /* PYInterflowWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYInterflowWindow.h; sourceTree = "<group>"; };
+		1583E03D1DFA51BC00AD48EA /* PYInterflowWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYInterflowWindow.m; sourceTree = "<group>"; };
 		1583E03E1DFA51BC00AD48EA /* UIView+Popup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Popup.h"; sourceTree = "<group>"; };
 		1583E03F1DFA51BC00AD48EA /* UIView+Popup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Popup.m"; sourceTree = "<group>"; };
 		1583E0421DFA51BC00AD48EA /* PYPopupParam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPopupParam.h; sourceTree = "<group>"; };
@@ -285,8 +285,8 @@
 			children = (
 				1583E03A1DFA51BC00AD48EA /* PYInterflowParams.h */,
 				1583E03B1DFA51BC00AD48EA /* PYInterflowParams.m */,
-				1583E03C1DFA51BC00AD48EA /* PYPopupWindow.h */,
-				1583E03D1DFA51BC00AD48EA /* PYPopupWindow.m */,
+				1583E03C1DFA51BC00AD48EA /* PYInterflowWindow.h */,
+				1583E03D1DFA51BC00AD48EA /* PYInterflowWindow.m */,
 				155D77BB206F2CB200B2CDDB /* PYMoveView.h */,
 				155D77BC206F2CB200B2CDDB /* PYMoveView.m */,
 			);
@@ -507,7 +507,7 @@
 				1583E05F1DFA51BC00AD48EA /* PYDialogMessageView.m in Sources */,
 				1583E06C1DFA53E100AD48EA /* PYToastParam.m in Sources */,
 				150D04B020A586810051B2E7 /* PYNotifyParam.m in Sources */,
-				1583E05A1DFA51BC00AD48EA /* PYPopupWindow.m in Sources */,
+				1583E05A1DFA51BC00AD48EA /* PYInterflowWindow.m in Sources */,
 				1583E0621DFA51BC00AD48EA /* UIView+Dialog.m in Sources */,
 				1583E0631DFA51BC00AD48EA /* PYSheetHeadView.m in Sources */,
 				1583E0611DFA51BC00AD48EA /* PYDialogTitleView.m in Sources */,
@@ -528,7 +528,7 @@
 				150D04B620A6B4C40051B2E7 /* UIView+Notify.m in Sources */,
 				155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */,
 				1583E0871DFA7EBF00AD48EA /* PYInterflowParams.m in Sources */,
-				1583E0881DFA7EBF00AD48EA /* PYPopupWindow.m in Sources */,
+				1583E0881DFA7EBF00AD48EA /* PYInterflowWindow.m in Sources */,
 				1583E0891DFA7EBF00AD48EA /* UIView+Popup.m in Sources */,
 				1583E08B1DFA7EBF00AD48EA /* PYPopupParam.m in Sources */,
 				1583E08C1DFA7EBF00AD48EA /* PYDialogButtonView.m in Sources */,

@@ -26,7 +26,7 @@
 //    return UIInterfaceOrientationMaskAllButUpsideDown;
 //}
 //- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(nullable UIWindow *)window{
-//    if([window isKindOfClass:NSClassFromString(@"PYPopupWindow")]){
+//    if([window isKindOfClass:NSClassFromString(@"PYInterflowWindow")]){
 //        return UIInterfaceOrientationMaskLandscapeLeft;
 //    }
 //    return UIInterfaceOrientationMaskAllButUpsideDown;

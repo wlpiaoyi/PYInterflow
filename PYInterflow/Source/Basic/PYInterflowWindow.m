@@ -1,43 +1,38 @@
 //
-//  PYPopupWindow.m
+//  PYInterflowWindow.m
 //  PYInterflow
 //
 //  Created by wlpiaoyi on 2016/12/8.
 //  Copyright © 2016年 wlpiaoyi. All rights reserved.
 //
 
-#import "PYPopupWindow.h"
+#import "PYInterflowWindow.h"
 #import "pyutilea.h"
 #import "PYInterflowParams.h"
 #import "PYPopupParam.h"
 
-@interface PYPopupController : UIViewController
+@interface PYInterflowController : UIViewController
 kPNAR BOOL hasEffect;
-@property (nonatomic, assign) PYPopupWindow * myWindow;
+@property (nonatomic, assign) PYInterflowWindow * myWindow;
 -(instancetype) initForEffect:(BOOL) hasEffect;
 @end
 
-@implementation PYPopupWindow{
+@implementation PYInterflowWindow{
 @private
     bool isInit;
 }
 kINITPARAMS{
     if(isInit) return;
     isInit = true;
-    @synchronized([UIWindow class]){
-        UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
-        [self makeKeyAndVisible];
-        [orgWindow makeKeyWindow];
-    }
     [self setBackgroundColor:[UIColor clearColor]];
     self.windowLevel = UIWindowLevelStatusBar;
 }
 +(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect{
-    PYPopupWindow * window;
+    PYInterflowWindow * window;
     @synchronized(self){
-        PYPopupController * vc = [[PYPopupController alloc] initForEffect:hasEffect];
+        PYInterflowController * vc = [[PYInterflowController alloc] initForEffect:hasEffect];
         vc.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
-        window = [[PYPopupWindow alloc] initWithFrame:frame];
+        window = [[PYInterflowWindow alloc] initWithFrame:frame];
         window.rootViewController = vc;
         vc.myWindow = window;
     }
@@ -58,12 +53,12 @@ kINITPARAMS{
     [super setFrame:frame];
 }
 -(void) dealloc{
-    if(self.rootViewController && [self.rootViewController isKindOfClass:[PYPopupController class]]){
+    if(self.rootViewController && [self.rootViewController isKindOfClass:[PYInterflowController class]]){
         self.rootViewController = nil;
     }
 }
 @end
-@implementation PYPopupController{
+@implementation PYInterflowController{
 @private
     BOOL __prefersStatusBarHidden;
     BOOL __preferredStatusBarStyle;

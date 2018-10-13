@@ -1,5 +1,5 @@
 //
-//  PYPopupWindow.h
+//  PYInterflowWindow.h
 //  PYInterflow
 //
 //  Created by wlpiaoyi on 2016/12/8.
@@ -7,6 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-@interface PYPopupWindow : UIWindow
+@interface PYInterflowWindow : UIWindow
 +(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect;
 @end

@@ -45,45 +45,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
     [self popupShowForHasContentView:YES];
 }
 -(void) popupShowForHasContentView:(BOOL) hasContentView{
-    @synchronized(self){
-        if (self.popupIsShow) return;
-        else self.popupIsShow = true;
-        [self removeFromSuperview];
-        
-        if (self.popupBaseView == nil) self.popupBaseView = (UIView*)[PYPopupWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
-        
-        if(hasContentView){
-            [self param].contentView = [UIView new];
-            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            button.backgroundColor = [UIColor clearColor];
-            button.tag = 186186100;
-            [button addTarget:self action:@selector(popupTapContentView) forControlEvents:UIControlEventTouchDown];
-            [self.popupContentView addSubview:button];
-            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
-            self.popupContentView.backgroundColor = STATIC_CONTENT_BACKGROUNDCLOLOR;
-            [self.popupContentView addSubview:self];
-            [self.popupBaseView addSubview:self.popupContentView];
-        }else{
-            [self.popupBaseView addSubview:self];
-        }
-        [self resetAutoLayout];
-        [self resetTransform];
-        
-        BlockPopupAnimation blockAnimation = [self blockShowAnimation];
-        if (!blockAnimation) {
-            blockAnimation = [[self param] creteDefaultBlcokPopupShowAnmation];
-        }
-        BlockPopupEndAnmation blockEnd = [[self param] creteDefaultBlcokPopupShowEndAnmation];
-        blockAnimation(self, blockEnd);
-        if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
-    }
-}
--(void) popupTapContentView{
-    if(self.popupBlockTap){
-        self.popupBlockTap(self);
-    }else{
-        [self popupHidden];
-    }
+    [self __popupShowForHasContentView:hasContentView windowLevel:UIWindowLevelNormal];
 }
 
 -(void) popupHidden{
@@ -212,6 +174,64 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(void) removeParam{
     objc_removeAssociatedObjects(self);
 }
+
+-(void) __popupShowForHasContentView:(BOOL) hasContentView windowLevel:(UIWindowLevel) windowLevel{
+    @synchronized(self){
+        
+        if (self.popupIsShow) return;
+        else self.popupIsShow = true;
+        
+        if (self.popupBaseView == nil){
+            self.popupBaseView =  [PYInterflowWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
+            @synchronized([UIWindow class]){
+                UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
+                [((PYInterflowWindow*)self.popupBaseView) makeKeyAndVisible];
+                [orgWindow makeKeyWindow];
+            }
+            ((PYInterflowWindow*)self.popupBaseView).windowLevel = windowLevel;
+        }else if([self.popupBaseView isKindOfClass:[PYInterflowWindow class]]){
+            @synchronized([UIWindow class]){
+                UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
+                [((PYInterflowWindow*)self.popupBaseView) makeKeyAndVisible];
+                [orgWindow makeKeyWindow];
+            }
+            ((PYInterflowWindow*)self.popupBaseView).windowLevel = windowLevel;
+        }
+        
+        if(hasContentView){
+            [self param].contentView = [UIView new];
+            UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+            button.backgroundColor = [UIColor clearColor];
+            button.tag = 186186100;
+            [button addTarget:self action:@selector(__popupTapContentView) forControlEvents:UIControlEventTouchDown];
+            [self.popupContentView addSubview:button];
+            [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
+            self.popupContentView.backgroundColor = STATIC_CONTENT_BACKGROUNDCLOLOR;
+            [self.popupContentView addSubview:self];
+            [self.popupBaseView addSubview:self.popupContentView];
+        }else{
+            [self.popupBaseView addSubview:self];
+        }
+        [self resetAutoLayout];
+        [self resetTransform];
+        
+        BlockPopupAnimation blockAnimation = [self blockShowAnimation];
+        if (!blockAnimation) {
+            blockAnimation = [[self param] creteDefaultBlcokPopupShowAnmation];
+        }
+        BlockPopupEndAnmation blockEnd = [[self param] creteDefaultBlcokPopupShowEndAnmation];
+        blockAnimation(self, blockEnd);
+        if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
+    }
+}
+-(void) __popupTapContentView{
+    if(self.popupBlockTap){
+        self.popupBlockTap(self);
+    }else{
+        [self popupHidden];
+    }
+}
+
 @end
 
 

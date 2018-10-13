@@ -14,6 +14,7 @@
 -(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage;
 @end
 
+
 @interface UIView(Topbar)
 -(void) topbarShow:(CGFloat) time;
 -(void) topbarShow:(CGFloat) time message:(nullable NSString *) message;

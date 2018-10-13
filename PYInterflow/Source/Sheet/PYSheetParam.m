@@ -80,7 +80,7 @@ kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
     if(self.lcsSafe){
         self.lcsSafe = [NSMutableArray new];
     }else{
-        for (NSLayoutConstraint * lc in self.lcsContext) {
+        for (NSLayoutConstraint * lc in self.lcsSafe) {
             [self.safeOutBottomView.superview removeConstraint:lc];
         }
         [self.lcsSafe removeAllObjects];

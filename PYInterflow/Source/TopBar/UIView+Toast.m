@@ -11,7 +11,7 @@
 #import "pyutilea.h"
 #import "PYToastParam.h"
 #import <objc/runtime.h>
-#import "PYPopupWindow.h"
+#import "PYInterflowWindow.h"
 
 const void * PYTopbarPointer = &PYTopbarPointer;
 
@@ -26,9 +26,9 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 }
 
 -(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PYTopbarNotify" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(topbarHidden) name:@"PYTopbarNotify" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastNotify" object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"PYToastNotify" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toastHidden) name:@"PYToastNotify" object:nil];
     [self topbarParams].message = attributeMessage;
     if(attributeMessage){
         self.frameSize = [[self topbarParams] updateMessageView];
@@ -77,18 +77,17 @@ const void * PYTopbarPointer = &PYTopbarPointer;
         }
     })];
     self.popupHasEffect = NO;
-    [self popupShowForHasContentView:NO];
     if(time > 0){
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [NSThread sleepForTimeInterval:time];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self topbarHidden];
+                [self toastHidden];
             });
         });
     }
 }
--(void) topbarHidden{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+-(void) toastHidden{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastNotify" object:nil];
     [self popupHidden];
 }
 -(PYToastParam *) topbarParams{

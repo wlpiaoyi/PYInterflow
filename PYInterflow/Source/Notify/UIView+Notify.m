@@ -11,7 +11,8 @@
 #import "pyutilea.h"
 #import "PYNotifyParam.h"
 #import <objc/runtime.h>
-#import "PYPopupWindow.h"
+#import "PYInterflowWindow.h"
+#import "PYPopupParam.h"
 
 
 const void * PYNotifyPointer = &PYNotifyPointer;
@@ -34,6 +35,10 @@ kPNA BOOL isExcute;
 @end
 
 static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOrientation;
+
+@interface UIView()
+-(void) __popupShowForHasContentView:(BOOL) hasContentView windowLevel:(UIWindowLevel) windowLevel;
+@end
 
 @implementation UIView(Notify)
 
@@ -134,7 +139,8 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
         }
     })];
     self.popupHasEffect = NO;
-    [self popupShowForHasContentView:NO];
+    [self __popupShowForHasContentView:NO windowLevel:UIWindowLevelStatusBar];
+    [PYPopupParam ADD_EFFECT_VALUE];
 }
 ///<=================================
 -(void) notifyHidden{
@@ -142,6 +148,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     xPYNotifyUIViewcontrollerHookOrientation.isExcute = false;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self popupHidden];
+    [PYPopupParam REV_EFFECT_VALUE];
 }
 -(PYNotifyParam *) notifyParams{
     PYNotifyParam * param = objc_getAssociatedObject(self, PYNotifyPointer);

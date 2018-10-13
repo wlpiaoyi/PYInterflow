@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "PYInterflowParams.h"
-#import "PYPopupWindow.h"
+#import "PYInterflowWindow.h"
 
 @interface PYPopupParam : NSObject
 @property (nonatomic,copy, nullable) void (^popupBlockTap)(UIView * _Nullable view);

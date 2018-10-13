@@ -23,31 +23,26 @@
 }
 @end
 @interface ViewController ()
-@property (nonatomic, strong) UIView * baseview;
+@property (nonatomic, strong) UIView * sheetView;
+@property (nonatomic, strong) UIView * alertView;
+@property (nonatomic, strong) UIView * toastView;
+@property (nonatomic, strong) UIView * notifyView;
 @end
 
 @implementation ViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.baseview = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
-    [self.baseview setBackgroundColor:[UIColor redColor]];
-    NSLog(@"%@", (NSString*)bundleDir);
-//    UIScrollView * sc = [UIScrollView new];
-//    sc.contentSize = CGSizeMake(600, 1000);
-//    [self.view addSubview:sc];
-//    [PYViewAutolayoutCenter persistConstraint:sc relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
-//    UIView * view = [[UIView alloc] initWithFrame:CGRectMake(0, 20, 80, 80)];
-//    view.moveable = true;
-//    view.backgroundColor = [ UIColor grayColor];
-//    [view setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor redColor]];
-//    [sc addSubview:view];
+    self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
+    self.alertView = [PYView new];
+    self.toastView = [PYView new];
+    self.notifyView = [PYView new];
 }
 - (IBAction)popup:(id)sender {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"标题" message:@"这个是UIAlertController的默认样式" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIView * view = [PYView new];
+        UIView * view = self.alertView;
         [view dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
             
             [view dialogHidden];
@@ -58,14 +53,8 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 - (IBAction)sheet:(id)sender {
-    UIView * baseview = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
-//    [baseview setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor greenColor]];
+    UIView * baseview = self.sheetView;
     [baseview setBackgroundColor:[UIColor redColor]];
-//    [baseview sheetShow];
-    
-//    [baseview sheetShowWithTitle:@"日期选择"  buttonConfirme:@"确认" buttonCancel:@"取消" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
-//
-//    }];
     
     [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
         NSLog(@"");
@@ -92,17 +81,17 @@
 //    });
 }
 - (IBAction)onclickTopbar:(id)sender {
-    UIView * view = [PYView new];
+    UIView * view = self.toastView;//[UIView new];//
     [view toastShow:3 message:@"\n请输入正确的格式例如"];
 }
 - (IBAction)onclickNotify:(id)sender {
-    UIView * view = [PYView new];
-    [view notifyShow:50 message:@"\n请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" color:nil blockTap:^(UIView * _Nonnull targetView) {
+    UIView * view = self.notifyView;
+    [view notifyShow:3 message:@"\n请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" color:nil blockTap:^(UIView * _Nonnull targetView) {
         NSLog(@"sss");
     }];
 }
 -(void) hidden{
-    [self.baseview popupHidden];
+//    [self.baseview popupHidden];
 }
 
 

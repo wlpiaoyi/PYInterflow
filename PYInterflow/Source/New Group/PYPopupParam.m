@@ -14,7 +14,7 @@
 
 static NSInteger PYPopupEffectRefreshValue = 0;
 @implementation PYPopupParam{
-    PYPopupWindow * baseWindow;
+    PYInterflowWindow * baseWindow;
 }
 static UIImage * PY_POPUP_IMG;
 
@@ -122,7 +122,7 @@ static UIImage * PY_POPUP_IMG;
             transformx = CATransform3DScale(transformx, 2, 2, 1);
             view.layer.transform = transformx;
             view.alpha = 0;
-            if([self.baseView isKindOfClass:[PYPopupWindow class]]){
+            if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 self.baseView.alpha = 0;
                 self.baseView.userInteractionEnabled = true;
                 self.baseView.hidden = false;
@@ -137,7 +137,7 @@ static UIImage * PY_POPUP_IMG;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
             view.alpha = 1;
-            if([self.baseView isKindOfClass:[PYPopupWindow class]]){
+            if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 [self baseView].alpha = 1;
             }
         } completion:^(BOOL finished) {
@@ -163,7 +163,7 @@ static UIImage * PY_POPUP_IMG;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
             view.alpha = 1;
-            if([self.baseView isKindOfClass:[PYPopupWindow class]]){
+            if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 self.baseView.alpha = 1;
             }
         }
@@ -182,7 +182,7 @@ static UIImage * PY_POPUP_IMG;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
             view.alpha = 1;
-            if([self.baseView isKindOfClass:[PYPopupWindow class]]) {
+            if([self.baseView isKindOfClass:[PYInterflowWindow class]]) {
                 [self baseView].alpha = 1;
             }
         }
@@ -205,7 +205,7 @@ static UIImage * PY_POPUP_IMG;
                 transformx = CATransform3DScale(transformx, .01, .01, 1);
                 view.layer.transform = transformx;
                 view.alpha = 0.1;
-                if([self.baseView isKindOfClass:[PYPopupWindow class]]){
+                if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                     [self baseView].alpha = 0.1;
                 }
             } completion:^(BOOL finished) {
@@ -236,16 +236,13 @@ static UIImage * PY_POPUP_IMG;
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
-            if([self.baseView isKindOfClass:[PYPopupWindow class]]){
+            if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 self.baseView.hidden = true;
             }
             for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
                 [self.baseView removeConstraint:lc];
                 [view removeConstraint:lc];
             }
-        }
-        if(!(IOS8_OR_LATER)){
-            [view removeParam];
         }
     };
     return blockEnd;
