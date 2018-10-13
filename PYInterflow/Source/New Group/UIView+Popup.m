@@ -52,10 +52,6 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         
         if (self.popupBaseView == nil) self.popupBaseView = (UIView*)[PYPopupWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
         
-//        if([self.popupBaseView isKindOfClass:[PYPopupWindow class]]){
-//            [((UIWindow *)self.popupBaseView) makeKeyAndVisible];
-//        }
-        
         if(hasContentView){
             [self param].contentView = [UIView new];
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];

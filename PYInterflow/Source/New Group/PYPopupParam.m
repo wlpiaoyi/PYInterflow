@@ -9,7 +9,7 @@
 #import "PYPopupParam.h"
 #import "pyutilea.h"
 #import "UIView+Popup.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import <objc/runtime.h>
 
 static NSInteger PYPopupEffectRefreshValue = 0;

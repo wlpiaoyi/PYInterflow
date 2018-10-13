@@ -7,7 +7,7 @@
 //
 
 #import "PYNotifyParam.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "pyutilea.h"
 #import "UIView+Popup.h"
 #import "PYPopupParam.h"

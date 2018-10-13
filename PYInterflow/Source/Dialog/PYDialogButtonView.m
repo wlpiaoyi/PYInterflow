@@ -8,7 +8,7 @@
 
 #import "PYDialogButtonView.h"
 #import "pyutilea.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 @interface PYDialogButtonView()
 @property (nonatomic, assign, nonnull) id target;
 @property (nonatomic, nonnull) SEL action;

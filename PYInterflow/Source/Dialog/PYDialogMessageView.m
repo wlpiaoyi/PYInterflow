@@ -7,7 +7,7 @@
 //
 
 #import "PYDialogMessageView.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "pyutilea.h"
 NSInteger PYDMV_offsetValueNum;
 

@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "PYMoveView.h"
 
 @interface PYDialogParam : NSObject

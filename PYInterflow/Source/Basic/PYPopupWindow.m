@@ -8,7 +8,7 @@
 
 #import "PYPopupWindow.h"
 #import "pyutilea.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "PYPopupParam.h"
 
 @interface PYPopupController : UIViewController

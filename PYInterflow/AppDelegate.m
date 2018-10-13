@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     STATIC_POPUP_HASEFFECT = YES;
-    [PYParams loadInterflowParamsData];
+    [PYInterflowParams loadInterflowParamsData];
     return YES;
 }
 

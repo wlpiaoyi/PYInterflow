@@ -6,8 +6,8 @@
 //  Copyright © 2016年 wlpiaoyi. All rights reserved.
 //
 
-#ifndef PYParams_h
-#define PYParams_h
+#ifndef PYInterflowParams_h
+#define PYInterflowParams_h
 #import <UIKit/UIKit.h>
 #import "pyutilea.h"
 
@@ -67,7 +67,7 @@ typedef void (^BlockPopupAnimation) (UIView * _Nonnull view, BlockPopupEndAnmati
 typedef void(^BlockDialogOpt)(UIView * _Nonnull view, NSUInteger index);
 
 
-@interface PYParams : NSObject
+@interface PYInterflowParams : NSObject
 +(void) loadInterflowParamsData;
 +(void) setView:(nonnull UIView *) view shadowOffset:(CGSize) size;
 @end

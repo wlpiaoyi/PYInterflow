@@ -7,7 +7,7 @@
 //
 
 #import "PYSheetParam.h"
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "PYSheetHeadView.h"
 #import "pyutilea.h"
 #import "UIView+Popup.h"
@@ -37,7 +37,7 @@ kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
         self.action = action;
         self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
-        [PYParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
+        [PYInterflowParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
         self.safeOutBottomView = [UIView new];
         self.safeOutRightView = [UIView new];
         self.safeOutLeftView = [UIView new];

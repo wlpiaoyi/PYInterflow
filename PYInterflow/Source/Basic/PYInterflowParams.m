@@ -1,12 +1,12 @@
 //
-//  PYParams.m
+//  PYInterflowParams.m
 //  PYInterflow
 //
 //  Created by wlpiaoyi on 2016/12/7.
 //  Copyright © 2016年 wlpiaoyi. All rights reserved.
 //
 
-#import "PYParams.h"
+#import "PYInterflowParams.h"
 #import "PYUtile.h"
 #import "PYPopupParam.h"
 
@@ -58,7 +58,7 @@ UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 NSString * STATIC_POPUP_EFFECTE_NOTIFY = @"pypeffn";
 
-@implementation PYParams
+@implementation PYInterflowParams
 
 +(void) loadInterflowParamsData{
     STATIC_SHEET_TITLEC = [UIColor darkGrayColor];
