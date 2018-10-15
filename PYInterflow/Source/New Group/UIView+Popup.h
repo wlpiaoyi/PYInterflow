@@ -53,6 +53,5 @@ extern CGFloat PYPopupAnimationTime;
 
 -(void) resetTransform;
 -(void) resetAutoLayout;
--(void) removeParam;
 
 @end

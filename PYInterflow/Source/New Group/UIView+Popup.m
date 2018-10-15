@@ -17,28 +17,28 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 @implementation UIView(Popup)
 -(void) setPopupBlockEnd:(void (^)(UIView * _Nullable))blockEnd{
-    [self param].blockEnd = blockEnd;
+    [self popupParam].blockEnd = blockEnd;
 }
 -(void (^)(UIView * _Nullable)) popupBlockEnd{
-    return [self param].blockEnd;
+    return [self popupParam].blockEnd;
 }
 -(void) setPopupBlockStart:(void (^)(UIView * _Nullable))blockStart{
-    [self param].blockStart = blockStart;
+    [self popupParam].blockStart = blockStart;
 }
 -(void (^)(UIView * _Nullable)) popupBlockStart{
-    return [self param].blockStart;
+    return [self popupParam].blockStart;
 }
 -(CGRect) frameOrg{
-    return [self param].frameOrg;
+    return [self popupParam].frameOrg;
 }
 -(void) setFrameOrg:(CGRect) frame{
-    [self param].frameOrg = frame;
+    [self popupParam].frameOrg = frame;
 }
 -(BOOL) popupisAnimation{
-    return [self param].isAnimationing;
+    return [self popupParam].isAnimationing;
 }
 -(void) setPopupisAnimation:(BOOL)isAnimationing{
-    [self param].isAnimationing = isAnimationing;
+    [self popupParam].isAnimationing = isAnimationing;
 }
 
 -(void) popupShow{
@@ -57,41 +57,41 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         
         BlockPopupAnimation block = [self blockHiddenAnimation];
         if (!block) {
-            block = [[self param] creteDefaultBlcokPopupHiddenAnmation];
+            block = [[self popupParam] creteDefaultBlcokPopupHiddenAnmation];
         }
-        BlockPopupEndAnmation blockEnd = [[self param]creteDefaultBlcokPopupHiddenEndAnmation];
+        BlockPopupEndAnmation blockEnd = [[self popupParam]creteDefaultBlcokPopupHiddenEndAnmation];
         block(self,blockEnd);
         if(self.popupHasEffect) [PYPopupParam REV_EFFECT_VALUE];
     }
 }
 
 -(CGPoint) popupCenterPoint{
-    return [self param].centerPoint;
+    return [self popupParam].centerPoint;
 }
 
 -(void) setPopupCenterPoint:(CGPoint)center{
-    [self param].centerPoint = center;
+    [self popupParam].centerPoint = center;
 }
 
 -(UIEdgeInsets) popupEdgeInsets{
-    return [self param].borderEdgeInsets;
+    return [self popupParam].borderEdgeInsets;
 }
 
 -(void) setPopupEdgeInsets:(UIEdgeInsets)borderEdgeInsets{
-    [self param].borderEdgeInsets = borderEdgeInsets;
+    [self popupParam].borderEdgeInsets = borderEdgeInsets;
 }
 -(PYEdgeInsetsItem) popupEdgeInsetItems{
-    return [self param].borderEdgeInsetItems;
+    return [self popupParam].borderEdgeInsetItems;
 }
 -(void) setPopupEdgeInsetItems:(PYEdgeInsetsItem)popupEdgeInsetItems{
-    [self param].borderEdgeInsetItems = popupEdgeInsetItems;
+    [self popupParam].borderEdgeInsetItems = popupEdgeInsetItems;
 }
 
 -(BOOL) popupIsShow{
-    return [self param].isShow;
+    return [self popupParam].isShow;
 }
 -(void) setPopupIsShow:(BOOL) isShow{
-    [self param].isShow = isShow;
+    [self popupParam].isShow = isShow;
 }
 -(void) resetTransform{
     @synchronized(self) {
@@ -106,7 +106,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         CGPoint p = self.popupCenterPoint;
         UIEdgeInsets e = self.popupEdgeInsets;
         
-        for (NSLayoutConstraint * lc in [self param].lc.objectEnumerator) {
+        for (NSLayoutConstraint * lc in [self popupParam].lc.objectEnumerator) {
             [self.popupBaseView removeConstraint:lc];
             [self removeConstraint:lc];
         }
@@ -127,52 +127,49 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
                 [lc setObject:templc[key] forKey:key];
             }
         }
-        [self param].lc = lc;
+        [self popupParam].lc = lc;
     }
 }
 -(void) setPopupBlockTap:(void (^)(UIView * _Nullable))popupBlockTap{
-    [self param].popupBlockTap = popupBlockTap;
+    [self popupParam].popupBlockTap = popupBlockTap;
 }
 -(void (^)(UIView * _Nullable)) popupBlockTap{
-    return [self param].popupBlockTap;
+    return [self popupParam].popupBlockTap;
 }
 -(UIView*) popupBaseView{
-    return [self param].baseView;
+    return [self popupParam].baseView;
 }
 -(void) setPopupBaseView:(UIView*) view{
-    [self param].baseView = view;
+    [self popupParam].baseView = view;
 }
 -(BOOL) popupHasEffect{
-    return  [self param].hasEffect;
+    return  [self popupParam].hasEffect;
 }
 -(void) setPopupHasEffect:(BOOL)popupHasEffect{
-    [self param].hasEffect = popupHasEffect;
+    [self popupParam].hasEffect = popupHasEffect;
 }
 -(UIView*) popupContentView{
-    return [self param].contentView;
+    return [self popupParam].contentView;
 }
 -(void) setBlockShowAnimation:(BlockPopupAnimation) block{
-    [self param].blockShowAnimation = block;
+    [self popupParam].blockShowAnimation = block;
 }
 -(BlockPopupAnimation) blockShowAnimation{
-    return [self param].blockShowAnimation;
+    return [self popupParam].blockShowAnimation;
 }
 -(void) setBlockHiddenAnimation:(BlockPopupAnimation) block{
-    [self param].blockHiddenAnimation = block;
+    [self popupParam].blockHiddenAnimation = block;
 }
 -(BlockPopupAnimation) blockHiddenAnimation{
-    return [self param].blockHiddenAnimation;
+    return [self popupParam].blockHiddenAnimation;
 }
--(PYPopupParam *) param{
+-(PYPopupParam *) popupParam{
     PYPopupParam * param = objc_getAssociatedObject(self, UIViewPopupPointer);
     if(param == nil){
         param = [PYPopupParam new];
         objc_setAssociatedObject(self, UIViewPopupPointer, param, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return param;
-}
--(void) removeParam{
-    objc_removeAssociatedObjects(self);
 }
 
 -(void) __popupShowForHasContentView:(BOOL) hasContentView windowLevel:(UIWindowLevel) windowLevel{
@@ -199,7 +196,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         
         if(hasContentView){
-            [self param].contentView = [UIView new];
+            [self popupParam].contentView = [UIView new];
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
             button.backgroundColor = [UIColor clearColor];
             button.tag = 186186100;
@@ -217,11 +214,11 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         
         BlockPopupAnimation blockAnimation = [self blockShowAnimation];
         if (!blockAnimation) {
-            blockAnimation = [[self param] creteDefaultBlcokPopupShowAnmation];
+            blockAnimation = [[self popupParam] creteDefaultBlcokPopupShowAnmation];
         }
-        BlockPopupEndAnmation blockEnd = [[self param] creteDefaultBlcokPopupShowEndAnmation];
-        blockAnimation(self, blockEnd);
         if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
+        BlockPopupEndAnmation blockEnd = [[self popupParam] creteDefaultBlcokPopupShowEndAnmation];
+        blockAnimation(self, blockEnd);
     }
 }
 -(void) __popupTapContentView{

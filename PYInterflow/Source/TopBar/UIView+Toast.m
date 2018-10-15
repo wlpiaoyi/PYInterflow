@@ -77,6 +77,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
         }
     })];
     self.popupHasEffect = NO;
+    [self popupShowForHasContentView:NO];
     if(time > 0){
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
             [NSThread sleepForTimeInterval:time];

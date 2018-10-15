@@ -93,6 +93,13 @@ static const void *PYSheetPointer = &PYSheetPointer;
     [self sheetShowWithMutipleSeleted:YES attributeTitle:attitle buttonNormalAttributeConfirme:confirmNormal buttonNormalAttributeCancel:cancelNormal buttonHighlightedAttributeConfirme:confirmHighlighted buttonHighlightedAttributeCancel:cancelHighlighted itemAttributes:itemAttributes blockOpt:blcokOpts blockSelecteds:blockSelecteds];
 }
 
+-(void) setSheetBlockSelecting:(BOOL (^ _Nullable)(NSMutableArray<NSNumber *> * _Nonnull beforeIndexs, NSUInteger cureentIndex)) blockSelecting{
+    [self sheetParam].blockSelecting = blockSelecting;
+}
+-(BOOL (^ _Nullable)(NSMutableArray<NSNumber *> * _Nonnull beforeIndexs, NSUInteger cureentIndex)) sheetBlockSelecting{
+    return [self sheetParam].blockSelecting;
+}
+
 -(void) sheetShowWithMutipleSeleted:(BOOL) mutipleSeleted attributeTitle:(nullable NSAttributedString *) attributeTitle
             buttonNormalAttributeConfirme:(nullable NSAttributedString *) normalConfirme
             buttonNormalAttributeCancel:(nullable NSAttributedString *) normalCanel
@@ -104,43 +111,27 @@ static const void *PYSheetPointer = &PYSheetPointer;
     [self sheetParam].blockOpt = blcokOpt;
     [self sheetParam].blockSelecteds = blcokSelecteds;
     [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        if(IOS8_OR_LATER){
-            view.alpha = 0;
-            view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
-            [UIView animateWithDuration:.5 animations:^{
-                [view resetAutoLayout];
-                [view resetTransform];
-                view.alpha = 1;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }else{
-            view.alpha = 0;
-            [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 1;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }
-    })];
-    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        if(IOS8_OR_LATER){
+        [view resetAutoLayout];
+        [view resetTransform];
+        view.alpha = 0;
+        view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
+        [UIView animateWithDuration:.5 animations:^{
             [view resetAutoLayout];
             [view resetTransform];
-            [UIView animateWithDuration:.5 animations:^{
-                view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
-                view.alpha = 0;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }else{
             view.alpha = 1;
-            [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 0;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }
+        } completion:^(BOOL finished) {
+            block(view);
+        }];
+    })];
+    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+        [view resetAutoLayout];
+        [view resetTransform];
+        [UIView animateWithDuration:.5 animations:^{
+            view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
+            view.alpha = 0;
+        } completion:^(BOOL finished) {
+            block(view);
+        }];
     })];
     [self sheetParam].title = attributeTitle;
     [self sheetParam].confirmNormal = normalConfirme;
@@ -164,7 +155,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
             [self sheetParam].sheetIndexs = indexs;
             if([self sheetParam].blockSelecteds && [self sheetParam].blockSelecteds(self))
                 [self sheetHidden];
-        }];
+        } blockSelecting:[self sheetParam].blockSelecting];
         [[self sheetParam].targetView addSubview:[self sheetParam].itemDelegate.tableView];
         PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
         [self sheetParam].itemDelegate.tableView.scrollEnabled = itemAttributes.count > 8;

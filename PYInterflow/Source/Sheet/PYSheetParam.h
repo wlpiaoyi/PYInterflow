@@ -12,7 +12,10 @@
 @interface PYSheetItemDelegate:NSObject
 kPNCNA NSArray<NSNumber *>* selectedIndexs;
 kPNRNN UITableView * tableView;
--(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected;
+-(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection
+                                itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes
+                                blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected
+                                blockSelecting:(BOOL (^_Nullable)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex)) blockSelecting;
 +(CGFloat) getCellHeight;
 @end
 @interface PYSheetParam : NSObject
@@ -25,6 +28,7 @@ kPNCNA NSArray<NSNumber *>* sheetIndexs;
 @property (nonatomic, strong, nullable)  NSAttributedString * cancelHighlighted;
 @property (nonatomic, copy, nullable) void (^blockOpt)(UIView * _Nullable view, NSUInteger index);
 @property (nonatomic, copy, nullable) BOOL (^blockSelecteds)(UIView * _Nullable view);
+@property (nonatomic, copy, nullable) BOOL (^blockSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
 @property (nonatomic, strong, nullable) UIView * headView;
 @property (nonatomic, strong, nullable) UIView * showView;
 @property (nonatomic, strong, nullable) PYSheetItemDelegate * itemDelegate;

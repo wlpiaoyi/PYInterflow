@@ -25,7 +25,6 @@ kINITPARAMS{
     if(isInit) return;
     isInit = true;
     [self setBackgroundColor:[UIColor clearColor]];
-    self.windowLevel = UIWindowLevelStatusBar;
 }
 +(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect{
     PYInterflowWindow * window;
@@ -37,6 +36,9 @@ kINITPARAMS{
         vc.myWindow = window;
     }
     return window;
+}
+-(void) setAlpha:(CGFloat)alpha{
+    [super setAlpha:alpha];
 }
 -(void) addSubview:(UIView *)view{
     if(view == self.rootViewController.view){
@@ -89,11 +91,9 @@ kINITPARAMS{
     }
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
-    kAssign(self);
     threadJoinGlobal(^{
         [NSThread sleepForTimeInterval:0.2];
         threadJoinMain(^{
-            kStrong(self);
             [self setNeedsStatusBarAppearanceUpdate];
         });
     });

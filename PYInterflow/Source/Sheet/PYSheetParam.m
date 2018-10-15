@@ -20,6 +20,7 @@ kSOULDLAYOUTPForType(PYSheetTableView)
 @interface PYSheetItemDelegate()<UITableViewDelegate, UITableViewDataSource>
 kPNSNN NSArray <NSAttributedString *> * itemAttributes;
 kPNCNA void (^blockSelected)(NSArray<NSNumber *>* indexs);
+kPNCNA BOOL (^blockSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
 @end
 
 @interface PYSheetParam()
@@ -200,7 +201,10 @@ kPNA BOOL isMutipleSelected;
 @implementation PYSheetItemDelegate{
 @private BOOL _allowsMultipleSelection;
 }
--(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected{
+-(instancetype) initWithAllowsMultipleSelection:(BOOL) allowsMultipleSelection
+                                itemAttributes:(NSArray<NSAttributedString *> *) itemAttributes
+                                blockSelected:(void(^_Nullable)(NSArray<NSNumber *>* indexs)) blockSelected
+                                blockSelecting:(BOOL (^_Nullable)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex)) blockSelecting{
     self = [super init];
     _tableView = [PYSheetTableView new];
     _allowsMultipleSelection = allowsMultipleSelection;
@@ -211,6 +215,7 @@ kPNA BOOL isMutipleSelected;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
     self.tableView.separatorColor = [UIColor lightGrayColor];
     self.blockSelected = blockSelected;
+    self.blockSelecting =  blockSelecting;
     return self;
 }
 
@@ -231,18 +236,22 @@ kPNA BOOL isMutipleSelected;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSMutableArray<NSNumber *> * selectedIndexs = self.selectedIndexs ? ([self.selectedIndexs isKindOfClass:[NSMutableArray class]] ? self.selectedIndexs : [self.selectedIndexs mutableCopy]) : [NSMutableArray new];
-    bool isSelected = true;
-    NSNumber * row = @(indexPath.row);
-    if(!_allowsMultipleSelection){
-        [selectedIndexs removeAllObjects];
+    if(self.blockSelecting && !_blockSelecting(selectedIndexs, indexPath.row)){
+        self.selectedIndexs = selectedIndexs;
     }else{
-        if([self.selectedIndexs containsObject:row]){
-            [selectedIndexs removeObject:row];
-            isSelected = false;
+        bool isSelected = true;
+        NSNumber * row = @(indexPath.row);
+        if(!_allowsMultipleSelection){
+            [selectedIndexs removeAllObjects];
+        }else{
+            if([self.selectedIndexs containsObject:row]){
+                [selectedIndexs removeObject:row];
+                isSelected = false;
+            }
         }
+        if(isSelected)[selectedIndexs addObject:row];
+        self.selectedIndexs = selectedIndexs;
     }
-    if(isSelected)[selectedIndexs addObject:row];
-    self.selectedIndexs = selectedIndexs;
     if(self.blockSelected){
         _blockSelected(_selectedIndexs);
     }

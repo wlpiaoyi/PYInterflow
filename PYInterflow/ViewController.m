@@ -55,22 +55,42 @@
 - (IBAction)sheet:(id)sender {
     UIView * baseview = self.sheetView;
     [baseview setBackgroundColor:[UIColor redColor]];
-    
-    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
-        NSLog(@"");
-    } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
-        NSLog(@"");
+    [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
+        if(cureentIndex == 0 && ![beforeIndexs containsObject:@(0)]){
+            [beforeIndexs removeAllObjects];
+            [beforeIndexs addObject:@(0)];
+            return NO;
+        }else if(cureentIndex != 0 && [beforeIndexs containsObject:@(0)]){
+            [beforeIndexs removeObject:@(0)];
+            [beforeIndexs addObject:@(cureentIndex)];
+            return NO;
+        }
+        if(beforeIndexs.count == 1 && [beforeIndexs containsObject:@(cureentIndex)]){
+            [beforeIndexs removeAllObjects];
+            if(cureentIndex == 0){
+                [beforeIndexs addObjectsFromArray:@[@(1),@(2),@(3),@(4)]];
+            }else{
+                [beforeIndexs addObject:@(0)];
+            }
+            return NO;
+        }
+        return YES;
     }];
-//    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
-//        NSArray * a = view.sheetIndexs;
-//        NSLog(@"%@",a);
-//    } blockSelecteds:^BOOL(UIView * _Nullable view) {
-//        NSArray * a = view.sheetIndexs;
+//    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+//        NSLog(@"");
+//    } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
+//        NSLog(@"");
+//    }];
+    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
+        NSArray * a = view.sheetIndexs;
+        NSLog(@"%@",a);
+    } blockSelecteds:^BOOL(UIView * _Nullable view) {
+        NSArray * a = view.sheetIndexs;
 //        if(a.count == 1){
 //            view.sheetIndexs = @[@(0)];
 //        }
-//        return NO;
-//    }];
+        return NO;
+    }];
     baseview.sheetIndexs = @[@(0),@(6)];
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [NSThread sleepForTimeInterval:2];
