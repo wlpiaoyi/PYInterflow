@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PYUtile.h"
 
 @interface PYDialogMessageView : UIView
 
-@property (nonatomic, strong, nullable) NSAttributedString * attributeMessage;
+kPNA NSTextAlignment textAlignment;
+kPNSNA NSAttributedString * attributeMessage;
 
 +(CGSize) getSize:(nullable NSAttributedString *) attributeMessage;
 

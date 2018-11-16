@@ -62,7 +62,7 @@
         lineCenter.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
         lineCenter.hidden = self.blockSetButtonLayout != nil;
         [self addSubview:lineCenter];
-        [PYViewAutolayoutCenter persistConstraint:lineCenter size:CGSizeMake(STATIC_POPUP_BORDERWIDTH, DisableConstrainsValueMAX)];
+        [PYViewAutolayoutCenter persistConstraint:lineCenter size:CGSizeMake(STATIC_DIALOG_BORDERWIDTH, DisableConstrainsValueMAX)];
         [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter centerPointer:CGPointMake(0, DisableConstrainsValueMAX)].allValues];
         [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter relationmargins:UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, DisableConstrainsValueMAX) relationToItems:PYEdgeInsetsItemNull()].allValues];
         [toFontViews addObject:lineCenter];
@@ -86,7 +86,7 @@
             [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
         }
         [self addSubview:bView];
-        [PYViewAutolayoutCenter persistConstraint:bView size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BUTTON_HEIGHT)];
+        [PYViewAutolayoutCenter persistConstraint:bView size:CGSizeMake(DisableConstrainsValueMAX, STATIC_DIALOG_BUTTON_HEIGHT)];
         if(lineCenter){
             if(line == nil){
                 line = [UIView new];
@@ -94,7 +94,7 @@
                 [self addSubview:line];
                 line.hidden = self.blockSetButtonLayout != nil;
                 [toFontViews addObject:line];
-                [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
+                [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_DIALOG_BORDERWIDTH)];
                 PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
                 [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e].allValues];
             }
@@ -107,7 +107,7 @@
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
             e.top = (__bridge void * _Nullable)(preBView);
             [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e].allValues];
-            [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
+            [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_DIALOG_BORDERWIDTH)];
         }
         if(lineCenter){
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
@@ -119,12 +119,12 @@
                 e.left = (__bridge void * _Nullable)(lineCenter);
             }
             [PYViewAutolayoutCenter persistConstraint:bView relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
-            height = STATIC_POPUP_BUTTON_HEIGHT + STATIC_POPUP_BORDERWIDTH;
+            height = STATIC_DIALOG_BUTTON_HEIGHT + STATIC_DIALOG_BORDERWIDTH;
         }else{
             PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
             e.top = (__bridge void * _Nullable)(line);
             [PYViewAutolayoutCenter persistConstraint:bView relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:e];
-            height += STATIC_POPUP_BUTTON_HEIGHT  + STATIC_POPUP_BORDERWIDTH;
+            height += STATIC_DIALOG_BUTTON_HEIGHT  + STATIC_DIALOG_BORDERWIDTH;
         }
         preBView = bView;
     }
@@ -169,7 +169,7 @@
         tempw = [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.firstObject size:CGSizeMake(999, 10)].width;
         tempw = MAX(tempw, [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.lastObject size:CGSizeMake(999, 10)].width);
         if(tempw < width/2){
-            *sizep =  CGSizeMake(width, STATIC_POPUP_BUTTON_HEIGHT);
+            *sizep =  CGSizeMake(width, STATIC_DIALOG_BUTTON_HEIGHT);
             *columnsp = 2;
             *rows = 1;
             return;
@@ -180,7 +180,7 @@
         tempw = MAX(tempw, [PYUtile getBoundSizeWithAttributeTxt:attributeButtonName size:CGSizeMake(999, 10)].width);
     }
     
-    *sizep = CGSizeMake(width, STATIC_POPUP_BUTTON_HEIGHT * attributeButtonNames.count);
+    *sizep = CGSizeMake(width, STATIC_DIALOG_BUTTON_HEIGHT * attributeButtonNames.count);
     *columnsp = 1;
     *rows = attributeButtonNames.count;
 }

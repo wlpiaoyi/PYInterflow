@@ -35,7 +35,7 @@ NSInteger PYDMV_offsetValueNum;
         UILabel * l = [UILabel new];
         l.numberOfLines = 0;
         [contentView addSubview:l];
-        l.textAlignment = NSTextAlignmentCenter;
+        l.textAlignment = NSTextAlignmentLeft;
         l.backgroundColor = [UIColor clearColor];
         messageLabel = l;
         CGFloat value = STATIC_DIALOG_OFFSETBORDER;
@@ -43,6 +43,9 @@ NSInteger PYDMV_offsetValueNum;
         self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
     }
     return self;
+}
+-(void) setTextAlignment:(NSTextAlignment)textAlignment{
+    messageLabel.textAlignment = textAlignment;
 }
 -(void) setAttributeMessage:(NSAttributedString *)attributeMessage{
     _attributeMessage = attributeMessage;
@@ -57,7 +60,7 @@ NSInteger PYDMV_offsetValueNum;
         return CGSizeMake(0, 0);
     }
     CGFloat value = STATIC_DIALOG_OFFSETBORDER * 2;
-    CGSize size = CGSizeMake(STATIC_POPUP_WIDTH - value, 9999);
+    CGSize size = CGSizeMake(STATIC_DIALOG_WIDTH - value, 9999);
     size = [PYUtile getBoundSizeWithAttributeTxt:attributeMessage size:size];
     size.width +=  1 + value ;
     size.height +=  1 + value;

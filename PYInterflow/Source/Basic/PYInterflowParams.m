@@ -17,25 +17,23 @@ BOOL STATIC_POPUP_HASEFFECT = NO;
 CGFloat PYPopupEffectCpuUsage = .05;
 CGFloat PYPopupAnimationTime = 10.0;
 CGFloat PYPopupAnimationTimeOffset = .05;
-CGFloat STATIC_POPUP_BORDERWIDTH = .5;
-CGFloat STATIC_POPUP_WIDTH = 280;
-CGFloat STATIC_POPUP_OFFSETWIDTH = 2;
-CGFloat STATIC_POPUP_TITLE_HEIGHT = 38;
-CGFloat STATIC_POPUP_BUTTON_HEIGHT = 38;
-
 
 UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
-
 UIColor * _Nonnull STATIC_DIALOG_BACKGROUNDCLOLOR;
 UIColor * _Nonnull STATIC_DIALOG_BORDERCLOLOR;
 UIColor * _Nonnull STATIC_DIALOG_TEXTCLOLOR;
 UIFont * _Nonnull STATIC_DIALOG_TITLEFONT;
 UIFont * _Nonnull STATIC_DIALOG_MESSAGEFONT;
 UIFont * _Nonnull STATIC_DIALOG_BUTTONFONT;
-CGFloat STATIC_DIALOG_OFFSETBORDER = 12;
-CGFloat STATIC_DIALOG_MINWIDTH = 200;
-CGFloat STATIC_DIALOG_MAXWIDTH = 280;
+CGFloat STATIC_DIALOG_OFFSETBORDER = 20;
+CGFloat STATIC_DIALOG_MINWIDTH = 260;
+CGFloat STATIC_DIALOG_MAXWIDTH = 300;
 CGFloat STATIC_DIALOG_MAXHEIGHT = 400;
+CGFloat STATIC_DIALOG_BORDERWIDTH = .5;
+CGFloat STATIC_DIALOG_WIDTH = 280;
+CGFloat STATIC_DIALOG_OFFSETWIDTH = 2;
+CGFloat STATIC_DIALOG_TITLE_HEIGHT = 44;
+CGFloat STATIC_DIALOG_BUTTON_HEIGHT = 44;
 
 
 UIColor * _Nonnull STATIC_SHEET_TITLEC;
@@ -57,7 +55,8 @@ UIColor * _Nonnull STATIC_TOPBAR_BGC;
 UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 NSString * STATIC_POPUP_EFFECTE_NOTIFY = @"pypeffn";
-
+NSString * STATIC_POPUP_SHOW_NOTIFY = @"adsfasdfasdf";
+NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 @implementation PYInterflowParams
 
 +(void) loadInterflowParamsData{
@@ -82,18 +81,18 @@ NSString * STATIC_POPUP_EFFECTE_NOTIFY = @"pypeffn";
     STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
     STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
     
-    STATIC_TOPBAR_MESSAGEC = [UIColor blackColor];
-    STATIC_TOPBAR_BGC = kRGBA(60*1.5, 65*1.5, 70*1.5, 220);
+    STATIC_TOPBAR_MESSAGEC = [UIColor colorWithRGBHex:0x000000AA];
+    STATIC_TOPBAR_BGC = [UIColor whiteColor];
     STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];
     [PYPopupParam RECIRCLE_REFRESH_EFFECT];
 }
 
-+(void) setView:(UIView *) view shadowOffset:(CGSize) size{
-    view.layer.shadowRadius = 3;
-    view.layer.shadowOpacity = 1 ;
-    view.layer.shadowColor = STATIC_DIALOG_BORDERCLOLOR.CGColor;
-    view.layer.shadowOffset = size;
-    view.clipsToBounds = NO;
-}
+//+(void) setView:(UIView *) view shadowOffset:(CGSize) size{
+//    view.layer.shadowRadius = 3;
+//    view.layer.shadowOpacity = 1 ;
+//    view.layer.shadowColor = STATIC_DIALOG_BORDERCLOLOR.CGColor;
+//    view.layer.shadowOffset = size;
+//    view.clipsToBounds = NO;
+//}
 
 @end

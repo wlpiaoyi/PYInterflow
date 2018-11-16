@@ -18,14 +18,10 @@ extern CGFloat PYPopupEffectCpuUsage;
 extern CGFloat PYPopupAnimationTime;
 extern CGFloat PYPopupAnimationTimeOffset;
 
+extern NSString * STATIC_POPUP_SHOW_NOTIFY;
+extern NSString * STATIC_POPUP_HIDEEN_NOTIFY;
 extern NSString * STATIC_POPUP_EFFECTE_NOTIFY;
 extern BOOL STATIC_POPUP_HASEFFECT;
-
-extern CGFloat STATIC_POPUP_BORDERWIDTH;
-extern CGFloat STATIC_POPUP_WIDTH;
-extern CGFloat STATIC_POPUP_OFFSETWIDTH;
-extern CGFloat STATIC_POPUP_TITLE_HEIGHT;
-extern CGFloat STATIC_POPUP_BUTTON_HEIGHT;
 
 extern UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
 
@@ -39,6 +35,11 @@ extern CGFloat STATIC_DIALOG_OFFSETBORDER;
 extern CGFloat STATIC_DIALOG_MINWIDTH;
 extern CGFloat STATIC_DIALOG_MAXWIDTH;
 extern CGFloat STATIC_DIALOG_MAXHEIGHT;
+extern CGFloat STATIC_DIALOG_BORDERWIDTH;
+extern CGFloat STATIC_DIALOG_WIDTH;
+extern CGFloat STATIC_DIALOG_OFFSETWIDTH;
+extern CGFloat STATIC_DIALOG_TITLE_HEIGHT;
+extern CGFloat STATIC_DIALOG_BUTTON_HEIGHT;
 
 
 extern UIColor * _Nonnull STATIC_SHEET_TITLEC;
@@ -69,7 +70,7 @@ typedef void(^BlockDialogOpt)(UIView * _Nonnull view, NSUInteger index);
 
 @interface PYInterflowParams : NSObject
 +(void) loadInterflowParamsData;
-+(void) setView:(nonnull UIView *) view shadowOffset:(CGSize) size;
+//+(void) setView:(nonnull UIView *) view shadowOffset:(CGSize) size;
 @end
 
 #endif /* PYPopupParams_h */

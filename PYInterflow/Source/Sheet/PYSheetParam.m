@@ -38,7 +38,8 @@ kPNCNA BOOL (^blockSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndex
         self.action = action;
         self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
-        [PYInterflowParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
+//        [PYInterflowParams setView:self.showView shadowOffset:CGSizeMake(0, -2)];
+        [self.showView setCornerRadiusAndBorder:2 borderWidth:.5 borderColor:[UIColor lightGrayColor]];
         self.safeOutBottomView = [UIView new];
         self.safeOutRightView = [UIView new];
         self.safeOutLeftView = [UIView new];

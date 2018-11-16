@@ -37,7 +37,7 @@ kPNSNA UIImageView * imageView;
         UIView * borderView = [UIView new];
         [nbView addSubview:borderView];
         [borderView setAutotLayotDict:@{@"left":@(0), @"right":@(0), @"top":@(0), @"bottom":@(0)}];
-        borderView.backgroundColor = [UIColor clearColor];
+        borderView.backgroundColor = STATIC_TOPBAR_BGC;
         
         
         UILabel * l = [UILabel new];
@@ -49,8 +49,8 @@ kPNSNA UIImageView * imageView;
         contentView.backgroundColor = [UIColor clearColor];
         [contentView addSubview:l];
         self.lableMessage = l;
-        [l setShadowColor:[UIColor whiteColor].CGColor shadowRadius:2];
-        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3, STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
+        [l setShadowColor:STATIC_TOPBAR_BGC.CGColor shadowRadius:2];
+        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETWIDTH*2, STATIC_DIALOG_OFFSETWIDTH*3, STATIC_DIALOG_OFFSETWIDTH*2, STATIC_DIALOG_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
         [targetView addSubview:contentView];
         [contentView setAutotLayotDict:@{@"left":@(0), @"right":@(0), @"top":@(0), @"bottom":@(0)}];
         UISwipeGestureRecognizer * swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(onclickSwipe)];
@@ -60,19 +60,11 @@ kPNSNA UIImageView * imageView;
         [targetView addGestureRecognizer:tap];
         self.baseView = targetView;
         self.contentView = contentView;
-        kNOTIF_ADD(self, STATIC_POPUP_EFFECTE_NOTIFY, refresh:);
     }
     return self;
 }
 
--(void) refresh:(NSNotification *) notify{
-    if(self.imageView){
-        CGRect r;
-        r.origin = [self.baseView getAbsoluteOrigin:[self.baseView popupBaseView]];
-        r.size = self.baseView.frameSize;
-        self.imageView.image = [((UIImage *) notify.object) cutImage:r];
-    }
-}
+
 -(void) onclickTap{
     if(self.blockTap){
         _blockTap(self.baseView);
@@ -89,10 +81,10 @@ kPNSNA UIImageView * imageView;
     self.lableMessage.hidden = NO;
     self.lableMessage.attributedText = self.message;
     CGSize s = CGSizeMake(99999, 9999);
-    s.width = boundsWidth()-STATIC_POPUP_OFFSETWIDTH*6;
+    s.width = boundsWidth()-STATIC_DIALOG_OFFSETWIDTH*6;
     s.height = 99999;
     s.height = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].height;
-    s.height += STATIC_POPUP_OFFSETWIDTH * 4 + 1;
+    s.height += STATIC_DIALOG_OFFSETWIDTH * 4 + 1;
     s.width = boundsWidth();
     return s;
 }

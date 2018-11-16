@@ -42,8 +42,9 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"标题" message:@"这个是UIAlertController的默认样式" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        UIView * view = self.alertView;
-        [view dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
+//        UIView * alertView = self.alertView;
+        UIView * alertView = [UIView new];
+        [alertView dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
             
             [view dialogHidden];
         } buttonNames:@[@"其他舱位其他舱位其他舱位",@"确认"]];
@@ -54,6 +55,7 @@
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = self.sheetView;
+//    UIView * baseview = [UIView new];
     [baseview setBackgroundColor:[UIColor redColor]];
     [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
         if(cureentIndex == 0 && ![beforeIndexs containsObject:@(0)]){

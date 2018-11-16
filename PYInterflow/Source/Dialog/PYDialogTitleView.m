@@ -25,7 +25,7 @@
         l.textAlignment = NSTextAlignmentCenter;
         l.backgroundColor = [UIColor clearColor];
         labelMessage = l;
-        NSDictionary * dict = [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH, STATIC_POPUP_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
+        NSDictionary * dict = [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
         lcsOffV = dict.allValues;
         self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
         UIView * line = [UIView new];
@@ -46,7 +46,7 @@
         offv = 0;
         lineH = 0;
     }else{
-        offv = STATIC_POPUP_OFFSETWIDTH;
+        offv = STATIC_DIALOG_OFFSETWIDTH;
         lineH = .5;
     }
     lcsOffV[0].constant = lcsOffV[3].constant = -offv;
@@ -59,9 +59,9 @@
     if(attributeTitle == nil || attributeTitle.length == 0){
         size = CGSizeMake(STATIC_DIALOG_MINWIDTH, 0);
     }else{
-        size = CGSizeMake(999, STATIC_POPUP_TITLE_HEIGHT);
+        size = CGSizeMake(999, STATIC_DIALOG_TITLE_HEIGHT);
         size = [PYUtile getBoundSizeWithAttributeTxt:attributeTitle size:size];
-        size.height = STATIC_POPUP_TITLE_HEIGHT;
+        size.height = STATIC_DIALOG_TITLE_HEIGHT;
     }
     size.width = MIN(MAX(STATIC_DIALOG_MINWIDTH, size.width), STATIC_DIALOG_MAXWIDTH);
     return size;

@@ -13,7 +13,7 @@
 
 @interface PYInterflowController : UIViewController
 kPNAR BOOL hasEffect;
-@property (nonatomic, assign) PYInterflowWindow * myWindow;
+kPNA PYInterflowWindow * myWindow;
 -(instancetype) initForEffect:(BOOL) hasEffect;
 @end
 
@@ -37,9 +37,7 @@ kINITPARAMS{
     }
     return window;
 }
--(void) setAlpha:(CGFloat)alpha{
-    [super setAlpha:alpha];
-}
+
 -(void) addSubview:(UIView *)view{
     if(view == self.rootViewController.view){
         [super addSubview:view];
@@ -51,14 +49,20 @@ kINITPARAMS{
         [self.rootViewController.view addSubview:view];
     }
 }
--(void) setFrame:(CGRect)frame{
-    [super setFrame:frame];
-}
+
 -(void) dealloc{
     if(self.rootViewController && [self.rootViewController isKindOfClass:[PYInterflowController class]]){
         self.rootViewController = nil;
     }
 }
+
+//-(void) setAlpha:(CGFloat)alpha{
+//    [super setAlpha:alpha];
+//}
+//-(void) setFrame:(CGRect)frame{
+//    [super setFrame:frame];
+//}
+
 @end
 @implementation PYInterflowController{
 @private

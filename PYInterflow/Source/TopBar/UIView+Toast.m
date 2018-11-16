@@ -26,55 +26,35 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 }
 
 -(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastNotify" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"PYToastNotify" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toastHidden) name:@"PYToastNotify" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastHidden" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toastHidden) name:@"PYToastHidden" object:nil];
     [self topbarParams].message = attributeMessage;
     if(attributeMessage){
         self.frameSize = [[self topbarParams] updateMessageView];
     }
     self.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, 50, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
-    
-    self.popupBaseView = [PYUtile getCurrenWindow];
+    self.popupBaseView = [UIApplication sharedApplication].delegate.window;
     
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        if(IOS8_OR_LATER){
-            view.alpha = 0;
-            [UIView animateWithDuration:.5 animations:^{
-                [view resetAutoLayout];
-                [view resetTransform];
-                view.alpha = 1;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }else{
-            view.alpha = 0;
-            [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 1;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }
-    })];
-    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        if(IOS8_OR_LATER){
+        view.alpha = 0;
+        [UIView animateWithDuration:.5 animations:^{
             [view resetAutoLayout];
             [view resetTransform];
             view.alpha = 1;
-            [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 0;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }else{
-            view.alpha = 1;
-            [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 0;
-            } completion:^(BOOL finished) {
-                block(view);
-            }];
-        }
+        } completion:^(BOOL finished) {
+            block(view);
+        }];
+    })];
+    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+        [view resetAutoLayout];
+        [view resetTransform];
+        view.alpha = 1;
+        [UIView animateWithDuration:.5 animations:^{
+            view.alpha = 0;
+        } completion:^(BOOL finished) {
+            block(view);
+        }];
     })];
     self.popupHasEffect = NO;
     [self popupShowForHasContentView:NO];
@@ -88,7 +68,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     }
 }
 -(void) toastHidden{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastNotify" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastHidden" object:nil];
     [self popupHidden];
 }
 -(PYToastParam *) topbarParams{

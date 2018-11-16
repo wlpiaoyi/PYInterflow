@@ -10,6 +10,7 @@
 #import "UIView+Popup.h"
 #import "pyutilea.h"
 #import <objc/runtime.h>
+#import "PYDialogMessageView.h"
 #import "PYDialogParam.h"
 
 static const void *PYDialogPointer = &PYDialogPointer;
@@ -63,6 +64,12 @@ static const void *PYDialogPointer = &PYDialogPointer;
     })];
     [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
+}
+
+-(void) setTextAlignment:(NSTextAlignment)textAlignment{
+    UIView * view = [self paramDialog].messageView;
+    if(![view isKindOfClass:[PYDialogMessageView class]]) return;
+    ((PYDialogMessageView *) view).textAlignment = textAlignment;
 }
 
 -(void) dialogShowWithTitle:(nullable NSString *) title block:(nullable BlockDialogOpt) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{

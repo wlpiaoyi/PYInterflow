@@ -74,20 +74,20 @@
         [self.cancelButton setAttributedTitle:self.cancelNormal forState:UIControlStateNormal];
         [self.cancelButton setAttributedTitle:self.cancelHighlighted forState:UIControlStateHighlighted];
         self.cancelButton.hidden = NO;
-        self.lcButtonCancelWidth.constant = MAX([PYUtile getBoundSizeWithAttributeTxt:self.cancelNormal size:CGSizeMake(999, STATIC_POPUP_BUTTON_HEIGHT)].width, 60);
-        height = STATIC_POPUP_BUTTON_HEIGHT;
+        self.lcButtonCancelWidth.constant = MAX([PYUtile getBoundSizeWithAttributeTxt:self.cancelNormal size:CGSizeMake(999, STATIC_DIALOG_BUTTON_HEIGHT)].width, 60);
+        height = STATIC_DIALOG_BUTTON_HEIGHT;
     }
     if(self.confirmHighlighted && self.confirmNormal){
         [self.confirmButton setAttributedTitle:self.confirmNormal forState:UIControlStateNormal];
         [self.confirmButton setAttributedTitle:self.confirmHighlighted forState:UIControlStateHighlighted];
-        height = STATIC_POPUP_BUTTON_HEIGHT;
-        self.lcButtonConfirmWidth.constant = MAX([PYUtile getBoundSizeWithAttributeTxt:self.confirmNormal size:CGSizeMake(999, STATIC_POPUP_BUTTON_HEIGHT)].width, 60);
+        height = STATIC_DIALOG_BUTTON_HEIGHT;
+        self.lcButtonConfirmWidth.constant = MAX([PYUtile getBoundSizeWithAttributeTxt:self.confirmNormal size:CGSizeMake(999, STATIC_DIALOG_BUTTON_HEIGHT)].width, 60);
     }
     self.titleLable.hidden = YES;
     if(self.title){
         self.titleLable.attributedText = self.title;
         self.titleLable.hidden = NO;
-        height = STATIC_POPUP_TITLE_HEIGHT;
+        height = STATIC_DIALOG_TITLE_HEIGHT;
     }
     return height;
 }

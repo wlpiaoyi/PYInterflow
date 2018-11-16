@@ -54,7 +54,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
             return;
         }
         self.popupIsShow = false;
-        
+        kNOTIF_POST(STATIC_POPUP_HIDEEN_NOTIFY, self);
         BlockPopupAnimation block = [self blockHiddenAnimation];
         if (!block) {
             block = [[self popupParam] creteDefaultBlcokPopupHiddenAnmation];
@@ -177,6 +177,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         
         if (self.popupIsShow) return;
         else self.popupIsShow = true;
+        kNOTIF_POST(STATIC_POPUP_SHOW_NOTIFY, self);
         
         if (self.popupBaseView == nil){
             self.popupBaseView =  [PYInterflowWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];

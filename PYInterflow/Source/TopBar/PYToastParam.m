@@ -22,24 +22,33 @@ kPNSNA UIImageView * imageView;
 
 -(nullable instancetype) initWithTargetView:(nonnull UIView *) targetView{
     if(self = [super init]){
-        UILabel * l = [UILabel new];
-        l.numberOfLines = 0;
-        l.textAlignment = NSTextAlignmentCenter;
-        l.backgroundColor = [UIColor clearColor];
-        l.textAlignment = NSTextAlignmentCenter;
-        UIView * contentView = [UIView new];
-        contentView.backgroundColor = STATIC_TOPBAR_BGC;
-        [contentView addSubview:l];
-        self.lableMessage = l;
-        [contentView setCornerRadiusAndBorder:5 borderWidth:2 borderColor:STATIC_TOPBAR_MESSAGEC];
-        self.contentView = contentView;
-        [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3, STATIC_POPUP_OFFSETWIDTH*2, STATIC_POPUP_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
+        
         self.baseView = targetView;
-        [targetView setShadowColor:[UIColor whiteColor].CGColor shadowRadius:2];
-        [self.baseView addSubview:self.contentView];
-        [PYViewAutolayoutCenter persistConstraint:self.contentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
         UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self.baseView action:@selector(popupHidden)];
         [self.baseView addGestureRecognizer:tap];
+        
+        UIView * contentView = [UIView new];
+        contentView.backgroundColor = [UIColor clearColor];
+        [contentView setShadowColor:STATIC_TOPBAR_MESSAGEC.CGColor shadowRadius:5];
+        [self.baseView addSubview:contentView];
+        [PYViewAutolayoutCenter persistConstraint:contentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        self.contentView = contentView;
+        
+        contentView = [UIView new];
+        contentView.backgroundColor = STATIC_TOPBAR_BGC;
+        [contentView setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
+        [self.contentView addSubview:contentView];
+        [PYViewAutolayoutCenter persistConstraint:contentView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        
+        UILabel * labelMessage = [UILabel new];
+        labelMessage.numberOfLines = 0;
+        labelMessage.textAlignment = NSTextAlignmentCenter;
+        labelMessage.backgroundColor = [UIColor clearColor];
+        labelMessage.textAlignment = NSTextAlignmentCenter;
+        [contentView addSubview:labelMessage];
+        [PYViewAutolayoutCenter persistConstraint:labelMessage relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETWIDTH*2, STATIC_DIALOG_OFFSETWIDTH*3, STATIC_DIALOG_OFFSETWIDTH*2, STATIC_DIALOG_OFFSETWIDTH*3) relationToItems:PYEdgeInsetsItemNull()];
+        self.lableMessage = labelMessage;
+        
     }
     return self;
 }
@@ -50,10 +59,10 @@ kPNSNA UIImageView * imageView;
     self.lableMessage.hidden = NO;
     self.lableMessage.attributedText = self.message;
     CGSize s = CGSizeMake(99999, 9999);
-    s.width = MIN(boundsWidth()-40, [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].width + STATIC_POPUP_OFFSETWIDTH * 6 + 1);
+    s.width = MIN(boundsWidth()-40, [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].width + STATIC_DIALOG_OFFSETWIDTH * 6 + 1);
     s.height = 99999;
     s.height = [PYUtile getBoundSizeWithAttributeTxt:self.message size:s].height;
-    s.height += STATIC_POPUP_OFFSETWIDTH * 4 + 1;
+    s.height += STATIC_DIALOG_OFFSETWIDTH * 4 + 1;
     return s;
 }
 

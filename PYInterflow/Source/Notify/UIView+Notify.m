@@ -122,7 +122,6 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
             view.alpha = 1;
             [UIView animateWithDuration:.5 animations:^{
                 view.alpha = 0;
-                view.alpha = 0;
                 view.layer.transform = CATransform3DMakeTranslation(0, -view.frameHeight, 0);
             } completion:^(BOOL finished) {
                 block(view);
@@ -130,7 +129,6 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
         }else{
             view.alpha = 1;
             [UIView animateWithDuration:.5 animations:^{
-                view.alpha = 0;
                 view.alpha = 0;
                 view.layer.transform = CATransform3DMakeTranslation(0, -view.frameHeight, 0);
             } completion:^(BOOL finished) {
