@@ -16,6 +16,9 @@
 #import "UIView+Toast.h"
 #import "UIView+Notify.h"
 #import "pyutilea.h"
+
+#import "PYSheetContextView.h"
+
 @interface PYView:UIView
 @end
 @implementation PYView
@@ -34,6 +37,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
+//    PYSheetContextView * cView = [PYSheetContextView instanceWithTitle:[[NSAttributedString alloc] initWithString:@"title"] items:@[
+//                                [[NSAttributedString alloc] initWithString:@"adfadfads1"],
+//                                [[NSAttributedString alloc] initWithString:@"adfadfads2"],
+//                                [[NSAttributedString alloc] initWithString:@"adfadfads3"]
+//                        ] selectes:@[
+//                                @(1)
+//                        ] options:@[
+//                                [[NSAttributedString alloc] initWithString:@"adfadfads"]
+//                        ] multipleSelected:YES];
+//    cView.frameWidth = boundsWidth();
+//    [cView synFrame];
+//    self.sheetView = cView;
     self.alertView = [PYView new];
     self.toastView = [PYView new];
     self.notifyView = [PYView new];
@@ -55,8 +70,8 @@
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = self.sheetView;
-//    UIView * baseview = [UIView new];
-    [baseview setBackgroundColor:[UIColor redColor]];
+//    [baseview sheetShow];
+    
     [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
         if(cureentIndex == 0 && ![beforeIndexs containsObject:@(0)]){
             [beforeIndexs removeAllObjects];
@@ -78,22 +93,26 @@
         }
         return YES;
     }];
-//    [baseview sheetShowWithTitle:@"adfad" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+    
+//    [baseview sheetShowWithTitle:@"adfad测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
 //        NSLog(@"");
 //    } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
 //        NSLog(@"");
 //    }];
-    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
+    
+    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:nil buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
         NSArray * a = view.sheetIndexs;
         NSLog(@"%@",a);
     } blockSelecteds:^BOOL(UIView * _Nullable view) {
         NSArray * a = view.sheetIndexs;
-//        if(a.count == 1){
-//            view.sheetIndexs = @[@(0)];
-//        }
+        if(a.count == 1){
+            view.sheetIndexs = @[@(0)];
+        }
         return NO;
     }];
     baseview.sheetIndexs = @[@(0),@(6)];
+    
+    
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //        [NSThread sleepForTimeInterval:2];
 //        dispatch_async(dispatch_get_main_queue(), ^{

@@ -3,10 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[PYDialogTitleView setAttributeTitle:]:PYDialogTitleView.m">
+         contextName = "+[PYSheetContextView instanceWithTitle:items:selectes:options:multipleSelected:]:PYSheetContextView.m">
          <PersistentStrings>
             <PersistentString
-               value = "lcsOffV">
+               value = "[STATIC_INTERFLOW_BUNDEL loadNibNamed:NSStringFromClass([PYSheetItemCell class]) owner:[PYSheetItemCell class] options:nil]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -15,6 +15,14 @@
       </ContextState>
       <ContextState
          contextName = "-[PYDialogTitleView init]:PYDialogTitleView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "lcsOffV">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PYDialogTitleView setAttributeTitle:]:PYDialogTitleView.m">
          <PersistentStrings>
             <PersistentString
                value = "lcsOffV">
