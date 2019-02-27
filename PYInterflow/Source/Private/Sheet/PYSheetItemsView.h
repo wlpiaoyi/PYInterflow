@@ -19,6 +19,7 @@ kPNA BOOL scrollEnabled;
 
 kPNCNA BOOL (^blockBeforeSelectedItems) (PYSheetItemsView * _Nonnull contextView);
 kPNCNA void (^blockAfterSelectedItems) (PYSheetItemsView * _Nonnull contextView);
+kPNCNA BOOL (^blockOnSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
 
 +(nullable instancetype) instanceWithItems:(nonnull NSArray<NSAttributedString *> *) items
                                 selectes:(nullable NSArray<NSNumber *> *) selectes

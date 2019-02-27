@@ -9,6 +9,7 @@
 #import "PYDialogTitleView.h"
 #import "PYInterflowParams.h"
 #import "pyutilea.h"
+#import "PYPopupParam.h"
 
 @implementation PYDialogTitleView{
 @private
@@ -19,20 +20,28 @@
 
 -(instancetype) init{
     if(self = [super init]){
+        UIView * line =  [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
+        line.backgroundColor = [UIColor clearColor];
+        [self addSubview: line];
+        lcLineH = [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)].allValues.firstObject;
+        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        
+        UIView * titleView = [UIView new];
+        titleView.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
         UILabel * l = [UILabel new];
         l.numberOfLines = 1;
-        [self addSubview:l];
+        [titleView addSubview:l];
         l.textAlignment = NSTextAlignmentCenter;
         l.backgroundColor = [UIColor clearColor];
         labelMessage = l;
         NSDictionary * dict = [PYViewAutolayoutCenter persistConstraint:l relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH, STATIC_DIALOG_OFFSETWIDTH) relationToItems:PYEdgeInsetsItemNull()];
         lcsOffV = dict.allValues;
-        self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
-        UIView * line = [UIView new];
-        line.backgroundColor = STATIC_DIALOG_BORDERCLOLOR;
-        [self addSubview: line];
-        lcLineH = [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, .5)].allValues.firstObject;
-        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
+        self.backgroundColor = [UIColor clearColor];
+        [self addSubview:titleView];
+        PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
+        eii.bottom = (__bridge void * _Nullable)(line);
+        [PYViewAutolayoutCenter persistConstraint:titleView relationmargins:UIEdgeInsetsZero relationToItems:eii];
+        
     }
     return self;
 }
@@ -47,7 +56,7 @@
         lineH = 0;
     }else{
         offv = STATIC_DIALOG_OFFSETWIDTH;
-        lineH = .5;
+        lineH = STATIC_POPUP_BORDERWIDTH;
     }
     lcsOffV[0].constant = lcsOffV[3].constant = -offv;
     lcsOffV[1].constant = lcsOffV[2].constant = offv;

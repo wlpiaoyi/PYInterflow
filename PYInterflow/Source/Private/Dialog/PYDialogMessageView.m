@@ -40,7 +40,7 @@ NSInteger PYDMV_offsetValueNum;
         messageLabel = l;
         CGFloat value = STATIC_DIALOG_OFFSETBORDER;
         [PYViewAutolayoutCenter persistConstraint:messageLabel relationmargins:UIEdgeInsetsMake(value , value, value, value) relationToItems:PYEdgeInsetsItemNull()];
-        self.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
+        self.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
     }
     return self;
 }

@@ -34,6 +34,7 @@
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
@@ -62,7 +63,7 @@
         [alertView dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
             
             [view dialogHidden];
-        } buttonNames:@[@"其他舱位其他舱位其他舱位",@"确认"]];
+        } buttonNames:@[@"确认",@"取消"]];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -110,7 +111,7 @@
         }
         return NO;
     }];
-    baseview.sheetIndexs = @[@(0),@(6)];
+//    baseview.sheetIndexs = @[@(0),@(6)];
     
     
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

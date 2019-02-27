@@ -138,11 +138,12 @@ static const void *PYSheetPointer = &PYSheetPointer;
             if(flag) [self sheetHidden];
             return flag;
         };
-        sheetView.blockSelectedOptions = ^(PYSheetContextView * _Nonnull contextView) {
+        sheetView.blockSelectedOptions = ^(PYSheetContextView * _Nonnull contextView, NSUInteger index) {
             kStrong(self);
-            if(blcokOpt) blcokOpt(self, (contextView.selectes && contextView.selectes.count == 1) ? contextView.selectes.lastObject.integerValue : 1);
+            if(blcokOpt) blcokOpt(self, index);
             [self sheetHidden];
         };
+        sheetView.blockOnSelecting = [self sheetParam].blockSelecting;
     }
     [self sheetParam].sheetView = sheetView;
     

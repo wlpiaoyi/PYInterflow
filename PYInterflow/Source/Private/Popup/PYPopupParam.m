@@ -17,6 +17,21 @@ static NSInteger PYPopupEffectRefreshValue = 0;
     PYInterflowWindow * baseWindow;
 }
 static UIImage * PY_POPUP_IMG;
+static UIImage * PY_POPUP_IMG_BTM_LINE;
+static UIImage * PY_POPUP_IMG_CET_LINE;
+
+
++(UIImage *) IMAGE_BOTTOM_LINE{
+    if(PY_POPUP_IMG_BTM_LINE) return PY_POPUP_IMG_BTM_LINE;
+    PY_POPUP_IMG_BTM_LINE = [UIImage  imageWithColor:STATIC_POPUP_HIGHLIGHTC];
+    return PY_POPUP_IMG_BTM_LINE;
+}
+
++(UIImage *) IMAGE_CET_LINE{
+    if(PY_POPUP_IMG_CET_LINE) return PY_POPUP_IMG_CET_LINE;
+    PY_POPUP_IMG_CET_LINE = [UIImage  imageWithColor:STATIC_POPUP_HIGHLIGHTC];
+    return PY_POPUP_IMG_CET_LINE;
+}
 
 +(void) ADD_EFFECT_VALUE{
     @synchronized(STATIC_POPUP_EFFECTE_NOTIFY){

@@ -26,8 +26,8 @@
         self.targetView = target;
         self.action = action;
         self.contextView = [UIView new];
-        [self.contextView setBackgroundColor:STATIC_DIALOG_BACKGROUNDCLOLOR];
-        [self.contextView setCornerRadiusAndBorder:5 borderWidth:.5 borderColor:STATIC_DIALOG_BORDERCLOLOR];
+        [self.contextView setBackgroundColor:[UIColor clearColor]];
+        [self.contextView setCornerRadiusAndBorder:5 borderWidth:.5 borderColor:[UIColor clearColor]];
         self.showView = [PYMoveView new];
         self.showView.backgroundColor = [UIColor clearColor];
         [self.showView addSubview:self.contextView];
@@ -128,7 +128,7 @@
     for (NSString * name in names) {
         NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
         NSRange range = NSMakeRange(0, attTitle.length);
-        [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_BACKGROUNDCLOLOR range:range];//颜色
+        [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_BACKGROUNDC range:range];//颜色
         [attTitle addAttribute:NSFontAttributeName value:STATIC_DIALOG_BUTTONFONT range:range];
         [ats addObject:attTitle];
     }

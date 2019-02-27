@@ -43,6 +43,10 @@
 -(nonnull BlockPopupAnimation) creteDefaultBlcokPopupHiddenAnmation;
 -(nonnull BlockPopupEndAnmation) creteDefaultBlcokPopupHiddenEndAnmation;
 
+
++(UIImage *) IMAGE_BOTTOM_LINE;
++(UIImage *) IMAGE_CET_LINE;
+
 +(void) ADD_EFFECT_VALUE;
 +(void) REV_EFFECT_VALUE;
 +(void) RECIRCLE_REFRESH_EFFECT;

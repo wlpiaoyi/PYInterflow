@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		150112801DF7C2B400A45FA8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1501127F1DF7C2B400A45FA8 /* icon.png */; };
+		15315B9222117ECC00CCC09F /* PYSheetContextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E41220D604B00BF3365 /* PYSheetContextView.m */; };
+		15315B9322117ECC00CCC09F /* PYSheetItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4A220D683700BF3365 /* PYSheetItemCell.m */; };
+		15315B9422117ECC00CCC09F /* PYSheetItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4F220D8E0900BF3365 /* PYSheetItemsView.m */; };
 		155D77BD206F2CB200B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D77BB206F2CB200B2CDDB /* PYMoveView.h */; };
@@ -136,8 +139,6 @@
 		15996E4A220D683700BF3365 /* PYSheetItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYSheetItemCell.m; sourceTree = "<group>"; };
 		15996E4E220D8E0900BF3365 /* PYSheetItemsView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYSheetItemsView.h; sourceTree = "<group>"; };
 		15996E4F220D8E0900BF3365 /* PYSheetItemsView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYSheetItemsView.m; sourceTree = "<group>"; };
-		15996E5D220E6E0300BF3365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		15996E67220E744C00BF3365 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15996E74220E76DE00BF3365 /* PYSheetItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYSheetItemCell.xib; sourceTree = "<group>"; };
 		15996E75220E76DE00BF3365 /* PYSheetItemsView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PYSheetItemsView.xib; sourceTree = "<group>"; };
 		15996E79220E79E100BF3365 /* PYSheetContextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PYSheetContextView.xib; sourceTree = "<group>"; };
@@ -220,8 +221,6 @@
 				1563657E1F90B80500A209D6 /* lib */,
 				155DE3C21DEEBE2D007CD6BF /* PYInterflow */,
 				1583E07F1DFA7E2800AD48EA /* pyinterflowa */,
-				15996E5C220E6E0300BF3365 /* asdfasdfa */,
-				15996E66220E744C00BF3365 /* PYInterflowNib */,
 				155DE3C11DEEBE2D007CD6BF /* Products */,
 				155DE44B1DEEC8D7007CD6BF /* Frameworks */,
 			);
@@ -281,7 +280,6 @@
 		1583E0381DFA51BC00AD48EA /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				15996E72220E76DE00BF3365 /* xib */,
 				15996E30220D269E00BF3365 /* Private */,
 				15996E2F220D268B00BF3365 /* Public */,
 			);
@@ -397,14 +395,17 @@
 		15996E3A220D279300BF3365 /* Sheet */ = {
 			isa = PBXGroup;
 			children = (
-				1583E0521DFA51BC00AD48EA /* PYSheetParam.h */,
-				1583E0531DFA51BC00AD48EA /* PYSheetParam.m */,
 				15996E40220D604B00BF3365 /* PYSheetContextView.h */,
 				15996E41220D604B00BF3365 /* PYSheetContextView.m */,
+				15996E79220E79E100BF3365 /* PYSheetContextView.xib */,
 				15996E49220D683700BF3365 /* PYSheetItemCell.h */,
 				15996E4A220D683700BF3365 /* PYSheetItemCell.m */,
+				15996E74220E76DE00BF3365 /* PYSheetItemCell.xib */,
 				15996E4E220D8E0900BF3365 /* PYSheetItemsView.h */,
 				15996E4F220D8E0900BF3365 /* PYSheetItemsView.m */,
+				15996E75220E76DE00BF3365 /* PYSheetItemsView.xib */,
+				1583E0521DFA51BC00AD48EA /* PYSheetParam.h */,
+				1583E0531DFA51BC00AD48EA /* PYSheetParam.m */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -425,32 +426,6 @@
 				1583E0431DFA51BC00AD48EA /* PYPopupParam.m */,
 			);
 			path = Popup;
-			sourceTree = "<group>";
-		};
-		15996E5C220E6E0300BF3365 /* asdfasdfa */ = {
-			isa = PBXGroup;
-			children = (
-				15996E5D220E6E0300BF3365 /* Info.plist */,
-			);
-			path = asdfasdfa;
-			sourceTree = "<group>";
-		};
-		15996E66220E744C00BF3365 /* PYInterflowNib */ = {
-			isa = PBXGroup;
-			children = (
-				15996E67220E744C00BF3365 /* Info.plist */,
-			);
-			path = PYInterflowNib;
-			sourceTree = "<group>";
-		};
-		15996E72220E76DE00BF3365 /* xib */ = {
-			isa = PBXGroup;
-			children = (
-				15996E74220E76DE00BF3365 /* PYSheetItemCell.xib */,
-				15996E75220E76DE00BF3365 /* PYSheetItemsView.xib */,
-				15996E79220E79E100BF3365 /* PYSheetContextView.xib */,
-			);
-			path = xib;
 			sourceTree = "<group>";
 		};
 		15D95B451FD7E929001BEF94 /* pyutile */ = {
@@ -637,6 +612,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15315B9222117ECC00CCC09F /* PYSheetContextView.m in Sources */,
+				15315B9322117ECC00CCC09F /* PYSheetItemCell.m in Sources */,
+				15315B9422117ECC00CCC09F /* PYSheetItemsView.m in Sources */,
 				15996E3C220D27C500BF3365 /* PYNotifyParam.m in Sources */,
 				15996E3D220D27C500BF3365 /* UIView+Notify.m in Sources */,
 				155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */,

@@ -49,6 +49,13 @@ UIColor * kPYSheetItemSelectedColor;
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if(_blockOnSelecting){
+        if(!_blockOnSelecting((NSMutableArray *)_selectes, indexPath.row)){
+            [tableView reloadData];
+            return;
+        }
+        [tableView reloadData];
+    }
     NSNumber * selecte = @(indexPath.row);
     if(self.multipleSelected){
         if([self.selectes containsObject:selecte]){
@@ -90,9 +97,8 @@ UIColor * kPYSheetItemSelectedColor;
     CGFloat height = 0.0;
     for (NSAttributedString * item in items){
         height += [PYSheetItemCell getHeight:item width:width];
-        if(height > boundsHeight() - 180) break;
     }
-    return height;
+    return height - STATIC_POPUP_BORDERWIDTH;
 }
 
 @end

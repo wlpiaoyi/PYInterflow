@@ -17,15 +17,22 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     self.selectedBackgroundView = [UIView new];
-    self.selectedBackgroundView.backgroundColor = STATIC_SHEET_ITEMHIGHLIGHTC;
+    self.selectedBackgroundView.backgroundColor = STATIC_POPUP_HIGHLIGHTC;
     self->viewSelected.backgroundColor = STATIC_SHEET_ITEMSElECTEDC;
     self.isSelected = NO;
-    
 }
 
 -(void) setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     viewSelected.alpha = isSelected ? 1 : 0;
+}
+-(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
+    [super setHighlighted:highlighted animated:animated];
+    if(highlighted){
+        self.backgroundColor = [UIColor clearColor];
+    }else{
+        self.backgroundColor = STATIC_SHEET_BACKGROUNDC;
+    }
 }
 
 -(void) setItem:(NSAttributedString *)item{

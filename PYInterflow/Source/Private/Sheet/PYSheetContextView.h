@@ -12,13 +12,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PYSheetContextView : UIView
 
-kPNAR BOOL multipleSelected;
 kPNSNA NSArray<NSNumber *> * selectes;
+kPNAR BOOL multipleSelected;
 kPNRNN NSArray<NSAttributedString *> * items;
 kPNRNN NSArray<NSAttributedString *> * options;
 
 kPNCNA BOOL (^blockSelectedItems) (PYSheetContextView * _Nonnull contextView);
-kPNCNA void (^blockSelectedOptions) (PYSheetContextView * _Nonnull contextView);
+kPNCNA void (^blockSelectedOptions) (PYSheetContextView * _Nonnull contextView, NSUInteger index);
+kPNCNA BOOL (^blockOnSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
 
 -(void) synFrame;
 

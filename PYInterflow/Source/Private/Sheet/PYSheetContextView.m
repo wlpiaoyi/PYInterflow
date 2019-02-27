@@ -9,6 +9,8 @@
 #import "PYSheetContextView.h"
 #import "PYInterflowParams.h"
 #import "PYSheetItemsView.h"
+#import "PYSheetItemCell.h"
+#import "PYPopupParam.h"
 
 @interface PYSheetContextView()
 kSOULDLAYOUTPForType(PYSheetContextView);
@@ -27,6 +29,7 @@ kSOULDLAYOUTPForType(PYSheetContextView);
     __unsafe_unretained IBOutlet NSLayoutConstraint *lcOptionH;
     __unsafe_unretained IBOutlet NSLayoutConstraint *lcOptionTop;
     __weak IBOutlet NSLayoutConstraint *lcOptionBtm;
+    __weak IBOutlet NSLayoutConstraint *lcLineH;
 }
 
 +(nullable instancetype) instanceWithTitle:(nullable NSAttributedString *) title
@@ -41,19 +44,25 @@ kSOULDLAYOUTPForType(PYSheetContextView);
     owner->_options = options;
     owner->_multipleSelected = multipleSelected;
     owner->itemsViewSelector = [PYSheetItemsView instanceWithItems:owner->_items selectes:owner->_selectes multipleSelected:owner->_multipleSelected];
-    [owner->viewSelector setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
-    if(owner->_options && owner->_options.count){
-        owner->itemsViewOption = [PYSheetItemsView instanceWithItems:owner->_options selectes:nil multipleSelected:NO];
-        [owner->viewOption setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
-        owner->itemsViewOption.scrollEnabled = NO;
-    }
+    
     PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
     if(owner->_title && owner->_title.length){
-        eii.top = (__bridge void * _Nullable)(owner->viewTitle);
         owner->labelTitle.attributedText = owner->_title;
         owner->viewTitle.hidden = NO;
+        UIView * line =  [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
+        line.backgroundColor = [UIColor clearColor];
+        [owner->viewSelector addSubview: line];
+        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
+        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemMake((__bridge void * _Nullable)(owner->viewTitle), nil, nil, nil)];
+        eii.top = (__bridge void * _Nullable)(line);
     }else{
         owner->viewTitle.hidden = YES;
+    }
+    [owner->viewSelector setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
+    if(owner->_options && owner->_options.count){
+        owner->itemsViewOption = [PYSheetItemsView instanceWithItems:owner->_options selectes:@[] multipleSelected:NO];
+        [owner->viewOption setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
+        owner->itemsViewOption.scrollEnabled = NO;
     }
     [owner->viewSelector addSubview:owner->itemsViewSelector];
     [PYViewAutolayoutCenter persistConstraint:owner->itemsViewSelector relationmargins:UIEdgeInsetsZero relationToItems:eii];
@@ -66,11 +75,14 @@ kSOULDLAYOUTPForType(PYSheetContextView);
         owner-> lcOptionTop.constant = 0;
         owner->lcOptionBtm.constant = 0;
     }
+
     return owner;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    lcLineH.constant = STATIC_POPUP_BORDERWIDTH;
+    viewTitle.backgroundColor = STATIC_SHEET_BACKGROUNDC;
 }
 
 -(void) setBlockSelectedItems:(BOOL (^)(PYSheetContextView * _Nonnull))blockSelectedItems{
@@ -83,14 +95,18 @@ kSOULDLAYOUTPForType(PYSheetContextView);
     };
 }
 
--(void) setBlockSelectedOptions:(void (^)(PYSheetContextView * _Nonnull))blockSelectedOptions{
+-(void) setBlockSelectedOptions:(void (^)(PYSheetContextView * _Nonnull, NSUInteger))blockSelectedOptions{
     _blockSelectedOptions = blockSelectedOptions;
     kAssign(self);
     itemsViewOption.blockAfterSelectedItems = ^(PYSheetItemsView * _Nonnull contextView) {
         kStrong(self);
         self.selectes = self->itemsViewSelector.selectes;
-        if(self.blockSelectedOptions) self.blockSelectedOptions(self);
+        if(self.blockSelectedOptions) self.blockSelectedOptions(self, contextView.selectes.firstObject.integerValue);
     };
+}
+-(void) setBlockOnSelecting:(BOOL (^)(NSMutableArray<NSNumber *> * _Nonnull, NSUInteger))blockOnSelecting{
+    _blockOnSelecting = blockOnSelecting;
+    itemsViewSelector.blockOnSelecting = blockOnSelecting;
 }
 
 -(void) setSelectes:(NSArray<NSNumber *> *)selectes{
@@ -104,15 +120,34 @@ kSOULDLAYOUTPForType(PYSheetContextView);
     
     CGFloat height = 0;
     if(_title && _title.length){
-        lcTitleH.constant = [PYUtile getBoundSizeWithAttributeTxt:_title size:CGSizeMake(width - 40, 999)].height + 21;
+        lcTitleH.constant = [PYUtile getBoundSizeWithAttributeTxt:_title size:CGSizeMake(width - 40, 999)].height + 21 + STATIC_POPUP_BORDERWIDTH;
     }
-    height += [PYSheetItemsView getHeight:width items:_items];
     lcOptionH.constant = [PYSheetItemsView getHeight:width items:_options];
     height += lcTitleH.constant;
     height += lcOptionTop.constant;
     height += lcOptionBtm.constant;
     height += lcOptionH.constant;
-    self.frameHeight = height;
+    CGFloat value = 0;
+    if (@available(iOS 11.0, *)) {
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].delegate.window.safeAreaInsets;
+        value = boundsHeight() - safeAreaInsets.top - safeAreaInsets.bottom;
+    } else {
+        value = boundsHeight();
+    }
+    BOOL scorllEnable = NO;
+    for (NSAttributedString * item in _items) {
+        CGFloat v = [PYSheetItemCell getHeight:item width:self->itemsViewSelector.frameWidth];
+        height += v;
+        if(height > value){
+            height -= v;
+            scorllEnable = YES;
+            break;
+        }
+    }
+    itemsViewSelector.scrollEnabled = scorllEnable;
+    
+    self.frameHeight = height - 2;
+    
 }
 
 kSOULDLAYOUTMSTARTForType(PYSheetContextView)
