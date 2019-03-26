@@ -17,7 +17,7 @@
 #import "UIView+Notify.h"
 #import "pyutilea.h"
 
-#import "PYSheetContextView.h"
+#import "PYSheetSelectorView.h"
 
 @interface PYView:UIView
 @end
@@ -38,7 +38,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
-//    PYSheetContextView * cView = [PYSheetContextView instanceWithTitle:[[NSAttributedString alloc] initWithString:@"title"] items:@[
+//    PYSheetSelectorView * cView = [PYSheetSelectorView instanceWithTitle:[[NSAttributedString alloc] initWithString:@"title"] items:@[
 //                                [[NSAttributedString alloc] initWithString:@"adfadfads1"],
 //                                [[NSAttributedString alloc] initWithString:@"adfadfads2"],
 //                                [[NSAttributedString alloc] initWithString:@"adfadfads3"]
@@ -59,7 +59,10 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
 //        UIView * alertView = self.alertView;
-        UIView * alertView = [UIView new];
+        UIView * alertView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
+//        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
+//
+//        } buttonNames:@[@"sfadf"]];
         [alertView dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
             
             [view dialogHidden];
@@ -70,7 +73,12 @@
     [self presentViewController:alertController animated:YES completion:nil];
 }
 - (IBAction)sheet:(id)sender {
-    UIView * baseview = self.sheetView;
+    UIView * baseview = [PYView new];//self.sheetView;
+    baseview.frameHeight = 300;
+    [baseview sheetShowWithTitle:@"xxxx" previousName:@"<" nextName:@">" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+        
+    }];
+    return;
 //    [baseview sheetShow];
     
     [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
@@ -111,7 +119,7 @@
         }
         return NO;
     }];
-//    baseview.sheetIndexs = @[@(0),@(6)];
+    baseview.sheetIndexs = @[@(0),@(6)];
     
     
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

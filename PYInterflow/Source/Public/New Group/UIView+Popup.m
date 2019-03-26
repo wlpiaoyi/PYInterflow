@@ -17,16 +17,16 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 
 @implementation UIView(Popup)
 -(void) setPopupBlockEnd:(void (^)(UIView * _Nullable))blockEnd{
-    [self popupParam].blockEnd = blockEnd;
+    [self popupParam].popupBlockEnd = blockEnd;
 }
 -(void (^)(UIView * _Nullable)) popupBlockEnd{
-    return [self popupParam].blockEnd;
+    return [self popupParam].popupBlockEnd;
 }
 -(void) setPopupBlockStart:(void (^)(UIView * _Nullable))blockStart{
-    [self popupParam].blockStart = blockStart;
+    [self popupParam].popupBlockStart = blockStart;
 }
 -(void (^)(UIView * _Nullable)) popupBlockStart{
-    return [self popupParam].blockStart;
+    return [self popupParam].popupBlockStart;
 }
 -(CGRect) frameOrg{
     return [self popupParam].frameOrg;

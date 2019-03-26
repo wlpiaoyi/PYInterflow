@@ -9,4 +9,5 @@
 #import <UIKit/UIKit.h>
 @interface PYInterflowWindow : UIWindow
 +(instancetype) instanceForFrame:(CGRect)frame hasEffect:(BOOL) hasEffect;
+-(void) removeSubviews;
 @end

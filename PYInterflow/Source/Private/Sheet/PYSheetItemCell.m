@@ -24,15 +24,16 @@
 
 -(void) setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
-    viewSelected.alpha = isSelected ? 1 : 0;
+    if(self.highlighted){
+        self.backgroundColor = [UIColor clearColor];
+    }else{
+        self.backgroundColor = isSelected ? STATIC_SHEET_ITEMSElECTEDC : STATIC_SHEET_BACKGROUNDC;
+    }
 }
 -(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
-    if(highlighted){
-        self.backgroundColor = [UIColor clearColor];
-    }else{
-        self.backgroundColor = STATIC_SHEET_BACKGROUNDC;
-    }
+    viewSelected.hidden = highlighted;
+    self.isSelected = _isSelected;
 }
 
 -(void) setItem:(NSAttributedString *)item{

@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "PYUtile.h"
-#import "PYSheetContextView.h"
+#import "PYSheetSelectorView.h"
+#import "PYSheetOptionView.h"
 
 @interface PYSheetParam : NSObject
 kPNA BOOL isHiddenOnClick;
@@ -19,14 +20,14 @@ kPNA BOOL isHiddenOnClick;
 @property (nonatomic, copy, nullable) void (^blockOpt)(UIView * _Nullable view, NSUInteger index);
 @property (nonatomic, copy, nullable) BOOL (^blockSelecteds)(UIView * _Nullable view);
 @property (nonatomic, copy, nullable) BOOL (^blockSelecting)(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
-@property (nonatomic, strong, nullable) PYSheetContextView * sheetView;
-@property (nonatomic, strong, nullable) UIView * showView;
-@property (nonatomic, assign, nonnull) UIView * targetView;
-@property (nonatomic, strong, nonnull) UIView * safeOutBottomView;
-@property (nonatomic, strong, nonnull) UIView * safeOutLeftView;
-@property (nonatomic, strong, nonnull) UIView * safeOutRightView;
-@property (nonatomic, nonnull) SEL action;
--(nullable instancetype) initWithTarget:(nullable UIView *) target action:(nullable SEL) action;
+@property (nonatomic, strong, nullable) PYSheetSelectorView * sheetSelectorView;
+@property (nonatomic, strong, nullable) PYSheetOptionView * sheetOptionView;
+@property (nonatomic, strong, nullable) UIView * subView;
+@property (nonatomic, strong, nonnull, readonly) UIView * showView;
+@property (nonatomic, strong, nonnull, readonly) UIView * safeOutBottomView;
+@property (nonatomic, strong, nonnull, readonly) UIView * safeOutLeftView;
+@property (nonatomic, strong, nonnull, readonly) UIView * safeOutRightView;
+-(nullable instancetype) init;
 -(void) mergesafeOutBottomView;
 -(void) mergeTargetView;
 -(void) clearTargetView;

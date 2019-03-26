@@ -180,6 +180,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
                 self.baseView.alpha = 1;
             }
         }
+        if(self.popupBlockStart) self.popupBlockStart(view);
     };
     return blockEnd;
 }
@@ -251,12 +252,14 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
             view.layer.transform = transformx;
             if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 self.baseView.hidden = true;
+                [((PYInterflowWindow *)self.baseView) removeSubviews];
             }
             for (NSLayoutConstraint * lc in self.lc.objectEnumerator) {
                 [self.baseView removeConstraint:lc];
                 [view removeConstraint:lc];
             }
         }
+        if(self.popupBlockEnd) self.popupBlockEnd(view);
     };
     return blockEnd;
 }

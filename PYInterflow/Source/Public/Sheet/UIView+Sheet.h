@@ -17,8 +17,8 @@ kPNCNA BOOL (^sheetBlockSelecting) (NSMutableArray<NSNumber *> * _Nonnull  befor
 kPNA BOOL sheetIsHiddenOnClick;
 -(void) sheetShow;
 -(void) sheetShowWithTitle:(nullable NSString *) title
-            buttonConfirme:(nullable NSString *) confirme
-            buttonCancel:(nullable NSString *) canel
+            previousName:(nullable NSString *) previousName
+            nextName:(nullable NSString *) nextName
             blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt;
 -(void) sheetShowWithTitle:(nullable NSString *) title
             buttonConfirme:(nullable NSString *) confirme

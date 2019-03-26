@@ -17,6 +17,7 @@ kSOULDLAYOUTPForType(PYSheetTableView)
 @end
 
 @interface PYSheetParam()
+@property (nonatomic, assign, nonnull) id  target;
 @property (nonatomic, strong) NSLayoutConstraint * lcHeadViewHight;
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsSafe;
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsContext;
@@ -24,16 +25,14 @@ kSOULDLAYOUTPForType(PYSheetTableView)
 
 
 @implementation PYSheetParam
--(nullable instancetype) initWithTarget:(nullable UIView *) target action:(nullable SEL) action{
+-(nullable instancetype) init{
     if(self = [super init]){
+        _showView = [UIView new];
+        _safeOutBottomView = [UIView new];
+        _safeOutRightView = [UIView new];
+        _safeOutLeftView = [UIView new];
         self.isHiddenOnClick = true;
-        self.targetView = target;
-        self.action = action;
-        self.showView = [UIView new];
         self.showView.backgroundColor = [UIColor clearColor];
-        self.safeOutBottomView = [UIView new];
-        self.safeOutRightView = [UIView new];
-        self.safeOutLeftView = [UIView new];
         self.safeOutBottomView.backgroundColor =
         self.safeOutRightView.backgroundColor =
         self.safeOutLeftView.backgroundColor = [UIColor clearColor];
@@ -44,14 +43,24 @@ kSOULDLAYOUTPForType(PYSheetTableView)
 -(void) mergeTargetView{
     [self clearTargetView];
     PYEdgeInsetsItem e = PYEdgeInsetsItemNull();
-    if(self.sheetView){
-        self.targetView.frameHeight = self.sheetView.frameHeight;
-        [self.targetView addSubview:self.sheetView];
-        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.sheetView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+    if(self.sheetSelectorView){
+        self.subView.frameHeight = self.sheetSelectorView.frameHeight;
+        [self.subView addSubview:self.sheetSelectorView];
+        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.sheetSelectorView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+        [self.showView addSubview:self.subView];
+        self.showView.frameHeight = self.subView.frameHeight;
+        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.subView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+    }else if(self.sheetOptionView){
+        [self.sheetOptionView addSheetView:self.subView];
+        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.subView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+        [self.showView addSubview:self.sheetOptionView];
+        self.showView.frameHeight = self.sheetOptionView.frameHeight;
+        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.sheetOptionView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
+    }else{
+        [self.showView addSubview:self.subView];
+        self.showView.frameHeight = self.subView.frameHeight;
+        [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.subView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
     }
-    [self.showView addSubview:self.targetView];
-    self.showView.frameHeight = self.targetView.frameHeight;
-    [self.lcsContext addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:self.targetView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:e].allValues];
     
     
 }
@@ -94,11 +103,15 @@ kSOULDLAYOUTPForType(PYSheetTableView)
 -(void) clearTargetView{
     for (NSLayoutConstraint * lc in self.lcsContext) {
         [self.showView removeConstraint:lc];
-        [self.targetView removeConstraint:lc];
+        [self.subView removeConstraint:lc];
     }
     [self.lcsContext removeAllObjects];
-    [self.targetView removeFromSuperview];
-    if(self.sheetView) [self.sheetView removeFromSuperview];
+    [self.subView removeFromSuperview];
+    if(self.sheetSelectorView) [self.sheetSelectorView removeFromSuperview];
+    if(self.sheetOptionView){
+        [self.sheetOptionView removeSheetView];
+        [self.sheetOptionView removeFromSuperview];
+    }
 }
 
 +(nullable NSMutableAttributedString *) parseTitleName:(nullable NSString *) title{

@@ -101,4 +101,8 @@ UIColor * kPYSheetItemSelectedColor;
     return height - STATIC_POPUP_BORDERWIDTH;
 }
 
+-(void) dealloc{
+    
+}
+
 @end

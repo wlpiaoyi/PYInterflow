@@ -24,19 +24,74 @@ static const void *PYSheetPointer = &PYSheetPointer;
     return [self sheetParam].isHiddenOnClick;
 }
 -(void) setSheetIndexs:(NSArray<NSNumber *>*)sheetIndexs{
-    ((PYSheetContextView *)[self sheetParam].sheetView).selectes = sheetIndexs;
+    ((PYSheetSelectorView *)[self sheetParam].sheetSelectorView).selectes = sheetIndexs;
 }
 -(NSArray<NSNumber *>*) sheetIndexs{
-    return [self sheetParam].sheetView.selectes;
+    return [self sheetParam].sheetSelectorView.selectes;
+}
+
+-(void) sheetShowWithTitle:(nullable NSString *) title
+              previousName:(nullable NSString *) previousName
+              nextName:(nullable NSString *) nextName
+              blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt{
+    NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
+    NSAttributedString * attributePrevious = (previousName && previousName.length > 0) ? [PYSheetParam parseConfirmName:previousName] : nil;
+    NSAttributedString * attributeNext = (nextName && nextName.length > 0) ? [PYSheetParam parseConfirmName:nextName] : nil;
+    kAssign(self);
+    [self sheetParam].sheetOptionView = [PYSheetOptionView instanceWithTitle:attributeTitle previousName:attributePrevious nextName:attributeNext blockOpt:^(NSUInteger index) {
+        kStrong(self);
+        if([self sheetParam].blockOpt) [self sheetParam].blockOpt(self, index);
+        NSLog(@"");
+    }];
+    [self sheetParam].blockOpt = blcokOpt;
+    [self sheetShow];
 }
 -(void) sheetShow{
-    [self sheetShowWithTitle:nil buttonConfirme:nil buttonCancel:nil blockOpt:nil];
-}
--(void) sheetShowWithTitle:(nullable NSString *) title
-                    buttonConfirme:(nullable NSString *) confirme
-                    buttonCancel:(nullable NSString *) canel
-                    blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt{
-    [self sheetShowWithTitle:title buttonConfirme:confirme buttonCancel:canel itemStrings:nil blockOpt:blcokOpt blockSelected:nil];
+    if([self sheetParam].subView == nil){
+        [self sheetParam].subView = self;
+    }
+    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+        [view resetAutoLayout];
+        [view resetTransform];
+        view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
+        [UIView animateWithDuration:.5 animations:^{
+            [view resetAutoLayout];
+            [view resetTransform];
+        } completion:^(BOOL finished) {
+            block(view);
+        }];
+    })];
+    kAssign(self);
+    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+        kStrong(self);
+        [view resetAutoLayout];
+        [view resetTransform];
+        [view sheetParam].showView.popupBaseView.alpha = 1;
+        [UIView animateWithDuration:.5 animations:^{
+            view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
+        } completion:^(BOOL finished) {
+            block(view);
+            [self sheetParam].sheetSelectorView = nil;
+            [self sheetParam].subView = nil;
+        }];
+    })];
+    [self sheetParam].showView.frameSize = CGSizeMake(DisableConstrainsValueMAX, self.frameHeight);
+    [self sheetParam].showView.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0);
+    [self sheetParam].showView.popupCenterPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    [[self sheetParam] mergeTargetView];
+    [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
+        kStrong(self);
+        [[self sheetParam] clearTargetView];
+    }];
+    [self sheetParam].showView.popupBaseView = self.popupBaseView;
+    [[self sheetParam].showView popupShow];
+    [self sheetParam].showView.popupBlockTap = ^(UIView * _Nullable view) {
+        kStrong(self);
+        if(self.sheetIsHiddenOnClick){
+            [self sheetHidden];
+        }
+    };
+    [[self sheetParam] mergesafeOutBottomView];
 }
 -(void) sheetShowWithTitle:(nullable NSString *) title
             buttonConfirme:(nullable NSString *) confirme
@@ -91,71 +146,40 @@ static const void *PYSheetPointer = &PYSheetPointer;
                     mutipleSeleted:(BOOL) mutipleSeleted
                     blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
                     blockSelecteds:(BOOL (^ _Nullable)(UIView * _Nullable view)) blcokSelecteds{
-    [self sheetParam].blockOpt = blcokOpt;
-    [self sheetParam].blockSelecteds = blcokSelecteds;
-    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        [view resetAutoLayout];
-        [view resetTransform];
-        view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
-        [UIView animateWithDuration:.5 animations:^{
-            [view resetAutoLayout];
-            [view resetTransform];
-        } completion:^(BOOL finished) {
-            block(view);
-        }];
-    })];
-    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
-        [view resetAutoLayout];
-        [view resetTransform];
-        [view sheetParam].showView.popupBaseView.alpha = 1;
-        [UIView animateWithDuration:.5 animations:^{
-            view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
-        } completion:^(BOOL finished) {
-            block(view);
-        }];
-    })];
-    [self sheetParam].attributeTitle = attributeTitle;
-    [self sheetParam].attributeItems = attributeItems;
-    [self sheetParam].attributeConfirme = attributeConfirme;
-    [self sheetParam].attributeCancel = attributeCancel;
-    [self sheetParam].showView.frameSize = CGSizeMake(DisableConstrainsValueMAX, self.frameHeight);
-    [self sheetParam].showView.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0);
-    [self sheetParam].showView.popupCenterPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     
-    PYSheetContextView * sheetView = nil;
+    PYSheetSelectorView * sheetView = nil;
     if(attributeTitle || (attributeItems && attributeItems.count) || attributeConfirme || attributeCancel){
+    
+        [self sheetParam].blockOpt = blcokOpt;
+        [self sheetParam].blockSelecteds = blcokSelecteds;
+        [self sheetParam].attributeTitle = attributeTitle;
+        [self sheetParam].attributeItems = attributeItems;
+        [self sheetParam].attributeConfirme = attributeConfirme;
+        [self sheetParam].attributeCancel = attributeCancel;
+    
         NSMutableArray * attributeOptions = [NSMutableArray new];
         if(attributeConfirme && attributeConfirme.length) [attributeOptions addObject:attributeConfirme];
         if(attributeCancel && attributeCancel.length) [attributeOptions addObject:attributeCancel];
-        sheetView = [PYSheetContextView instanceWithTitle:attributeTitle items:attributeItems selectes:@[] options:attributeOptions multipleSelected:mutipleSeleted];
+        sheetView = [PYSheetSelectorView instanceWithTitle:attributeTitle items:attributeItems selectes:@[] options:attributeOptions multipleSelected:mutipleSeleted];
         sheetView.frameWidth = boundsWidth();
         [sheetView synFrame];
         kAssign(self);
-        sheetView.blockSelectedItems = ^BOOL(PYSheetContextView * _Nonnull contextView) {
+        sheetView.blockSelectedItems = ^BOOL(PYSheetSelectorView * _Nonnull contextView) {
             kStrong(self);
             BOOL flag = YES;
             if(blcokSelecteds) flag = blcokSelecteds(self);
             if(flag) [self sheetHidden];
             return flag;
         };
-        sheetView.blockSelectedOptions = ^(PYSheetContextView * _Nonnull contextView, NSUInteger index) {
+        sheetView.blockSelectedOptions = ^(PYSheetSelectorView * _Nonnull contextView, NSUInteger index) {
             kStrong(self);
             if(blcokOpt) blcokOpt(self, index);
             [self sheetHidden];
         };
         sheetView.blockOnSelecting = [self sheetParam].blockSelecting;
     }
-    [self sheetParam].sheetView = sheetView;
-    
-    [[self sheetParam] mergeTargetView];
-    @unsafeify(self);
-    [[self sheetParam].showView setPopupBlockEnd:^(UIView * _Nullable view) {
-        @strongify(self);
-        [[self sheetParam] clearTargetView];
-    }];
-    [self sheetParam].showView.popupBaseView = self.popupBaseView;
-    [[self sheetParam].showView popupShow];
-    [[self sheetParam] mergesafeOutBottomView];
+    [self sheetParam].sheetSelectorView = sheetView;
+    [self sheetShow];
 }
 
 
@@ -166,13 +190,12 @@ static const void *PYSheetPointer = &PYSheetPointer;
     if([self sheetParam].blockOpt){
         [self sheetParam].blockOpt(self, (int)button.tag);
     }
-    if([self sheetParam].isHiddenOnClick)[self sheetHidden];
 }
 
 -(PYSheetParam *) sheetParam{
     PYSheetParam * param = objc_getAssociatedObject(self, PYSheetPointer);
     if(param == nil){
-        param = [[PYSheetParam alloc] initWithTarget:self action:@selector(onclickSheet:)];
+        param = [[PYSheetParam alloc] init];
         objc_setAssociatedObject(self, PYSheetPointer, param, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return param;

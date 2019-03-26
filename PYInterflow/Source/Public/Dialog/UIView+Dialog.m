@@ -64,6 +64,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     })];
     [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
+
 }
 
 -(void) setTextAlignment:(NSTextAlignment)textAlignment{
@@ -107,6 +108,11 @@ static const void *PYDialogPointer = &PYDialogPointer;
         touchView.transform = CGAffineTransformIdentity;//CGAffineTransformTranslate(touchView.transform, -p.x, -p.y);
         [UIView commitAnimations];
     })];
+    kAssign(self);
+    [self paramDialog].showView.popupBlockEnd = ^(UIView * _Nullable view) {
+        kStrong(self);
+        [self removeFromSuperview];
+    };
     [self paramDialog].showView.popupBaseView = self.popupBaseView;
     [[self paramDialog].showView popupShow];
 }

@@ -42,11 +42,14 @@ kINITPARAMS{
     if(view == self.rootViewController.view){
         [super addSubview:view];
     }else{
-        for (UIView * subView in self.rootViewController.view.subviews) {
-            if(subView.tag == 1862938) continue;
-            [subView removeFromSuperview];
-        }
+        [self removeSubviews];
         [self.rootViewController.view addSubview:view];
+    }
+}
+-(void) removeSubviews{
+    for (UIView * subView in self.rootViewController.view.subviews) {
+        if(subView.tag == 1862938) continue;
+        [subView removeFromSuperview];
     }
 }
 
