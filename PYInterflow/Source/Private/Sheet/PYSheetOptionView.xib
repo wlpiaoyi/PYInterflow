@@ -47,17 +47,17 @@
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlD-OS-E3w">
-                            <rect key="frame" x="80.5" y="0.0" width="159" height="44"/>
+                            <rect key="frame" x="80" y="0.0" width="160" height="44"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TITLE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="prd-Oo-dO1">
-                                    <rect key="frame" x="5" y="5" width="149" height="34"/>
+                                    <rect key="frame" x="5" y="5" width="150" height="34"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcA-OL-GKp">
-                                    <rect key="frame" x="0.0" y="0.0" width="159" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
                                     <connections>
                                         <action selector="onclickOpt:" destination="iN0-l3-epB" eventType="touchUpInside" id="uoL-Vo-i3r"/>
                                     </connections>
@@ -82,10 +82,10 @@
                         <constraint firstAttribute="trailing" secondItem="Az5-HT-5QV" secondAttribute="trailing" id="5sa-Bj-Ptv"/>
                         <constraint firstItem="Az5-HT-5QV" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="66h-Bi-1B2"/>
                         <constraint firstAttribute="bottom" secondItem="Az5-HT-5QV" secondAttribute="bottom" id="FtW-aW-DKz"/>
-                        <constraint firstItem="Az5-HT-5QV" firstAttribute="leading" secondItem="nlD-OS-E3w" secondAttribute="trailing" constant="0.5" id="PEX-ZD-c0e"/>
+                        <constraint firstItem="Az5-HT-5QV" firstAttribute="leading" secondItem="nlD-OS-E3w" secondAttribute="trailing" id="PEX-ZD-c0e"/>
                         <constraint firstAttribute="bottom" secondItem="pB4-mA-Mvf" secondAttribute="bottom" id="QU2-BG-6j6"/>
                         <constraint firstAttribute="bottom" secondItem="nlD-OS-E3w" secondAttribute="bottom" id="RSP-ZO-7Y4"/>
-                        <constraint firstItem="nlD-OS-E3w" firstAttribute="leading" secondItem="pB4-mA-Mvf" secondAttribute="trailing" constant="0.5" id="WtK-zh-QP8"/>
+                        <constraint firstItem="nlD-OS-E3w" firstAttribute="leading" secondItem="pB4-mA-Mvf" secondAttribute="trailing" id="WtK-zh-QP8"/>
                         <constraint firstItem="nlD-OS-E3w" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="h8t-tp-wYe"/>
                         <constraint firstItem="pB4-mA-Mvf" firstAttribute="leading" secondItem="ML3-vJ-nSl" secondAttribute="leading" id="mTA-Mz-ASk"/>
                         <constraint firstItem="pB4-mA-Mvf" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="q2E-IY-y54"/>

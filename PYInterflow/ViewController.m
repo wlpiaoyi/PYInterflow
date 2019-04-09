@@ -75,11 +75,10 @@
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [PYView new];//self.sheetView;
     baseview.frameHeight = 300;
-    [baseview sheetShowWithTitle:@"xxxx" previousName:@"<" nextName:@">" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
-        
+    [baseview sheetShowWithTitle:@"标题测试" previousName:@"上一个" nextName:@"下一个" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
+
     }];
     return;
-//    [baseview sheetShow];
     
     [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
         if(cureentIndex == 0 && ![beforeIndexs containsObject:@(0)]){

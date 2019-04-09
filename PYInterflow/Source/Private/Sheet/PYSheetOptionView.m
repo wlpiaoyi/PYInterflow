@@ -49,7 +49,8 @@ kPNSNA NSArray<NSLayoutConstraint *> * lcs;
     [buttonNext setBackgroundImage:[UIImage imageWithColor:STATIC_SHEET_BACKGROUNDC] forState:UIControlStateNormal];
     [buttonPrevious setBackgroundImage:[UIImage imageWithColor:STATIC_POPUP_HIGHLIGHTC] forState:UIControlStateHighlighted];
     [buttonNext setBackgroundImage:[UIImage imageWithColor:STATIC_POPUP_HIGHLIGHTC] forState:UIControlStateHighlighted];
-    lc01.constant = lc02.constant = lc03.constant = 1.0 / [UIScreen mainScreen].scale;
+    lc01.constant = lc02.constant = 0;
+    lc03.constant = 1.0 / [UIScreen mainScreen].scale;
 }
 -(void) synDisplay{
     labelTitle.attributedText = self.title;

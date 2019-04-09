@@ -63,11 +63,11 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 @implementation PYInterflowParams
 
 +(void) loadInterflowParamsData{
-//#ifdef DEBUG
-//    STATIC_INTERFLOW_BUNDEL =  [NSBundle mainBundle];
-//#else
+#ifdef DEBUG
+    STATIC_INTERFLOW_BUNDEL =  [NSBundle mainBundle];
+#else
     STATIC_INTERFLOW_BUNDEL =  [NSBundle bundleWithPath:kFORMAT(@"%@/PYInterflow.bundle", bundleDir)];
-//#endif
+#endif
     STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
     STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xAAAAFF33];
     STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];
@@ -79,7 +79,7 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
     STATIC_SHEET_CONFIRMC = [UIColor colorWithRGBHex:0x157efaff];
     STATIC_SHEET_ITEMC = STATIC_SHEET_CONFIRMC;
     
-    STATIC_SHEET_TITLEFONT = [UIFont systemFontOfSize:13];
+    STATIC_SHEET_TITLEFONT = [UIFont systemFontOfSize:14];
     STATIC_SHEET_ITEMFONT = [UIFont systemFontOfSize:16];
     STATIC_SHEET_CANCELFONT = [UIFont boldSystemFontOfSize:16];
     STATIC_SHEET_CONFIRMFONT = STATIC_SHEET_ITEMFONT;
