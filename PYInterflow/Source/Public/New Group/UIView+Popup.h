@@ -32,6 +32,9 @@ extern CGFloat PYPopupAnimationTime;
 //显示靠近边缘的参照
 @property (nonatomic) PYEdgeInsetsItem popupEdgeInsetItems;
 
+//显示靠近边缘的参照
+@property (nonatomic, readonly, nullable) NSDictionary<NSString *, NSLayoutConstraint *> * lcPopups;
+
 @property (nonatomic,copy, nullable) void (^popupBlockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^popupBlockEnd)(UIView * _Nullable view);
 //=====================显示和隐藏自定义动画=========================>

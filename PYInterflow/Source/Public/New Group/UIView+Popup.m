@@ -126,6 +126,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
             [lc setObject:templc[key] forKey:key];
         }
         templc = [PYViewAutolayoutCenter persistConstraint:self size:s];
+        
         for (NSString * key in templc) {
             [lc setObject:templc[key] forKey:key];
         }
@@ -137,6 +138,9 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         [self popupParam].lc = lc;
     }
+}
+-(nullable NSDictionary<NSString *, NSLayoutConstraint *> *) lcPopups{
+    return [self popupParam].lc;
 }
 -(void) setPopupBlockTap:(void (^)(UIView * _Nullable))popupBlockTap{
     [self popupParam].popupBlockTap = popupBlockTap;
