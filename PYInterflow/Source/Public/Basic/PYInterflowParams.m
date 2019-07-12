@@ -63,11 +63,11 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 @implementation PYInterflowParams
 
 +(void) loadInterflowParamsData{
-#ifdef DEBUG
-    STATIC_INTERFLOW_BUNDEL =  [NSBundle mainBundle];
-#else
-    STATIC_INTERFLOW_BUNDEL =  [NSBundle bundleWithPath:kFORMAT(@"%@/PYInterflow.bundle", bundleDir)];
-#endif
+    if([kAppBundleIdentifier isEqual:@"wlpiaoyi.PYInterflow"])
+        STATIC_INTERFLOW_BUNDEL =  [NSBundle mainBundle];
+    else
+        STATIC_INTERFLOW_BUNDEL =  [NSBundle bundleWithPath:kFORMAT(@"%@/PYInterflow.bundle", bundleDir)];
+    
     STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
     STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xAAAAFF33];
     STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];
@@ -86,7 +86,7 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
     
     STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
     STATIC_DIALOG_TEXTCLOLOR = [UIColor darkGrayColor];
-    STATIC_DIALOG_TITLEFONT = [UIFont systemFontOfSize:18];
+    STATIC_DIALOG_TITLEFONT = [UIFont boldSystemFontOfSize:18];
     STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
     STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
     

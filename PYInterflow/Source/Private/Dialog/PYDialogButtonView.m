@@ -25,15 +25,9 @@
     if(self = [super init]){
         lcs = [NSMutableArray new];
         self.backgroundColor = [UIColor clearColor];
-//        UIImageView * line = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
-//        line.backgroundColor = STATIC_DIALOG_BACKGROUNDCLOLOR;
-//        [self addSubview: line];
-//        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
-//        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemNull()];
         self.target = target;
         self.action = action;
         self.blockSetButtonLayout = blockSetButtonLayout;
-//        topLine = line;
     }
     return self;
 }

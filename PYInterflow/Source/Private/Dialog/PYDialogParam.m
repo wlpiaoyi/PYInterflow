@@ -94,11 +94,7 @@
 
 +(nullable NSMutableAttributedString *) parseDialogTitle:(nullable NSString *) title{
     if(title == nil) return nil;
-    NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:title];
-    NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_TEXTCLOLOR range:range];//颜色
-    [attTitle addAttribute:NSFontAttributeName value:STATIC_DIALOG_TITLEFONT range:range];
-    return attTitle;
+    return [self parseForAttributeWithName:title font:STATIC_DIALOG_TITLEFONT color:STATIC_DIALOG_TEXTCLOLOR];
 }
 +(nullable NSMutableAttributedString *) parseDialogMessage:(nullable NSString *)dialogMessage{
     if(dialogMessage == nil) return nil;
@@ -110,29 +106,42 @@
     [attMsg addAttribute:NSFontAttributeName value:STATIC_DIALOG_MESSAGEFONT range:NSMakeRange(0, attMsg.length)];
     return attMsg;
 }
-+(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names hasStyle:(BOOL) hasStyle{
-    if(!hasStyle) return names;
-    NSMutableArray<NSMutableAttributedString *> * ats = [NSMutableArray new];
-    for (NSString * name in names) {
-        NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
-        NSRange range = NSMakeRange(0, attTitle.length);
-        [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_TEXTCLOLOR range:range];//颜色
-        [attTitle addAttribute:NSFontAttributeName value:STATIC_DIALOG_BUTTONFONT range:range];
++(nullable NSArray<id> *) parseConfrimName:(nullable NSString *) confirmName cancelName:(nullable NSString *)cancelName{
+    NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
+    NSAttributedString *attTitle;
+    if([NSString isEnabled:confirmName]){
+        attTitle = [self parseForAttributeWithName:confirmName font:STATIC_DIALOG_BUTTONFONT color:STATIC_SHEET_CONFIRMC];
+        [ats addObject:attTitle];
+    }
+    if([NSString isEnabled:cancelName]){
+        attTitle = [self parseForAttributeWithName:cancelName font:STATIC_DIALOG_BUTTONFONT color:STATIC_SHEET_CANCELC];
         [ats addObject:attTitle];
     }
     return ats;
 }
-+(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle{
-    if(!hasStyle) return names;
-    NSMutableArray<NSMutableAttributedString *> * ats = [NSMutableArray new];
++(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names{
+    NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
-        NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
-        NSRange range = NSMakeRange(0, attTitle.length);
-        [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_BACKGROUNDC range:range];//颜色
-        [attTitle addAttribute:NSFontAttributeName value:STATIC_DIALOG_BUTTONFONT range:range];
+        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:STATIC_DIALOG_BUTTONFONT color:STATIC_DIALOG_TEXTCLOLOR];
         [ats addObject:attTitle];
     }
     return ats;
+}
++(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names {
+    NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
+    for (NSString * name in names) {
+        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:STATIC_DIALOG_BUTTONFONT color:STATIC_DIALOG_BACKGROUNDC];
+        [ats addObject:attTitle];
+    }
+    return ats;
+}
+
++(nullable NSMutableAttributedString *) parseForAttributeWithName:(nullable NSString *) name font:(UIFont *) font color:(UIColor *) color{
+    NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
+    NSRange range = NSMakeRange(0, name.length);
+    [attTitle addAttribute:NSForegroundColorAttributeName value:color range:range];//颜色
+    [attTitle addAttribute:NSFontAttributeName value:font range:range];
+    return attTitle;
 }
 
 

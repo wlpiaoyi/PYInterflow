@@ -29,7 +29,6 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     __unsafe_unretained IBOutlet NSLayoutConstraint *lcOptionH;
     __unsafe_unretained IBOutlet NSLayoutConstraint *lcOptionTop;
     __weak IBOutlet NSLayoutConstraint *lcOptionBtm;
-    __weak IBOutlet NSLayoutConstraint *lcLineH;
 }
 
 +(nullable instancetype) instanceWithTitle:(nullable NSAttributedString *) title
@@ -69,10 +68,8 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     if(owner->itemsViewOption){
         [owner->viewOption addSubview:owner->itemsViewOption];
         [PYViewAutolayoutCenter persistConstraint:owner->itemsViewOption relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
-        owner->lcOptionTop.constant = 10;
         owner->lcOptionBtm.constant = 10;
     }else{
-        owner-> lcOptionTop.constant = 0;
         owner->lcOptionBtm.constant = 0;
     }
 
@@ -81,7 +78,6 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    lcLineH.constant = STATIC_POPUP_BORDERWIDTH;
     viewTitle.backgroundColor = STATIC_SHEET_BACKGROUNDC;
 }
 

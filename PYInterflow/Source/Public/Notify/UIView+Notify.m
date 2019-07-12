@@ -93,7 +93,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     self.popupEdgeInsetItems = eii;
     self.popupEdgeInsets = UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
-    [self setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
         view.layer.transform = CATransform3DMakeTranslation(0, -view.frameHeight - view.frameY, 0);
         [UIView animateWithDuration:.5 animations:^{
             [view resetTransform];
@@ -105,7 +105,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
                 view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         }];
     })];
-    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
         [view resetTransform];
         view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         [UIView animateWithDuration:.5 animations:^{

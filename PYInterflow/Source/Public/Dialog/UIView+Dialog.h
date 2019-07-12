@@ -14,30 +14,49 @@
  对话框
  */
 @interface UIView(Dialog)
-
-@property (nonatomic, retain, nullable) id dialogUserInfo;
-kPNA NSTextAlignment textAlignment;
+kPNSNA id dialogUserInfo;
+#pragma 对话框标题
+kPNSNA id dialogTitle;
+#pragma 对话框描述
+kPNSNA id dialogMessage;
+#pragma 对话框普通转态按钮
+kPNSNA NSArray<id> * dialogNormalNames;
+#pragma 对话框高亮状态按钮
+kPNSNA NSArray<id> * dialogHighlightlNames;
+#pragma 对话框按钮单击回调
+kPNSNA PYBlockDialogOption dialogOptBlock;
+#pragma 对话框描述文字布局
+kPNA NSTextAlignment dialogMessageTextAlignment;
+#pragma 对话框用作为控制的
 kPNRNN UIView * dialogShowView;
 
+#pragma 显示对话框
+//====================================================>
+-(void) dialogShow;
 -(void) dialogShowWithTitle:(nullable NSString *) title
                     message:(nullable NSString *) message
-                    block:(nullable BlockDialogOpt) block
+                    block:(nonnull PYBlockDialogConfirm) block
+                    buttonConfirme:(nullable NSString*) buttonConfirme
+                    buttonCancel:(nullable NSString*) buttonCancel;
+-(void) dialogShowWithTitle:(nullable NSString *) title
+                    message:(nullable NSString *) message
+                    block:(nullable PYBlockDialogOption) block
                     buttonNames:(nonnull NSArray<NSString*>*)buttonNames;
-
 -(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle
                     attributeMessage:(nullable NSAttributedString *) attributeMessage
-                    block:(nullable BlockDialogOpt) block
+                    block:(nullable PYBlockDialogOption) block
                     buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames
                     buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames;
-
 -(void) dialogShowWithTitle:(nullable NSString *) title
-                    block:(nullable BlockDialogOpt) block
+                    block:(nullable PYBlockDialogOption) block
                     buttonNames:(nonnull NSArray<NSString*>*)buttonNames;
 -(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle
-                    block:(nullable BlockDialogOpt) block
+                    block:(nullable PYBlockDialogOption) block
                     buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames
                     buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames;
+//<====================================================
 
+#pragma 隐藏对话框
 -(void) dialogHidden;
 
 @end

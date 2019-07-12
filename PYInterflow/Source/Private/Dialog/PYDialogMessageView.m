@@ -44,7 +44,7 @@ NSInteger PYDMV_offsetValueNum;
     }
     return self;
 }
--(void) setTextAlignment:(NSTextAlignment)textAlignment{
+-(void) setDialogMessageTextAlignment:(NSTextAlignment)textAlignment{
     messageLabel.textAlignment = textAlignment;
 }
 -(void) setAttributeMessage:(NSAttributedString *)attributeMessage{

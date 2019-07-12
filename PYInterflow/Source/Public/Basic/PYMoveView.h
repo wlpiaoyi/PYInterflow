@@ -21,9 +21,9 @@ kPNA BOOL isHorizontalMoveabel;
  touch block 回调
  */
 ///===================================>
-kPNCNA BlockTouchView blockTouchBegin;
-kPNCNA BlockTouchView blockTouchMoved;
-kPNCNA BlockTouchView blockTouchEnded;
-kPNCNA BlockTouchView blockTouchCancelled;
+kPNCNA PYBlockTouchView blockTouchBegin;
+kPNCNA PYBlockTouchView blockTouchMoved;
+kPNCNA PYBlockTouchView blockTouchEnded;
+kPNCNA PYBlockTouchView blockTouchCancelled;
 ///<===================================
 @end

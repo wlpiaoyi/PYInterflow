@@ -63,10 +63,13 @@
 //        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //        } buttonNames:@[@"sfadf"]];
-        [alertView dialogShowWithTitle:@"sdfsdf" message:@"\n资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
-            
+        [alertView dialogShowWithTitle:@"标题" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
-        } buttonNames:@[@"确认",@"取消"]];
+        } buttonConfirme:@"确定" buttonCancel:@"取消"];
+//        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
+//
+//            [view dialogHidden];
+//        } buttonNames:@[@"确认",@"取消"]];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -74,41 +77,8 @@
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [PYView new];//self.sheetView;
-    baseview.frameHeight = 300;
-    [baseview sheetShowWithTitle:@"标题测试" previousName:@"上一个" nextName:@"下一个" blockOpt:^(UIView * _Nullable view, NSUInteger index) {
-
-    }];
-    return;
     
-    [baseview setSheetBlockSelecting:^BOOL(NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex) {
-        if(cureentIndex == 0 && ![beforeIndexs containsObject:@(0)]){
-            [beforeIndexs removeAllObjects];
-            [beforeIndexs addObject:@(0)];
-            return NO;
-        }else if(cureentIndex != 0 && [beforeIndexs containsObject:@(0)]){
-            [beforeIndexs removeObject:@(0)];
-            [beforeIndexs addObject:@(cureentIndex)];
-            return NO;
-        }
-        if(beforeIndexs.count == 1 && [beforeIndexs containsObject:@(cureentIndex)]){
-            [beforeIndexs removeAllObjects];
-            if(cureentIndex == 0){
-                [beforeIndexs addObjectsFromArray:@[@(1),@(2),@(3),@(4)]];
-            }else{
-                [beforeIndexs addObject:@(0)];
-            }
-            return NO;
-        }
-        return YES;
-    }];
-    
-//    [baseview sheetShowWithTitle:@"adfad测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试" buttonConfirme:@"OK" buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpt:^(UIView * _Nullable view, NSUInteger index) {
-//        NSLog(@"");
-//    } blockSelected:^(UIView * _Nullable view, NSUInteger index) {
-//        NSLog(@"");
-//    }];
-    
-    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:nil buttonCancel:@"Cancel" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
+    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"确定" buttonCancel:@"取消" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
         NSArray * a = view.sheetIndexs;
         NSLog(@"%@",a);
     } blockSelecteds:^BOOL(UIView * _Nullable view) {

@@ -18,9 +18,9 @@ extern CGFloat PYPopupAnimationTime;
 extern CGFloat PYPopupAnimationTimeOffset;
 extern CGFloat PYPopupEffectBlur;
 
-extern NSString * STATIC_POPUP_SHOW_NOTIFY;
-extern NSString * STATIC_POPUP_HIDEEN_NOTIFY;
-extern NSString * STATIC_POPUP_EFFECTE_NOTIFY;
+extern NSString * _Nonnull STATIC_POPUP_SHOW_NOTIFY;
+extern NSString * _Nonnull STATIC_POPUP_HIDEEN_NOTIFY;
+extern NSString * _Nonnull STATIC_POPUP_EFFECTE_NOTIFY;
 extern BOOL STATIC_POPUP_HASEFFECT;
 
 extern CGFloat STATIC_POPUP_BORDERWIDTH;
@@ -60,14 +60,13 @@ extern UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
 extern UIColor * _Nonnull STATIC_TOPBAR_BGC;
 extern UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
-
 extern NSBundle * _Nonnull STATIC_INTERFLOW_BUNDEL;
 
-
-typedef void (^BlockTouchView)(CGPoint touhMove, UIView  * _Nonnull touchView);
-typedef void (^BlockPopupEndAnmation) (UIView * _Nonnull view);
-typedef void (^BlockPopupAnimation) (UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block);
-typedef void(^BlockDialogOpt)(UIView * _Nonnull view, NSUInteger index);
+typedef void (^PYBlockTouchView)(CGPoint touhMove, UIView  * _Nonnull touchView);
+typedef void (^PYBlockPopupendAnimation) (UIView * _Nonnull view);
+typedef void (^PYBlockPopupingAnimation) (UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block);
+typedef void(^PYBlockDialogOption)(UIView * _Nonnull view, NSUInteger index);
+typedef void(^PYBlockDialogConfirm)(UIView * _Nonnull view, BOOL isConfirm);
 
 
 @interface PYInterflowParams : NSObject

@@ -50,7 +50,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
     if([self sheetParam].subView == nil){
         [self sheetParam].subView = self;
     }
-    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
         [view resetAutoLayout];
         [view resetTransform];
         view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
@@ -62,7 +62,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
         }];
     })];
     kAssign(self);
-    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, BlockPopupEndAnmation _Nullable block){
+    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
         kStrong(self);
         [view resetAutoLayout];
         [view resetTransform];

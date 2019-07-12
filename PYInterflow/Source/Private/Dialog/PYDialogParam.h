@@ -27,7 +27,7 @@
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcTitleHeight;
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcButtonHeight;
 
-@property (nonatomic, copy, nullable) BlockDialogOpt blockDialogOpt;
+@property (nonatomic, copy, nullable) PYBlockDialogOption blockDialogOpt;
 
 -(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action;
 
@@ -40,8 +40,9 @@
 
 +(nullable NSMutableAttributedString *) parseDialogTitle:(nullable NSString *) title;
 +(nullable NSMutableAttributedString *) parseDialogMessage:(nullable NSString *)dialogMessage;
-+(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle;
-+(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names  hasStyle:(BOOL) hasStyle;
++(nullable NSArray<id> *) parseConfrimName:(nullable NSString *) confirmName cancelName:(nullable NSString *)cancelName;
++(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names;
++(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names;
 
 
 @end

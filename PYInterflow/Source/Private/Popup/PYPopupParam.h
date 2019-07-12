@@ -28,8 +28,8 @@
 @property (nonatomic,copy, nullable) void (^popupBlockEnd)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^blockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^blockEnd)(UIView * _Nullable view);
-@property (nonatomic,copy, nullable) BlockPopupAnimation blockShowAnimation;
-@property (nonatomic,copy, nullable) BlockPopupAnimation blockHiddenAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockShowAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockHiddenAnimation;
 ///<=====================显示和隐藏时候的回调=========================
 
 //基础层
@@ -39,11 +39,11 @@
 @property (nonatomic) CGRect frameOrg;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc;
 
--(nonnull BlockPopupAnimation) creteDefaultBlcokPopupShowAnmation;
--(nonnull BlockPopupEndAnmation) creteDefaultBlcokPopupShowEndAnmation;
+-(nonnull PYBlockPopupingAnimation) creteDefaultBlcokPopupShowAnmation;
+-(nonnull PYBlockPopupendAnimation) creteDefaultBlcokPopupShowEndAnmation;
 
--(nonnull BlockPopupAnimation) creteDefaultBlcokPopupHiddenAnmation;
--(nonnull BlockPopupEndAnmation) creteDefaultBlcokPopupHiddenEndAnmation;
+-(nonnull PYBlockPopupingAnimation) creteDefaultBlcokPopupHiddenAnmation;
+-(nonnull PYBlockPopupendAnimation) creteDefaultBlcokPopupHiddenEndAnmation;
 
 
 +(UIImage *) IMAGE_BOTTOM_LINE;

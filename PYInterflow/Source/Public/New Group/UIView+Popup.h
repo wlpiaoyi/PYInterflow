@@ -38,8 +38,8 @@ extern CGFloat PYPopupAnimationTime;
 @property (nonatomic,copy, nullable) void (^popupBlockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^popupBlockEnd)(UIView * _Nullable view);
 //=====================显示和隐藏自定义动画=========================>
-@property (nonatomic,copy, nullable) BlockPopupAnimation blockShowAnimation;
-@property (nonatomic,copy, nullable) BlockPopupAnimation blockHiddenAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockShowAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockHiddenAnimation;
 ///<=====================显示和隐藏自定义动画=========================
 
 

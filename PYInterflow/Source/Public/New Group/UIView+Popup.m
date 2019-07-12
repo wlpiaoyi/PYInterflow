@@ -42,6 +42,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 }
 
 -(BOOL) popupShow{
+    [UIResponder hookWithMethodNames:nil];
     return [self popupShowForHasContentView:YES];
 }
 -(BOOL) popupShowForHasContentView:(BOOL) hasContentView{
@@ -55,11 +56,11 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         self.popupIsShow = false;
         kNOTIF_POST(STATIC_POPUP_HIDEEN_NOTIFY, self);
-        BlockPopupAnimation block = [self blockHiddenAnimation];
+        PYBlockPopupingAnimation block = [self blockHiddenAnimation];
         if (!block) {
             block = [[self popupParam] creteDefaultBlcokPopupHiddenAnmation];
         }
-        BlockPopupEndAnmation blockEnd = [[self popupParam]creteDefaultBlcokPopupHiddenEndAnmation];
+        PYBlockPopupendAnimation blockEnd = [[self popupParam]creteDefaultBlcokPopupHiddenEndAnmation];
         block(self,blockEnd);
         if(self.popupHasEffect) [PYPopupParam REV_EFFECT_VALUE];
     }
@@ -163,16 +164,16 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(UIView*) popupContentView{
     return [self popupParam].contentView;
 }
--(void) setBlockShowAnimation:(BlockPopupAnimation) block{
+-(void) setBlockShowAnimation:(PYBlockPopupingAnimation) block{
     [self popupParam].blockShowAnimation = block;
 }
--(BlockPopupAnimation) blockShowAnimation{
+-(PYBlockPopupingAnimation) blockShowAnimation{
     return [self popupParam].blockShowAnimation;
 }
--(void) setBlockHiddenAnimation:(BlockPopupAnimation) block{
+-(void) setBlockHiddenAnimation:(PYBlockPopupingAnimation) block{
     [self popupParam].blockHiddenAnimation = block;
 }
--(BlockPopupAnimation) blockHiddenAnimation{
+-(PYBlockPopupingAnimation) blockHiddenAnimation{
     return [self popupParam].blockHiddenAnimation;
 }
 -(PYPopupParam *) popupParam{
@@ -220,12 +221,12 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         [self resetAutoLayout];
         [self resetTransform];
         
-        BlockPopupAnimation blockAnimation = [self blockShowAnimation];
+        PYBlockPopupingAnimation blockAnimation = [self blockShowAnimation];
         if (!blockAnimation) {
             blockAnimation = [[self popupParam] creteDefaultBlcokPopupShowAnmation];
         }
         if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
-        BlockPopupEndAnmation blockEnd = [[self popupParam] creteDefaultBlcokPopupShowEndAnmation];
+        PYBlockPopupendAnimation blockEnd = [[self popupParam] creteDefaultBlcokPopupShowEndAnmation];
         blockAnimation(self, blockEnd);
     }
     
