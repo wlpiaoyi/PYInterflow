@@ -19,18 +19,18 @@ kPNA BOOL sheetIsHiddenOnClick;
 -(void) sheetShowWithTitle:(nullable NSString *) title
             previousName:(nullable NSString *) previousName
             nextName:(nullable NSString *) nextName
-            blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt;
+            blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt;
 -(void) sheetShowWithTitle:(nullable NSString *) title
             buttonConfirme:(nullable NSString *) confirme
             buttonCancel:(nullable NSString *) canel
             itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
+            blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
             blockSelected:(void (^ _Nullable)(UIView * _Nullable view,  NSUInteger index)) blcokSelected;
 -(void) sheetShowWithTitle:(nullable NSString *) title
             buttonConfirme:(nullable NSString *) confirme
             buttonCancel:(nullable NSString *) canel
             itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpts:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpts
-            blockSelecteds:(BOOL (^ _Nullable)(UIView * _Nullable view)) blockSelecteds;
+            blockOpts:(nullable PYBlockPopupV_P_V_I) blcokOpts
+            blockSelecteds:(nullable PYBlockPopupB_P_V) blockSelecteds;
 -(void) sheetHidden;
 @end

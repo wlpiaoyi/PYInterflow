@@ -11,6 +11,14 @@
 #import "PYInterflowParams.h"
 #import "PYPopupParam.h"
 
+//@interface PYSceneDelegate:NSObject<UISceneDelegate>
+//@end
+//
+//@implementation PYSceneDelegate
+//- (void)scene:(UIScene *)scene willConnectToSession:(UISceneSession *)session options:(UISceneConnectionOptions *)connectionOptions API_AVAILABLE(ios(13.0)){
+//}
+//@end
+
 @interface PYInterflowController : UIViewController
 kPNAR BOOL hasEffect;
 kPNA PYInterflowWindow * myWindow;
@@ -39,6 +47,12 @@ kINITPARAMS{
 }
 
 -(void) addSubview:(UIView *)view{
+    if (@available(iOS 13.0, *)) {
+        if([view isKindOfClass:NSClassFromString(@"UITransitionView")]){
+            [super addSubview:view];
+            return;
+        }
+    }
     if(view == self.rootViewController.view){
         [super addSubview:view];
     }else{
@@ -54,9 +68,9 @@ kINITPARAMS{
 }
 
 -(void) dealloc{
-    if(self.rootViewController && [self.rootViewController isKindOfClass:[PYInterflowController class]]){
-        self.rootViewController = nil;
-    }
+//    if(self.rootViewController && [self.rootViewController isKindOfClass:[PYInterflowController class]]){
+//        self.rootViewController = nil;
+//    }
 }
 
 @end
@@ -77,7 +91,7 @@ kINITPARAMS{
             _bgView = [UIImageView new];
             _bgView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:_bgView];
-            [_bgView setAutotLayotDict:@{@"top":@(0), @"left":@(0), @"right":@(0), @"bottom":@(0)}];
+            [PYViewAutolayoutCenter persistConstraint:_bgView relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
             _bgView.tag = 1862938;
             [_bgView.superview sendSubviewToBack:_bgView];
             kNOTIF_ADD(self, STATIC_POPUP_EFFECTE_NOTIFY, refresh:);

@@ -67,7 +67,11 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
         STATIC_INTERFLOW_BUNDEL =  [NSBundle mainBundle];
     else
         STATIC_INTERFLOW_BUNDEL =  [NSBundle bundleWithPath:kFORMAT(@"%@/PYInterflow.bundle", bundleDir)];
-    
+    [self loadInterflowParamsData:STATIC_INTERFLOW_BUNDEL];
+
+}
++(void) loadInterflowParamsData:(nonnull NSBundle *) bundlePath{
+    STATIC_INTERFLOW_BUNDEL =  bundlePath;
     STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
     STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xAAAAFF33];
     STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];

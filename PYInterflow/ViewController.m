@@ -63,9 +63,10 @@
 //        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //        } buttonNames:@[@"sfadf"]];
+        
         [alertView dialogShowWithTitle:@"标题" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
-        } buttonConfirme:@"确定" buttonCancel:@"取消"];
+        } buttonConfirm:@"确定" buttonCancel:@"取消"];
 //        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //            [view dialogHidden];

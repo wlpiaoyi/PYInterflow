@@ -27,7 +27,7 @@
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcTitleHeight;
 @property (nonatomic, strong, nullable) NSLayoutConstraint * lcButtonHeight;
 
-@property (nonatomic, copy, nullable) PYBlockDialogOption blockDialogOpt;
+@property (nonatomic, copy, nullable) PYBlockPopupV_P_V_I blockDialogOpt;
 
 -(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action;
 

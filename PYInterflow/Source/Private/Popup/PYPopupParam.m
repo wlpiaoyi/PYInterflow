@@ -125,9 +125,9 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     }
     return self;
 }
--(PYBlockPopupingAnimation) creteDefaultBlcokPopupShowAnmation{
+-(PYBlockPopupV_P_V_BK) creteDefaultBlcokPopupShowAnmation{
     @unsafeify(self);
-    PYBlockPopupingAnimation blockAnimation = ^(UIView *view, PYBlockPopupendAnimation blockEnd){
+    PYBlockPopupV_P_V_BK blockAnimation = ^(UIView *view, PYBlockPopupV_P_V blockEnd){
         @strongify(self);
         @synchronized(view) {
             
@@ -163,9 +163,9 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     };
     return blockAnimation;
 }
--(PYBlockPopupendAnimation) creteDefaultBlcokPopupShowEndAnmation{
+-(PYBlockPopupV_P_V) creteDefaultBlcokPopupShowEndAnmation{
     @unsafeify(self);
-    PYBlockPopupendAnimation blockEnd = ^(UIView * view){
+    PYBlockPopupV_P_V blockEnd = ^(UIView * view){
         @strongify(self);
         self.isAnimationing = false;
         if(self.blockStart){
@@ -185,10 +185,10 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     return blockEnd;
 }
 
--(PYBlockPopupingAnimation) creteDefaultBlcokPopupHiddenAnmation{
+-(PYBlockPopupV_P_V_BK) creteDefaultBlcokPopupHiddenAnmation{
     
     @unsafeify(self);
-    PYBlockPopupingAnimation blockAnimation = ^(UIView *view, PYBlockPopupendAnimation blockEnd){
+    PYBlockPopupV_P_V_BK blockAnimation = ^(UIView *view, PYBlockPopupV_P_V blockEnd){
         @strongify(self);
         
         @synchronized(view) {
@@ -236,9 +236,9 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     
     return blockAnimation;
 }
--(PYBlockPopupendAnimation) creteDefaultBlcokPopupHiddenEndAnmation{
+-(PYBlockPopupV_P_V) creteDefaultBlcokPopupHiddenEndAnmation{
     @unsafeify(self);
-    PYBlockPopupendAnimation blockEnd = ^(UIView * view){
+    PYBlockPopupV_P_V blockEnd = ^(UIView * view){
         @strongify(self);
         self.isAnimationing = false;
         if(self.blockEnd){

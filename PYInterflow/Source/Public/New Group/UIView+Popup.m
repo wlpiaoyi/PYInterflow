@@ -9,6 +9,7 @@
 #import "UIView+Popup.h"
 #import "PYPopupParam.h"
 #import "pyutilea.h"
+#import "AppDelegate.h"
 #import <objc/runtime.h>
 
 
@@ -56,11 +57,11 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         }
         self.popupIsShow = false;
         kNOTIF_POST(STATIC_POPUP_HIDEEN_NOTIFY, self);
-        PYBlockPopupingAnimation block = [self blockHiddenAnimation];
+        PYBlockPopupV_P_V_BK block = [self blockHiddenAnimation];
         if (!block) {
             block = [[self popupParam] creteDefaultBlcokPopupHiddenAnmation];
         }
-        PYBlockPopupendAnimation blockEnd = [[self popupParam]creteDefaultBlcokPopupHiddenEndAnmation];
+        PYBlockPopupV_P_V blockEnd = [[self popupParam]creteDefaultBlcokPopupHiddenEndAnmation];
         block(self,blockEnd);
         if(self.popupHasEffect) [PYPopupParam REV_EFFECT_VALUE];
     }
@@ -164,16 +165,16 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
 -(UIView*) popupContentView{
     return [self popupParam].contentView;
 }
--(void) setBlockShowAnimation:(PYBlockPopupingAnimation) block{
+-(void) setBlockShowAnimation:(PYBlockPopupV_P_V_BK) block{
     [self popupParam].blockShowAnimation = block;
 }
--(PYBlockPopupingAnimation) blockShowAnimation{
+-(PYBlockPopupV_P_V_BK) blockShowAnimation{
     return [self popupParam].blockShowAnimation;
 }
--(void) setBlockHiddenAnimation:(PYBlockPopupingAnimation) block{
+-(void) setBlockHiddenAnimation:(PYBlockPopupV_P_V_BK) block{
     [self popupParam].blockHiddenAnimation = block;
 }
--(PYBlockPopupingAnimation) blockHiddenAnimation{
+-(PYBlockPopupV_P_V_BK) blockHiddenAnimation{
     return [self popupParam].blockHiddenAnimation;
 }
 -(PYPopupParam *) popupParam{
@@ -198,7 +199,8 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         if([self.popupBaseView isKindOfClass:[PYInterflowWindow class]]){
             @synchronized([UIWindow class]){
                 UIWindow * orgWindow = [UIApplication sharedApplication].keyWindow;
-                [((PYInterflowWindow*)self.popupBaseView) makeKeyAndVisible];
+                PYInterflowWindow * interflowWindow = ((PYInterflowWindow*)self.popupBaseView);
+                [interflowWindow makeKeyAndVisible];
                 [orgWindow makeKeyWindow];
             }
             ((PYInterflowWindow*)self.popupBaseView).windowLevel = windowLevel;
@@ -221,12 +223,12 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         [self resetAutoLayout];
         [self resetTransform];
         
-        PYBlockPopupingAnimation blockAnimation = [self blockShowAnimation];
+        PYBlockPopupV_P_V_BK blockAnimation = [self blockShowAnimation];
         if (!blockAnimation) {
             blockAnimation = [[self popupParam] creteDefaultBlcokPopupShowAnmation];
         }
         if(self.popupHasEffect) [PYPopupParam ADD_EFFECT_VALUE];
-        PYBlockPopupendAnimation blockEnd = [[self popupParam] creteDefaultBlcokPopupShowEndAnmation];
+        PYBlockPopupV_P_V blockEnd = [[self popupParam] creteDefaultBlcokPopupShowEndAnmation];
         blockAnimation(self, blockEnd);
     }
     

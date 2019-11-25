@@ -33,7 +33,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
 -(void) sheetShowWithTitle:(nullable NSString *) title
               previousName:(nullable NSString *) previousName
               nextName:(nullable NSString *) nextName
-              blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt{
+              blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt{
     NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
     NSAttributedString * attributePrevious = (previousName && previousName.length > 0) ? [PYSheetParam parseConfirmName:previousName] : nil;
     NSAttributedString * attributeNext = (nextName && nextName.length > 0) ? [PYSheetParam parseConfirmName:nextName] : nil;
@@ -50,7 +50,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
     if([self sheetParam].subView == nil){
         [self sheetParam].subView = self;
     }
-    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [[self sheetParam].showView setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         [view resetAutoLayout];
         [view resetTransform];
         view.transform = CGAffineTransformMakeTranslation(0, view.bounds.size.height);
@@ -62,7 +62,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
         }];
     })];
     kAssign(self);
-    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [[self sheetParam].showView setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         kStrong(self);
         [view resetAutoLayout];
         [view resetTransform];
@@ -97,7 +97,7 @@ static const void *PYSheetPointer = &PYSheetPointer;
             buttonConfirme:(nullable NSString *) confirme
             buttonCancel:(nullable NSString *) canel
             itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
+            blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
             blockSelected:(void (^ _Nullable)(UIView * _Nullable view,  NSUInteger index)) blcokSelected{
     NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
     NSAttributedString * attributeConfirme = (confirme && confirme.length > 0) ? [PYSheetParam parseConfirmName:confirme] : nil;
@@ -119,8 +119,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
             buttonConfirme:(nullable NSString *) confirme
             buttonCancel:(nullable NSString *) canel
             itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpts:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpts
-            blockSelecteds:(BOOL (^ _Nullable)(UIView * _Nullable view)) blockSelecteds;{
+            blockOpts:(nullable PYBlockPopupV_P_V_I) blcokOpts
+            blockSelecteds:(nullable PYBlockPopupB_P_V) blockSelecteds;{
     NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
     NSAttributedString * attributeConfirme = (confirme && confirme.length > 0) ? [PYSheetParam parseConfirmName:confirme] : nil;
     NSAttributedString * attributeCancel = (canel && canel.length > 0) ? [PYSheetParam parseCancelName:canel] : nil;
@@ -144,8 +144,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
                     attributeConfirme:(nullable NSAttributedString *) attributeConfirme
                     attributeCancel:(nullable NSAttributedString *) attributeCancel
                     mutipleSeleted:(BOOL) mutipleSeleted
-                    blockOpt:(void (^ _Nullable)(UIView * _Nullable view, NSUInteger index)) blcokOpt
-                    blockSelecteds:(BOOL (^ _Nullable)(UIView * _Nullable view)) blcokSelecteds{
+                    blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
+                    blockSelecteds:(nullable PYBlockPopupB_P_V) blcokSelecteds{
     
     PYSheetSelectorView * sheetView = nil;
     if(attributeTitle || (attributeItems && attributeItems.count) || attributeConfirme || attributeCancel){

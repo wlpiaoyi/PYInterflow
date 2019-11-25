@@ -45,10 +45,10 @@ int py_sysctl_check_debugger(void) {
 }
 
 void py_stop_debugger(void){
-    asm(
-        "mov X0,#0\n"
-        "mov w16,#1\n"
-        "svc #0x80"
-        );
+//    asm(
+//        "mov X0,#0\n"
+//        "mov w16,#1\n"
+//        "svc #0x80"
+//        );
 
 }

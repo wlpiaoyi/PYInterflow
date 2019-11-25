@@ -75,10 +75,10 @@ static const void *PYDialogPointer = &PYDialogPointer;
 -(NSArray<id> *) dialogHighlightlNames{
     return [self paramDialog].hightLightedButtonNames;
 }
--(void) setDialogOptBlock:(PYBlockDialogOption)dialogOptBlock{
+-(void) setDialogOptBlock:(PYBlockPopupV_P_V_I)dialogOptBlock{
     [self paramDialog].blockDialogOpt = dialogOptBlock;
 }
--(PYBlockDialogOption) dialogOptBlock{
+-(PYBlockPopupV_P_V_I) dialogOptBlock{
     return [self paramDialog].blockDialogOpt;
 }
 -(NSTextAlignment) dialogMessageTextAlignment{
@@ -121,21 +121,21 @@ static const void *PYDialogPointer = &PYDialogPointer;
 
 -(void) dialogShowWithTitle:(nullable NSString *) title
                         message:(nullable NSString *) message
-                        block:(nonnull PYBlockDialogConfirm) block
-                        buttonConfirme:(nullable NSString*) buttonConfirme
+                        block:(nonnull PYBlockPopupV_P_V_B) block
+                        buttonConfirm:(nullable NSString*) buttonConfirm
                         buttonCancel:(nullable NSString*) buttonCancel{
     self.dialogTitle = title;
     self.dialogMessage = message;
-    self.dialogNormalNames = [PYDialogParam parseConfrimName:buttonConfirme cancelName:buttonCancel];
-    self.dialogHighlightlNames = [PYDialogParam parseConfrimName:buttonConfirme cancelName:buttonCancel];
+    self.dialogNormalNames = [PYDialogParam parseConfrimName:buttonConfirm cancelName:buttonCancel];
+    self.dialogHighlightlNames = [PYDialogParam parseConfrimName:buttonConfirm cancelName:buttonCancel];
     self.dialogOptBlock = ^(UIView * _Nonnull view, NSUInteger index) {
-        if([NSString isEnabled:buttonConfirme]) block(view, index == 0);
+        if([NSString isEnabled:buttonConfirm]) block(view, index == 0);
         else block(view, NO);
     };
     [self dialogShow];
 }
 
--(void) dialogShowWithTitle:(nullable NSString *) title message:(nullable NSString *) message block:(nullable PYBlockDialogOption) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
+-(void) dialogShowWithTitle:(nullable NSString *) title message:(nullable NSString *) message block:(nullable PYBlockPopupV_P_V_I) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
     self.dialogTitle = title;
     self.dialogMessage = message;
     self.dialogNormalNames = buttonNames;
@@ -144,7 +144,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     [self dialogShow];
 }
 
--(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle attributeMessage:(nullable NSAttributedString *) attributeMessage block:(nullable PYBlockDialogOption) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{
+-(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle attributeMessage:(nullable NSAttributedString *) attributeMessage block:(nullable PYBlockPopupV_P_V_I) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{
     [self paramDialog].attributeTitle = attributeTitle;
     [self paramDialog].attributeMessage = attributeMessage;
     [self paramDialog].normalButtonNames = buttonNormalNames;
@@ -154,7 +154,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
 }
 
 
--(void) dialogShowWithTitle:(nullable NSString *) title block:(nullable PYBlockDialogOption) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
+-(void) dialogShowWithTitle:(nullable NSString *) title block:(nullable PYBlockPopupV_P_V_I) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{
     self.dialogTitle = title;
     self.dialogNormalNames = buttonNames;
     self.dialogHighlightlNames = buttonNames;
@@ -162,7 +162,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     [self dialogShow];
 }
 
--(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle block:(nullable PYBlockDialogOption) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{
+-(void) dialogShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle block:(nullable PYBlockPopupV_P_V_I) block buttonNormalNames:(nonnull NSArray<NSAttributedString*>*)buttonNormalNames buttonHightLightNames:(nonnull NSArray<NSAttributedString*>*)buttonHightLightNames{
     self.dialogTitle = attributeTitle;
     self.dialogNormalNames = buttonNormalNames;
     self.dialogHighlightlNames = buttonHightLightNames;
@@ -175,7 +175,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
 }
 
 -(void) diloagOnclick:(UIButton*) sender{
-    PYBlockDialogOption block = self.dialogOptBlock;
+    PYBlockPopupV_P_V_I block = self.dialogOptBlock;
     if (block) {
         block(self,sender.tag);
     }

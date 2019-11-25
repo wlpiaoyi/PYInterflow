@@ -1,6 +1,6 @@
 //
 //  PYPopupParam.h
-//  PYInterflow
+//  PYInterflowf
 //
 //  Created by wlpiaoyi on 2016/12/8.
 //  Copyright © 2016年 wlpiaoyi. All rights reserved.
@@ -28,8 +28,8 @@
 @property (nonatomic,copy, nullable) void (^popupBlockEnd)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^blockStart)(UIView * _Nullable view);
 @property (nonatomic,copy, nullable) void (^blockEnd)(UIView * _Nullable view);
-@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockShowAnimation;
-@property (nonatomic,copy, nullable) PYBlockPopupingAnimation blockHiddenAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupV_P_V_BK blockShowAnimation;
+@property (nonatomic,copy, nullable) PYBlockPopupV_P_V_BK blockHiddenAnimation;
 ///<=====================显示和隐藏时候的回调=========================
 
 //基础层
@@ -39,11 +39,11 @@
 @property (nonatomic) CGRect frameOrg;
 @property (nonatomic, strong, nullable) NSMutableDictionary<NSString *, NSLayoutConstraint *> * lc;
 
--(nonnull PYBlockPopupingAnimation) creteDefaultBlcokPopupShowAnmation;
--(nonnull PYBlockPopupendAnimation) creteDefaultBlcokPopupShowEndAnmation;
+-(nonnull PYBlockPopupV_P_V_BK) creteDefaultBlcokPopupShowAnmation;
+-(nonnull PYBlockPopupV_P_V) creteDefaultBlcokPopupShowEndAnmation;
 
--(nonnull PYBlockPopupingAnimation) creteDefaultBlcokPopupHiddenAnmation;
--(nonnull PYBlockPopupendAnimation) creteDefaultBlcokPopupHiddenEndAnmation;
+-(nonnull PYBlockPopupV_P_V_BK) creteDefaultBlcokPopupHiddenAnmation;
+-(nonnull PYBlockPopupV_P_V) creteDefaultBlcokPopupHiddenEndAnmation;
 
 
 +(UIImage *) IMAGE_BOTTOM_LINE;

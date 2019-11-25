@@ -46,18 +46,18 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
  通知显示
  */
 ///=================================>
--(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message blockTap:(nullable PYBlockPopupV_P_V) blockTap{
     [self notifyShow:time attributeMessage:[PYNotifyParam parseNotifyMessage:message color:nil] blockTap:blockTap];
 }
 
--(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage blockTap:(nullable PYBlockPopupV_P_V) blockTap{
     [self notifyShow:time attributeMessage:attributeMessage color:nil blockTap:blockTap];
 }
 
--(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+-(void) notifyShow:(NSUInteger) time message:(nullable NSString *) message color:(nullable UIColor *) color blockTap:(nullable PYBlockPopupV_P_V) blockTap{
     [self notifyShow:time attributeMessage:[PYNotifyParam parseNotifyMessage:message color:color] blockTap:blockTap];
 }
--(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage color:(nullable UIColor *) color blockTap:(void (^) (UIView * _Nonnull targetView)) blockTap{
+-(void) notifyShow:(NSUInteger) time attributeMessage:(nullable NSAttributedString *) attributeMessage color:(nullable UIColor *) color blockTap:(nullable PYBlockPopupV_P_V) blockTap{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PYNotifyHidden" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyHidden) name:@"PYNotifyHidden" object:nil];
@@ -93,7 +93,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     self.popupEdgeInsetItems = eii;
     self.popupEdgeInsets = UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
-    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         view.layer.transform = CATransform3DMakeTranslation(0, -view.frameHeight - view.frameY, 0);
         [UIView animateWithDuration:.5 animations:^{
             [view resetTransform];
@@ -105,7 +105,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
                 view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         }];
     })];
-    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         [view resetTransform];
         view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         [UIView animateWithDuration:.5 animations:^{

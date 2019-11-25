@@ -62,15 +62,17 @@ extern UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 extern NSBundle * _Nonnull STATIC_INTERFLOW_BUNDEL;
 
-typedef void (^PYBlockTouchView)(CGPoint touhMove, UIView  * _Nonnull touchView);
-typedef void (^PYBlockPopupendAnimation) (UIView * _Nonnull view);
-typedef void (^PYBlockPopupingAnimation) (UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block);
-typedef void(^PYBlockDialogOption)(UIView * _Nonnull view, NSUInteger index);
-typedef void(^PYBlockDialogConfirm)(UIView * _Nonnull view, BOOL isConfirm);
+typedef void (^PYBlockPopupV_P_P_V)(CGPoint touhMove, UIView  * _Nonnull touchView);
+typedef void (^PYBlockPopupV_P_V) (UIView * _Nonnull view);
+typedef BOOL (^PYBlockPopupB_P_V) (UIView * _Nonnull view);
+typedef void (^PYBlockPopupV_P_V_BK) (UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block);
+typedef void(^PYBlockPopupV_P_V_I)(UIView * _Nonnull view, NSUInteger index);
+typedef void(^PYBlockPopupV_P_V_B)(UIView * _Nonnull view, BOOL isConfirm);
 
 
 @interface PYInterflowParams : NSObject
 +(void) loadInterflowParamsData;
++(void) loadInterflowParamsData:(nonnull NSBundle *) bundlePath;
 //+(void) setView:(nonnull UIView *) view shadowOffset:(CGSize) size;
 @end
 

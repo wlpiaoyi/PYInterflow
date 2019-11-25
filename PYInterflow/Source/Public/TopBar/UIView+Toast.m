@@ -36,7 +36,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
     self.popupBaseView = [UIApplication sharedApplication].delegate.window;
     
-    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         view.alpha = 0;
         [UIView animateWithDuration:.5 animations:^{
             [view resetAutoLayout];
@@ -46,7 +46,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             block(view);
         }];
     })];
-    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupendAnimation _Nullable block){
+    [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         [view resetAutoLayout];
         [view resetTransform];
         view.alpha = 1;
