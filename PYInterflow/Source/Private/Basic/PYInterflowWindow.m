@@ -10,6 +10,7 @@
 #import "pyutilea.h"
 #import "PYInterflowParams.h"
 #import "PYPopupParam.h"
+#import <objc/runtime.h>
 
 //@interface PYSceneDelegate:NSObject<UISceneDelegate>
 //@end
@@ -22,6 +23,7 @@
 @interface PYInterflowController : UIViewController
 kPNAR BOOL hasEffect;
 kPNA PYInterflowWindow * myWindow;
+kPNRNN UIImageView * bgView;
 -(instancetype) initForEffect:(BOOL) hasEffect;
 @end
 
@@ -56,13 +58,14 @@ kINITPARAMS{
     if(view == self.rootViewController.view){
         [super addSubview:view];
     }else{
-        [self removeSubviews];
+//        if(![view isKindOfClass:NSClassFromString(@"PYKeyboardOptionView")]) [self removeSubviews];
         [self.rootViewController.view addSubview:view];
     }
 }
 -(void) removeSubviews{
-    for (UIView * subView in self.rootViewController.view.subviews) {
-        if(subView.tag == 1862938) continue;
+    NSArray<__kindof UIView *> *subviews = self.rootViewController.view.subviews;
+    for (UIView * subView in subviews) {
+        if(subView == ((PYInterflowController *)self.rootViewController).bgView) continue;
         [subView removeFromSuperview];
     }
 }
@@ -81,7 +84,19 @@ kINITPARAMS{
     BOOL __supportedInterfaceOrientations;
     BOOL __shouldAutorotate;
     BOOL __preferredInterfaceOrientationForPresentation;
-    UIImageView * _bgView;
+}
+
++(void) initialize{
+//    kDISPATCH_ONCE_BLOCK(^{
+//        Protocol * protcol = NSProtocolFromString(@"PYKeyboardOptionTag");
+//        if(!protcol) return;
+//        if([[PYInterflowController class] conformsToProtocol:protcol]) return;
+//        class_addProtocol([PYInterflowController class], protcol);
+//    });
+}
+
+-(BOOL) canTouchHidden{
+    return false;
 }
 
 -(instancetype) initForEffect:(BOOL) hasEffect{

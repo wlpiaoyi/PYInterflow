@@ -187,7 +187,7 @@
 		15A91E07238B9ABD00F5517B /* PYInvoke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYInvoke.h; path = ../../../PYUtile/PYUtile/Source/Public/Invoke/PYInvoke.h; sourceTree = "<group>"; };
 		15A91E0C238B9BAC00F5517B /* pyutilea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pyutilea.h; path = ../../../PYUtile/pyutilea/pyutilea.h; sourceTree = "<group>"; };
 		15A91E0D238B9CD200F5517B /* NSArray+PYExpand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PYExpand.h"; path = "../../../PYUtile/PYUtile/Source/Public/Expand/NSArray+PYExpand.h"; sourceTree = "<group>"; };
-		15C5FB911DF67AA400FF2C75 /* libpyutilea.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpyutilea.a; sourceTree = "<group>"; };
+		15A91E0E238B9D4500F5518B /* UIButton+PYExpand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIButton+PYExpand.h"; path = "../../../PYUtile/PYUtile/Source/Public/Expand/UIButton+PYExpand.h"; sourceTree = "<group>"; };
 		15D5E866224A0BC500F38583 /* PYSheetOptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYSheetOptionView.h; sourceTree = "<group>"; };
 		15D5E867224A0BC500F38583 /* PYSheetOptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYSheetOptionView.m; sourceTree = "<group>"; };
 		15D5E869224A0BD300F38583 /* PYSheetOptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PYSheetOptionView.xib; sourceTree = "<group>"; };
@@ -239,6 +239,7 @@
 		1502A568223A3D6C00F0787A /* PYUtile */ = {
 			isa = PBXGroup;
 			children = (
+				15A91E0E238B9D4500F5518B /* UIButton+PYExpand.h */,
 				15A91E0D238B9CD200F5517B /* NSArray+PYExpand.h */,
 				15A91E0C238B9BAC00F5517B /* pyutilea.h */,
 				15A91DF1238B9ABA00F5517B /* EXTScope.h */,
@@ -345,7 +346,6 @@
 			isa = PBXGroup;
 			children = (
 				1502A589223A3DBF00F0787A /* libpyutilea.a */,
-				15C5FB911DF67AA400FF2C75 /* libpyutilea.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
