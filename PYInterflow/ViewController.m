@@ -101,8 +101,8 @@
 //    });
 }
 - (IBAction)onclickTopbar:(id)sender {
-    UIView * view = self.toastView;//[UIView new];//
-    [view toastShow:3 message:@"\n请输入正确的格式例如"];
+    UIView * view = [UIView new];//
+    [view toastShow:3 message:@"请输入正确的格式例如"];
 }
 - (IBAction)onclickNotify:(id)sender {
     UIView * view = self.notifyView;

@@ -29,6 +29,7 @@ void py_ptrace_check_debugger(void){
     ptrace_ptr(PT_DENY_ATTACH, 0, 0, 0);
     dlclose(handle);
 }
+
 int py_sysctl_check_debugger(void) {
     int name[4];
     struct kinfo_proc info;

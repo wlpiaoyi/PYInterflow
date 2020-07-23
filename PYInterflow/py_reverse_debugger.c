@@ -20,7 +20,7 @@
 int (*sysctl_p)(int *, u_int, void *, size_t *, void *, size_t);
 
 //自定义函数
-int mySysctl(int *name, u_int namelen, void *info, size_t *infosize, void *newinfo, size_t newinfosize){
+int py_sysctl(int *name, u_int namelen, void *info, size_t *infosize, void *newinfo, size_t newinfosize){
     if (namelen == 4
         && name[0] == CTL_KERN
         && name[1] == KERN_PROC
@@ -41,5 +41,5 @@ int mySysctl(int *name, u_int namelen, void *info, size_t *infosize, void *newin
     return sysctl_p(name, namelen, info, infosize, newinfo, newinfosize);
 }
 int py_sysctl_reverse_debugger(void){
-    return rebind_symbols((struct rebinding[1]){{"sysctl",mySysctl,(void *)&sysctl_p}}, 1);
+    return rebind_symbols((struct rebinding[1]){{"sysctl",py_sysctl,(void *)&sysctl_p}}, 1);
 }
