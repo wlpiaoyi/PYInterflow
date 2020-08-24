@@ -40,6 +40,7 @@ CGFloat STATIC_DIALOG_BUTTON_HEIGHT = 44;
 
 
 UIColor * _Nonnull STATIC_EFFECT_TINTC;
+UIColor * _Nonnull STATIC_SHEET_BACKGROUNDH;
 UIColor * _Nonnull STATIC_SHEET_BACKGROUNDC;
 UIColor * _Nonnull STATIC_SHEET_TITLEC;
 UIColor * _Nonnull STATIC_SHEET_ITEMC;
@@ -73,10 +74,11 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 +(void) loadInterflowParamsData:(nonnull NSBundle *) bundlePath{
     STATIC_INTERFLOW_BUNDEL =  bundlePath;
     STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
-    STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xAAAAFF33];
+    STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xCCCCCCFF];
     STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];
     STATIC_EFFECT_TINTC = [UIColor colorWithRGBHex:0x55555533];
     STATIC_SHEET_BACKGROUNDC = [UIColor whiteColor];
+    STATIC_SHEET_BACKGROUNDH =  STATIC_POPUP_HIGHLIGHTC;
     STATIC_SHEET_TITLEC = [UIColor grayColor];
     STATIC_SHEET_ITEMSElECTEDC = [UIColor colorWithRGBHex:0xEEEEFFFF];
     STATIC_SHEET_CANCELC = [UIColor colorWithRGBHex:0xca0814ff];

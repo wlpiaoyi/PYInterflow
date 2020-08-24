@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="PYShutdownPopupView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7t-dB-xC2">
+                    <rect key="frame" x="-100" y="0.0" width="520" height="668"/>
+                    <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-iF-N1i">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-KT-MRu">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8zg-fH-nyZ">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="RPf-e9-O87"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstItem="8zg-fH-nyZ" firstAttribute="top" secondItem="ttQ-KT-MRu" secondAttribute="top" id="2Li-v4-ZKB"/>
+                                <constraint firstItem="8zg-fH-nyZ" firstAttribute="height" secondItem="ttQ-KT-MRu" secondAttribute="height" id="CxN-F9-NmV"/>
+                                <constraint firstItem="8zg-fH-nyZ" firstAttribute="leading" secondItem="ttQ-KT-MRu" secondAttribute="leading" id="XVE-8e-KfH"/>
+                                <constraint firstAttribute="trailing" secondItem="8zg-fH-nyZ" secondAttribute="trailing" id="yJC-Eg-mDZ"/>
+                            </constraints>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="ttQ-KT-MRu" firstAttribute="top" secondItem="IpF-iF-N1i" secondAttribute="top" id="aEs-bf-w2K"/>
+                        <constraint firstItem="ttQ-KT-MRu" firstAttribute="leading" secondItem="IpF-iF-N1i" secondAttribute="leading" id="gsR-Pj-qeh"/>
+                        <constraint firstAttribute="trailing" secondItem="ttQ-KT-MRu" secondAttribute="trailing" id="nvZ-Lm-vTT"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="IpF-iF-N1i" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="6mi-of-gkZ"/>
+                <constraint firstItem="IpF-iF-N1i" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="Eya-hW-Lry"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="h7t-dB-xC2" secondAttribute="bottom" constant="-100" id="H27-EJ-0ZU"/>
+                <constraint firstItem="IpF-iF-N1i" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="R29-ln-0u2"/>
+                <constraint firstItem="h7t-dB-xC2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RVX-JJ-7ok"/>
+                <constraint firstItem="IpF-iF-N1i" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="S0W-D5-3hy"/>
+                <constraint firstAttribute="trailing" secondItem="h7t-dB-xC2" secondAttribute="trailing" constant="-100" id="m4d-Yc-wXf"/>
+                <constraint firstItem="h7t-dB-xC2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="uML-zg-QLB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="lcPopupH" destination="RPf-e9-O87" id="JLf-jw-ypT"/>
+                <outlet property="lcPopuptop" destination="2Li-v4-ZKB" id="tDr-hI-vm8"/>
+                <outlet property="viewFlow" destination="h7t-dB-xC2" id="IzP-LA-s2b"/>
+                <outlet property="viewPopup" destination="8zg-fH-nyZ" id="6ca-cP-XVJ"/>
+            </connections>
+            <point key="canvasLocation" x="-138" y="101"/>
+        </view>
+    </objects>
+</document>

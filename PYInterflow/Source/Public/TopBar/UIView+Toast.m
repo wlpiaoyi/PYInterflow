@@ -34,7 +34,7 @@ const void * PYTopbarPointer = &PYTopbarPointer;
     }
     self.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, 50, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
-    self.popupBaseView = [UIApplication sharedApplication].delegate.window;
+    self.popupBaseView = [UIApplication sharedApplication].keyWindow;
     
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
         view.alpha = 0;

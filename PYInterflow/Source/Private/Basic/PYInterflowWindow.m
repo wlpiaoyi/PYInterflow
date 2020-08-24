@@ -45,6 +45,10 @@ kINITPARAMS{
         window.rootViewController = vc;
         vc.myWindow = window;
     }
+    if (@available(iOS 13.0, *)) {
+        UIWindowScene *windowScene = (UIWindowScene *) [UIApplication sharedApplication].connectedScenes.anyObject;
+        [window setWindowScene: windowScene];
+    }
     return window;
 }
 

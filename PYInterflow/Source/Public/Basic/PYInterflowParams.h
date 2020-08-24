@@ -44,6 +44,7 @@ extern CGFloat STATIC_DIALOG_BUTTON_HEIGHT;
 
 
 extern UIColor * _Nonnull STATIC_EFFECT_TINTC;
+extern UIColor * _Nonnull STATIC_SHEET_BACKGROUNDH;
 extern UIColor * _Nonnull STATIC_SHEET_BACKGROUNDC;
 extern UIColor * _Nonnull STATIC_SHEET_TITLEC;
 extern UIColor * _Nonnull STATIC_SHEET_ITEMC;

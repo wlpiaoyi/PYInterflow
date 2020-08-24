@@ -24,7 +24,7 @@
 -(void) setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     if(self.highlighted){
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = STATIC_SHEET_BACKGROUNDH;
     }else{
         self.backgroundColor = isSelected ? STATIC_SHEET_ITEMSElECTEDC : STATIC_SHEET_BACKGROUNDC;
     }

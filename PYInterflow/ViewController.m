@@ -16,6 +16,7 @@
 #import "UIView+Toast.h"
 #import "UIView+Notify.h"
 #import "pyutilea.h"
+#import "PYShutdownPopupView.h"
 
 #import "PYSheetSelectorView.h"
 
@@ -37,6 +38,20 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    threadJoinGlobal(^{
+        sleep(1);
+        PYShutdownPopupView * popupView  = [PYShutdownPopupView loadXib];
+        threadJoinMain(^{
+            UIView * view  = [UIView new];
+            [view setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor redColor]];
+            view.frameHeight = 200;
+            [popupView showWithSubView:view superView:self.view topItem:nil topConstant:0];
+        });
+        sleep(1);
+        threadJoinMain(^{
+            [popupView hidden];
+        });
+    });
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
 //    PYSheetSelectorView * cView = [PYSheetSelectorView instanceWithTitle:[[NSAttributedString alloc] initWithString:@"title"] items:@[
 //                                [[NSAttributedString alloc] initWithString:@"adfadfads1"],

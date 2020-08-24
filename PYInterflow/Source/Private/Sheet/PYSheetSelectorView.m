@@ -125,7 +125,7 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     height += lcOptionH.constant;
     CGFloat value = 0;
     if (@available(iOS 11.0, *)) {
-        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].delegate.window.safeAreaInsets;
+        UIEdgeInsets safeAreaInsets = [UIApplication sharedApplication].keyWindow.safeAreaInsets;
         value = boundsHeight() - safeAreaInsets.top - safeAreaInsets.bottom;
     } else {
         value = boundsHeight();

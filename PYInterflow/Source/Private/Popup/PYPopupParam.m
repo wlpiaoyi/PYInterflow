@@ -97,7 +97,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     });
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     threadJoinMain(^{
-        UIWindow * window = [UIApplication sharedApplication].delegate.window;
+        UIWindow * window = [UIApplication sharedApplication].keyWindow;
         CGRect bounds = window.bounds;
         __block UIImage * image = [window drawViewWithBounds:bounds scale:1];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
