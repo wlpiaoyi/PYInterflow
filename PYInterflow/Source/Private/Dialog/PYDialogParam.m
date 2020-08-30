@@ -110,11 +110,11 @@
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     NSAttributedString *attTitle;
     if([NSString isEnabled:confirmName]){
-        attTitle = [self parseForAttributeWithName:confirmName font:STATIC_DIALOG_BUTTONFONT color:STATIC_SHEET_CONFIRMC];
+        attTitle = [self parseForAttributeWithName:confirmName font:STATIC_DIALOG_BUTTONFONT color:STATIC_POPUP_BLUEC];
         [ats addObject:attTitle];
     }
     if([NSString isEnabled:cancelName]){
-        attTitle = [self parseForAttributeWithName:cancelName font:STATIC_DIALOG_BUTTONFONT color:STATIC_SHEET_CANCELC];
+        attTitle = [self parseForAttributeWithName:cancelName font:STATIC_DIALOG_BUTTONFONT color:STATIC_POPUP_REDC];
         [ats addObject:attTitle];
     }
     return ats;

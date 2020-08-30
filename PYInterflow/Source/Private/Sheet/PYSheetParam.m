@@ -134,7 +134,7 @@ kSOULDLAYOUTPForType(PYSheetTableView)
     if(name == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_SHEET_CONFIRMC range:range];//颜色
+    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_POPUP_BLUEC range:range];//颜色
     [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_CONFIRMFONT range:range];
     return attTitle;
 }
@@ -142,7 +142,7 @@ kSOULDLAYOUTPForType(PYSheetTableView)
     if(name == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_SHEET_CANCELC range:range];//颜色
+    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_POPUP_REDC range:range];//颜色
     [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_CANCELFONT range:range];
     return attTitle;
 }

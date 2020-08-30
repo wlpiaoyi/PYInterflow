@@ -49,8 +49,8 @@ extern UIColor * _Nonnull STATIC_SHEET_BACKGROUNDC;
 extern UIColor * _Nonnull STATIC_SHEET_TITLEC;
 extern UIColor * _Nonnull STATIC_SHEET_ITEMC;
 extern UIColor * _Nonnull STATIC_SHEET_ITEMSElECTEDC;
-extern UIColor * _Nonnull STATIC_SHEET_CANCELC;
-extern UIColor * _Nonnull STATIC_SHEET_CONFIRMC;
+extern UIColor * _Nonnull STATIC_POPUP_REDC;
+extern UIColor * _Nonnull STATIC_POPUP_BLUEC;
 
 extern UIFont * _Nonnull STATIC_SHEET_TITLEFONT;
 extern UIFont * _Nonnull STATIC_SHEET_ITEMFONT;

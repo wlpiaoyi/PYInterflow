@@ -83,7 +83,8 @@ UIColor * kPYSheetItemSelectedColor;
 +(nullable instancetype) instanceWithItems:(nonnull NSArray<NSAttributedString *> *) items
                                 selectes:(nullable NSArray<NSNumber *> *) selectes
                                 multipleSelected:(BOOL) multipleSelected{
-    kPYSheetItemSelectedColor = [UIColor colorWithRGBHex:0x00000033];
+//    colorWithHexNumber
+    kPYSheetItemSelectedColor = [UIColor colorWithHexNumber:0x00000033];
     PYSheetItemsView * owner = [STATIC_INTERFLOW_BUNDEL loadNibNamed:NSStringFromClass(self) owner:self options:nil].lastObject;
     owner->_items = items;
     owner->_multipleSelected = multipleSelected;
