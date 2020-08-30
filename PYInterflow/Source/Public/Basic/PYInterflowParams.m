@@ -52,6 +52,7 @@ UIFont * _Nonnull STATIC_SHEET_TITLEFONT;
 UIFont * _Nonnull STATIC_SHEET_ITEMFONT;
 UIFont * _Nonnull STATIC_SHEET_CANCELFONT;
 UIFont * _Nonnull STATIC_SHEET_CONFIRMFONT;
+UIImage* STATIC_SHEET_IMAGE_LINE;
 
 UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
 UIColor * _Nonnull STATIC_TOPBAR_BGC;
@@ -73,33 +74,79 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 }
 +(void) loadInterflowParamsData:(nonnull NSBundle *) bundlePath{
     STATIC_INTERFLOW_BUNDEL =  bundlePath;
-    STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
-    STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0xCCCCCCFF];
-    STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];
-    STATIC_EFFECT_TINTC = [UIColor colorWithRGBHex:0x55555533];
-    STATIC_SHEET_BACKGROUNDC = [UIColor whiteColor];
-    STATIC_SHEET_BACKGROUNDH =  STATIC_POPUP_HIGHLIGHTC;
-    STATIC_SHEET_TITLEC = [UIColor grayColor];
-    STATIC_SHEET_ITEMSElECTEDC = [UIColor colorWithRGBHex:0xEEEEFFFF];
+    
+    kDISPATCH_ONCE_BLOCK(^{
+        STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
+        
+        STATIC_SHEET_TITLEFONT = [UIFont systemFontOfSize:14];
+        STATIC_SHEET_ITEMFONT = [UIFont systemFontOfSize:16];
+        STATIC_SHEET_CANCELFONT = [UIFont boldSystemFontOfSize:16];
+        STATIC_SHEET_CONFIRMFONT = STATIC_SHEET_ITEMFONT;
+        
+        STATIC_DIALOG_TITLEFONT = [UIFont boldSystemFontOfSize:18];
+        STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
+        STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
+        
+        STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];
+        
+        [PYPopupParam RECIRCLE_REFRESH_EFFECT];
+    });
+    
+    if (@available(iOS 13.0, *)) {
+        STATIC_DIALOG_BACKGROUNDC = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor colorWithRGBHex:0x1E1E1EFF];
+            else
+                return [UIColor whiteColor];
+        }];
+        STATIC_SHEET_ITEMSElECTEDC = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor colorWithRGBHex:0x333322FF];
+            else
+                return [UIColor colorWithRGBHex:0xEEEEFFFF];
+        }];
+        STATIC_TOPBAR_MESSAGEC = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor colorWithRGBHex:0xFFFFFFAA];
+            else
+                return [UIColor colorWithRGBHex:0x000000AA];
+        }];
+        STATIC_SHEET_TITLEC = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor lightGrayColor];
+            else
+                return [UIColor grayColor];
+        }];
+        STATIC_DIALOG_TEXTCLOLOR = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor lightGrayColor];
+            else
+                return [UIColor darkGrayColor];
+        }];
+        STATIC_EFFECT_TINTC = [UIColor colorWithRGBHex:0x55555533];
+        STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
+        STATIC_SHEET_TITLEC = [UIColor systemGrayColor];
+    } else {
+        STATIC_EFFECT_TINTC = [UIColor colorWithRGBHex:0x55555533];
+        STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
+        STATIC_DIALOG_TEXTCLOLOR = [UIColor darkGrayColor];
+        STATIC_TOPBAR_MESSAGEC = [UIColor colorWithRGBHex:0x000000AA];
+        STATIC_SHEET_ITEMSElECTEDC = [UIColor colorWithRGBHex:0xEEEEFFFF];
+    }
+    
+    STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithRGBHex:0x888888AA];
     STATIC_SHEET_CANCELC = [UIColor colorWithRGBHex:0xca0814ff];
     STATIC_SHEET_CONFIRMC = [UIColor colorWithRGBHex:0x157efaff];
+    STATIC_TOPBAR_BGC = STATIC_DIALOG_BACKGROUNDC;
+    STATIC_SHEET_BACKGROUNDC = STATIC_DIALOG_BACKGROUNDC;
     STATIC_SHEET_ITEMC = STATIC_SHEET_CONFIRMC;
+    STATIC_SHEET_BACKGROUNDH =  STATIC_POPUP_HIGHLIGHTC;
     
-    STATIC_SHEET_TITLEFONT = [UIFont systemFontOfSize:14];
-    STATIC_SHEET_ITEMFONT = [UIFont systemFontOfSize:16];
-    STATIC_SHEET_CANCELFONT = [UIFont boldSystemFontOfSize:16];
-    STATIC_SHEET_CONFIRMFONT = STATIC_SHEET_ITEMFONT;
-    
-    STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
-    STATIC_DIALOG_TEXTCLOLOR = [UIColor darkGrayColor];
-    STATIC_DIALOG_TITLEFONT = [UIFont boldSystemFontOfSize:18];
-    STATIC_DIALOG_MESSAGEFONT = [UIFont italicSystemFontOfSize:14];
-    STATIC_DIALOG_BUTTONFONT = [UIFont boldSystemFontOfSize:18];
-    
-    STATIC_TOPBAR_MESSAGEC = [UIColor colorWithRGBHex:0x000000AA];
-    STATIC_TOPBAR_BGC = [UIColor whiteColor];
-    STATIC_TOPBAR_MESSAGEFONT = [UIFont systemFontOfSize:14];
-    [PYPopupParam RECIRCLE_REFRESH_EFFECT];
+     UIImage * image = [UIImage imageWithSize:CGSizeMake([UIScreen mainScreen].scale, [UIScreen mainScreen].scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
+          [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, [UIScreen mainScreen].scale) endPoint:CGPointMake(rect.size.width, [UIScreen mainScreen].scale) strokeColor:STATIC_POPUP_HIGHLIGHTC.CGColor strokeWidth:1 lengthPointer:nil length:0];
+    }];
+    image = [image setImageSize:CGSizeMake(1, 1) scale:[UIScreen mainScreen].scale];
+    STATIC_SHEET_IMAGE_LINE = image;
 }
 
 

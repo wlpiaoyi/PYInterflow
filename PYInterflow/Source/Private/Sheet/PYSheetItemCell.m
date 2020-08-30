@@ -8,8 +8,11 @@
 
 #import "PYSheetItemCell.h"
 #import "PYInterflowParams.h"
+#import "UIColor+PYExpand.h"
 
 @implementation PYSheetItemCell{
+    __weak IBOutlet UIImageView *imageLine;
+    __weak IBOutlet UIView *viewbg;
     __weak IBOutlet UILabel *labelItems;
 }
 
@@ -18,15 +21,19 @@
     self.selectedBackgroundView = [UIView new];
     self.selectedBackgroundView.backgroundColor = STATIC_POPUP_HIGHLIGHTC;
     self.isSelected = NO;
+
+    imageLine.image = STATIC_SHEET_IMAGE_LINE;
+    imageLine.contentMode = UIViewContentModeScaleToFill;
+    imageLine.backgroundColor = STATIC_SHEET_BACKGROUNDC;
     
 }
 
 -(void) setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
     if(self.highlighted){
-        self.backgroundColor = STATIC_SHEET_BACKGROUNDH;
+        viewbg.backgroundColor = STATIC_SHEET_BACKGROUNDH;
     }else{
-        self.backgroundColor = isSelected ? STATIC_SHEET_ITEMSElECTEDC : STATIC_SHEET_BACKGROUNDC;
+        viewbg.backgroundColor = isSelected ? STATIC_SHEET_ITEMSElECTEDC : STATIC_SHEET_BACKGROUNDC;
     }
 }
 -(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated{

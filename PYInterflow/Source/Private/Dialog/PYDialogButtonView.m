@@ -125,10 +125,11 @@
     }
     [button setTitleColor:STATIC_DIALOG_TEXTCLOLOR forState:UIControlStateNormal];
     [button setTitleColor:STATIC_DIALOG_BACKGROUNDC forState:UIControlStateHighlighted];
-    [button setBackgroundImage:[UIImage imageWithColor:STATIC_DIALOG_BACKGROUNDC] forState:UIControlStateNormal];
+    button.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+//    [button setBackgroundImage:[UIImage imageWithColor:STATIC_DIALOG_BACKGROUNDC] forState:UIControlStateNormal];
     [button setBackgroundImage:[UIImage imageWithColor:STATIC_POPUP_HIGHLIGHTC] forState:UIControlStateHighlighted];
     button.titleLabel.font = STATIC_DIALOG_BUTTONFONT;
-    button.backgroundColor = [UIColor clearColor];
+//    button.backgroundColor = [UIColor clearColor];
     return button;
 }
 

@@ -79,7 +79,7 @@
 //
 //        } buttonNames:@[@"sfadf"]];
         
-        [alertView dialogShowWithTitle:@"标题" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
+        [alertView dialogShowWithTitle:@"标题" message:@"资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
         } buttonConfirm:@"确定" buttonCancel:@"取消"];
 //        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
@@ -93,18 +93,25 @@
 }
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [PYView new];//self.sheetView;
-    
-    [baseview sheetShowWithTitle:@"多选测试" buttonConfirme:@"确定" buttonCancel:@"取消" itemStrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"] blockOpts:^(UIView * _Nullable view, NSUInteger index) {
-        NSArray * a = view.sheetIndexs;
-        NSLog(@"%@",a);
-    } blockSelecteds:^BOOL(UIView * _Nullable view) {
-        NSArray * a = view.sheetIndexs;
-        if(a.count == 1){
-            view.sheetIndexs = @[@(0)];
-        }
-        return NO;
-    }];
-    baseview.sheetIndexs = @[@(0),@(6)];
+    baseview.sheetTitle = @"多选测试";
+//    baseview.sheetConfirme = @"确定";
+    baseview.sheetCancel = @"取消";
+    kAssign(baseview)
+    baseview.sheetBlockSelecting = ^BOOL(BOOL isSelected, NSUInteger cureentIndex) {
+        kStrong(baseview);
+//        NSArray * a = baseview.sheetSelectedIndexs;
+//        if(!isSelected && baseview.sheetSelectedIndexs.count == 1){
+//            baseview.sheetSelectedIndexs = @[@(0)];
+//            return NO;
+//        }
+        return YES;
+    };
+    baseview.sheetBlcokOpt = ^(UIView * _Nonnull view, BOOL isConfirm) {
+        NSArray * a = view.sheetSelectedIndexs;
+        NSLog(@"");
+    };
+    [baseview sheetShowWithItemstrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"]];
+    baseview.sheetSelectedIndexs = @[@(0),@(6)];
     
     
 //    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

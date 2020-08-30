@@ -11,26 +11,49 @@
 #import "PYInterflowParams.h"
 
 @interface UIView(Sheet)
+
+/**
+ 基础层
+ */
 kPNRNN UIView * sheetShowView;
-kPNCNA NSArray<NSNumber *> * sheetIndexs;
-kPNCNA BOOL (^sheetBlockSelecting) (NSMutableArray<NSNumber *> * _Nonnull  beforeIndexs, NSUInteger cureentIndex);
+/**
+ 点击空白区域隐藏, 默认true
+ */
 kPNA BOOL sheetIsHiddenOnClick;
+/**
+ 当前选择的项目
+ */
+kPNCNA NSArray<NSNumber *> * sheetSelectedIndexs;
+/**
+ 标题
+ */
+kPNSNA NSString * sheetTitle;
+/**
+ 确认按钮
+ */
+kPNSNA NSString * sheetConfirme;
+/**
+ 取消按钮
+ */
+kPNSNA NSString * sheetCancel;
+/**
+ 选择过程中的回调
+
+ */
+kPNCNA BOOL(^sheetBlockSelecting)(BOOL isSelected, NSUInteger cureentIndex);
+/**
+ 
+ */
+kPNCNA void(^sheetBlcokOpt)(UIView * _Nonnull view, BOOL isConfirm);
+
 -(void) sheetShow;
+
 -(void) sheetShowWithTitle:(nullable NSString *) title
             previousName:(nullable NSString *) previousName
             nextName:(nullable NSString *) nextName
             blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt;
--(void) sheetShowWithTitle:(nullable NSString *) title
-            buttonConfirme:(nullable NSString *) confirme
-            buttonCancel:(nullable NSString *) canel
-            itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
-            blockSelected:(void (^ _Nullable)(UIView * _Nullable view,  NSUInteger index)) blcokSelected;
--(void) sheetShowWithTitle:(nullable NSString *) title
-            buttonConfirme:(nullable NSString *) confirme
-            buttonCancel:(nullable NSString *) canel
-            itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpts:(nullable PYBlockPopupV_P_V_I) blcokOpts
-            blockSelecteds:(nullable PYBlockPopupB_P_V) blockSelecteds;
+
+-(void) sheetShowWithItemstrings:(nullable NSArray<NSString *> *) itemstrings;
+
 -(void) sheetHidden;
 @end

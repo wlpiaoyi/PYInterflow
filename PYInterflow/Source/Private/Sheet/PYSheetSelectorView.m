@@ -11,6 +11,8 @@
 #import "PYSheetItemsView.h"
 #import "PYSheetItemCell.h"
 #import "PYPopupParam.h"
+#import "UIImage+PYExpand.h"
+#import "UIColor+PYExpand.h"
 
 @interface PYSheetSelectorView()
 kSOULDLAYOUTPForType(PYSheetSelectorView);
@@ -39,21 +41,28 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     PYSheetSelectorView * owner = [STATIC_INTERFLOW_BUNDEL loadNibNamed:NSStringFromClass(self) owner:self options:nil].lastObject;
     owner->_title = title;
     owner->_items = items;
-    owner->_selectes = selectes;
+    owner.selectes = selectes;
     owner->_options = options;
     owner->_multipleSelected = multipleSelected;
-    owner->itemsViewSelector = [PYSheetItemsView instanceWithItems:owner->_items selectes:owner->_selectes multipleSelected:owner->_multipleSelected];
+    owner->itemsViewSelector = [PYSheetItemsView instanceWithItems:owner->_items selectes:owner.selectes multipleSelected:owner->_multipleSelected];
     
     PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
     if(owner->_title && owner->_title.length){
         owner->labelTitle.attributedText = owner->_title;
         owner->viewTitle.hidden = NO;
-        UIView * line =  [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
-        line.backgroundColor = [UIColor clearColor];
-        [owner->viewSelector addSubview: line];
-        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
-        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemMake((__bridge void * _Nullable)(owner->viewTitle), nil, nil, nil)];
-        eii.top = (__bridge void * _Nullable)(line);
+
+        UIImageView * imageLine = [[UIImageView alloc] initWithImage:STATIC_SHEET_IMAGE_LINE];
+        imageLine.backgroundColor = STATIC_SHEET_BACKGROUNDC;
+        imageLine.contentMode = UIViewContentModeScaleToFill;
+        [owner->viewSelector addSubview: imageLine];
+        [imageLine py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+            make.top.py_toItem(owner->viewTitle).py_constant(0);
+            make.left.right.py_constant(0);
+            make.height.py_constant(1);
+        }];
+//        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
+//        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemMake((__bridge void * _Nullable)(owner->viewTitle), nil, nil, nil)];
+        eii.top = (__bridge void * _Nullable)(imageLine);
     }else{
         owner->viewTitle.hidden = YES;
     }
@@ -81,35 +90,38 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     viewTitle.backgroundColor = STATIC_SHEET_BACKGROUNDC;
 }
 
--(void) setBlockSelectedItems:(BOOL (^)(PYSheetSelectorView * _Nonnull))blockSelectedItems{
-    _blockSelectedItems = blockSelectedItems;
-    kAssign(self);
-    itemsViewSelector.blockAfterSelectedItems = ^(PYSheetItemsView * _Nonnull contextView) {
-        kStrong(self);
-        self.selectes = contextView.selectes;
-        if(self.blockSelectedItems) self.blockSelectedItems(self);
-    };
-}
-
+//-(void) setBlockSelectedItems:(BOOL (^)(PYSheetSelectorView * _Nonnull))blockSelectedItems{
+//    _blockSelectedItems = blockSelectedItems;
+//    kAssign(self);
+//    itemsViewSelector.blockAfterSelectedItems = ^(PYSheetItemsView * _Nonnull contextView) {
+//        kStrong(self);
+//        self.selectes = contextView.selectes;
+//        if(self.blockSelectedItems) self.blockSelectedItems(self);
+//    };
+//}
+//
 -(void) setBlockSelectedOptions:(void (^)(PYSheetSelectorView * _Nonnull, NSUInteger))blockSelectedOptions{
     _blockSelectedOptions = blockSelectedOptions;
     kAssign(self);
-    itemsViewOption.blockAfterSelectedItems = ^(PYSheetItemsView * _Nonnull contextView) {
+    itemsViewOption.blockSelecting = ^BOOL(BOOL isSelected, NSUInteger cureentIndex) {
         kStrong(self);
-        self.selectes = self->itemsViewSelector.selectes;
-        if(self.blockSelectedOptions) self.blockSelectedOptions(self, contextView.selectes.firstObject.integerValue);
+        if(!isSelected) return NO;
+        if(blockSelectedOptions)blockSelectedOptions(self, cureentIndex);
+        return YES;
     };
 }
--(void) setBlockOnSelecting:(BOOL (^)(NSMutableArray<NSNumber *> * _Nonnull, NSUInteger))blockOnSelecting{
-    _blockOnSelecting = blockOnSelecting;
-    itemsViewSelector.blockOnSelecting = blockOnSelecting;
+-(void) setBlockSelecting:(BOOL (^)(BOOL, NSUInteger))blockSelecting{
+    _blockSelecting = blockSelecting;
+    itemsViewSelector.blockSelecting = blockSelecting;
 }
 
 -(void) setSelectes:(NSArray<NSNumber *> *)selectes{
-    _selectes = selectes;
-    itemsViewSelector.selectes = _selectes;
+    itemsViewSelector.selectes = [selectes isKindOfClass:[NSMutableArray class]] ? selectes : [selectes mutableCopy];;;
 }
 
+-(NSArray<NSNumber *> *)selectes{
+    return itemsViewSelector.selectes;
+}
 -(void) synFrame{
     CGFloat width = self.frameWidth;
     if(width <= 0) return;

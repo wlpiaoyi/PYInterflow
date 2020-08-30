@@ -49,37 +49,35 @@ UIColor * kPYSheetItemSelectedColor;
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(_blockOnSelecting){
-        if(!_blockOnSelecting((NSMutableArray *)_selectes, indexPath.row)){
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
+    NSNumber * select = @(indexPath.row);
+    BOOL isSelected = [self.selectes containsObject:select];
+    if(_blockSelecting){
+        if(!_blockSelecting(!isSelected, indexPath.row)){
             [tableView reloadData];
             return;
         }
-        [tableView reloadData];
     }
-    NSNumber * selecte = @(indexPath.row);
     if(self.multipleSelected){
-        if([self.selectes containsObject:selecte]){
-            [((NSMutableArray *)self.selectes) removeObject:selecte];
+        if(isSelected){
+            [((NSMutableArray *)self.selectes) removeObject:select];
         }else{
-            [((NSMutableArray *)self.selectes) addObject:selecte];
+            [((NSMutableArray *)self.selectes) addObject:select];
         }
     }else{
         [((NSMutableArray *)self.selectes) removeAllObjects];
-        [((NSMutableArray *)self.selectes) addObject:selecte];
+        [((NSMutableArray *)self.selectes) addObject:select];
     }
     NSInteger row = [tableView indexPathForCell:tableView.visibleCells.firstObject].row;
     for (PYSheetItemCell * cell in tableView.visibleCells) {
         cell.isSelected = (self.selectes && [self.selectes containsObject:@(row++)]);
     }
     [tableView deselectRowAtIndexPath:indexPath animated:self.selectes == nil];
-    if(self.blockAfterSelectedItems) _blockAfterSelectedItems(self);
+//    if(self.blockAfterSelectedItems) _blockAfterSelectedItems(self);
 }
 
 -(void) setSelectes:(NSArray<NSNumber *> * _Nullable)selectes{
-    if(selectes == nil)
-        _selectes = nil;
-    else
-        _selectes = [selectes isKindOfClass:[NSMutableArray class]] ? selectes : [selectes mutableCopy];
+    _selectes = selectes;
     [_tableView reloadData];
 }
 +(nullable instancetype) instanceWithItems:(nonnull NSArray<NSAttributedString *> *) items
@@ -89,7 +87,7 @@ UIColor * kPYSheetItemSelectedColor;
     PYSheetItemsView * owner = [STATIC_INTERFLOW_BUNDEL loadNibNamed:NSStringFromClass(self) owner:self options:nil].lastObject;
     owner->_items = items;
     owner->_multipleSelected = multipleSelected;
-    owner.selectes = selectes;
+    owner.selectes = [selectes mutableCopy];
     return owner;
 }
 

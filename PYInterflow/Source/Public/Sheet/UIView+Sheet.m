@@ -23,12 +23,56 @@ static const void *PYSheetPointer = &PYSheetPointer;
 -(BOOL) sheetIsHiddenOnClick{
     return [self sheetParam].isHiddenOnClick;
 }
--(void) setSheetIndexs:(NSArray<NSNumber *>*)sheetIndexs{
+
+-(void) setSheetSelectedIndexs:(NSArray<NSNumber *>*)sheetIndexs{
     ((PYSheetSelectorView *)[self sheetParam].sheetSelectorView).selectes = sheetIndexs;
 }
--(NSArray<NSNumber *>*) sheetIndexs{
+-(NSArray<NSNumber *>*) sheetSelectedIndexs{
     return [self sheetParam].sheetSelectorView.selectes;
 }
+
+-(void) setBlockSelecting:(BOOL (^)(BOOL, NSUInteger))blockSelecting{
+    [self sheetParam].blockSelecting = blockSelecting;
+}
+-(BOOL (^)(BOOL, NSUInteger))blockSelecting{
+    return [self sheetParam].blockSelecting;
+}
+
+-(void) setSheetTitle:(NSString *)sheetTitle{
+    [self sheetParam].attributeTitle = [NSString isEnabled:sheetTitle] ? [PYSheetParam parseTitleName:sheetTitle] : nil;
+}
+-(NSString *)sheetTitle{
+    return [self sheetParam].attributeTitle.string;
+}
+
+-(void) setSheetConfirme:(NSString *)sheetConfirme{
+    [self sheetParam].attributeConfirme =  (sheetConfirme && sheetConfirme.length > 0) ? [PYSheetParam parseConfirmName:sheetConfirme] : nil;;
+}
+-(NSString *)sheetConfirme{
+    return [self sheetParam].attributeConfirme.string;
+}
+
+-(void) setSheetCancel:(NSString *)sheetCancel{
+    [self sheetParam].attributeCancel=  (sheetCancel && sheetCancel.length > 0) ? [PYSheetParam parseCancelName:sheetCancel] : nil;;
+}
+-(NSString *)sheetCancel{
+    return [self sheetParam].attributeCancel.string;
+}
+
+-(void) setSheetBlockSelecting:(BOOL (^)(BOOL, NSUInteger))sheetBlockSelecting{
+    [self sheetParam].blockSelecting = sheetBlockSelecting;
+}
+-(BOOL (^)(BOOL, NSUInteger))sheetBlockSelecting{
+    return [self sheetParam].blockSelecting;
+}
+
+-(void) setSheetBlcokOpt:(PYBlockPopupV_P_V_B)sheetBlcokOpt{
+    [self sheetParam].blockOpt = sheetBlcokOpt;
+}
+-(PYBlockPopupV_P_V_B)sheetBlcokOpt{
+    return [self sheetParam].blockOpt;
+}
+
 
 -(void) sheetShowWithTitle:(nullable NSString *) title
               previousName:(nullable NSString *) previousName
@@ -40,10 +84,8 @@ static const void *PYSheetPointer = &PYSheetPointer;
     kAssign(self);
     [self sheetParam].sheetOptionView = [PYSheetOptionView instanceWithTitle:attributeTitle previousName:attributePrevious nextName:attributeNext blockOpt:^(NSUInteger index) {
         kStrong(self);
-        if([self sheetParam].blockOpt) [self sheetParam].blockOpt(self, index);
-        NSLog(@"");
+        if(blcokOpt) blcokOpt(self, index);
     }];
-    [self sheetParam].blockOpt = blcokOpt;
     [self sheetShow];
 }
 -(void) sheetShow{
@@ -93,103 +135,40 @@ static const void *PYSheetPointer = &PYSheetPointer;
     };
     [[self sheetParam] mergesafeOutBottomView];
 }
--(void) sheetShowWithTitle:(nullable NSString *) title
-            buttonConfirme:(nullable NSString *) confirme
-            buttonCancel:(nullable NSString *) canel
-            itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
-            blockSelected:(void (^ _Nullable)(UIView * _Nullable view,  NSUInteger index)) blcokSelected{
-    NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
-    NSAttributedString * attributeConfirme = (confirme && confirme.length > 0) ? [PYSheetParam parseConfirmName:confirme] : nil;
-    NSAttributedString * attributeCancel = (canel && canel.length > 0) ? [PYSheetParam parseCancelName:canel] : nil;
-    NSMutableArray<NSAttributedString *> * attributeItems = [NSMutableArray new];
-    for (NSString * string in itemStrings) {
-        NSAttributedString *item = [PYSheetParam parseItemName:string];
-        [attributeItems addObject:item];
-    }
-    kAssign(self);
-    [self sheetShowWithAttributeTitle:attributeTitle attributeItems:attributeItems attributeConfirme:attributeConfirme attributeCancel:attributeCancel mutipleSeleted:NO blockOpt:blcokOpt blockSelecteds:^BOOL(UIView * _Nullable view) {
-        kStrong(self);
-        if(blcokSelected)blcokSelected(view, self.sheetIndexs.firstObject.integerValue);
-        return YES;
-    }];
-}
 
--(void) sheetShowWithTitle:(nullable NSString *) title
-            buttonConfirme:(nullable NSString *) confirme
-            buttonCancel:(nullable NSString *) canel
-            itemStrings:(nullable NSArray<NSString *> *) itemStrings
-            blockOpts:(nullable PYBlockPopupV_P_V_I) blcokOpts
-            blockSelecteds:(nullable PYBlockPopupB_P_V) blockSelecteds;{
-    NSAttributedString * attributeTitle = [PYSheetParam parseTitleName:title];
-    NSAttributedString * attributeConfirme = (confirme && confirme.length > 0) ? [PYSheetParam parseConfirmName:confirme] : nil;
-    NSAttributedString * attributeCancel = (canel && canel.length > 0) ? [PYSheetParam parseCancelName:canel] : nil;
-    NSMutableArray<NSAttributedString *> * attributeItems = [NSMutableArray new];
-    for (NSString * string in itemStrings) {
-        NSAttributedString *item = [PYSheetParam parseItemName:string];
-        [attributeItems addObject:item];
-    }
-    [self sheetShowWithAttributeTitle:attributeTitle attributeItems:attributeItems attributeConfirme:attributeConfirme attributeCancel:attributeCancel mutipleSeleted:YES blockOpt:blcokOpts blockSelecteds:blockSelecteds];
-}
-
--(void) setSheetBlockSelecting:(BOOL (^ _Nullable)(NSMutableArray<NSNumber *> * _Nonnull beforeIndexs, NSUInteger cureentIndex)) blockSelecting{
-    [self sheetParam].blockSelecting = blockSelecting;
-}
--(BOOL (^ _Nullable)(NSMutableArray<NSNumber *> * _Nonnull beforeIndexs, NSUInteger cureentIndex)) sheetBlockSelecting{
-    return [self sheetParam].blockSelecting;
-}
-
--(void) sheetShowWithAttributeTitle:(nullable NSAttributedString *) attributeTitle
-                    attributeItems:(nullable NSArray<NSAttributedString *> *) attributeItems
-                    attributeConfirme:(nullable NSAttributedString *) attributeConfirme
-                    attributeCancel:(nullable NSAttributedString *) attributeCancel
-                    mutipleSeleted:(BOOL) mutipleSeleted
-                    blockOpt:(nullable PYBlockPopupV_P_V_I) blcokOpt
-                    blockSelecteds:(nullable PYBlockPopupB_P_V) blcokSelecteds{
-    
+-(void)sheetShowWithItemstrings:(NSArray<NSString *> *)itemstrings{
     PYSheetSelectorView * sheetView = nil;
-    if(attributeTitle || (attributeItems && attributeItems.count) || attributeConfirme || attributeCancel){
-    
-        [self sheetParam].blockOpt = blcokOpt;
-        [self sheetParam].blockSelecteds = blcokSelecteds;
-        [self sheetParam].attributeTitle = attributeTitle;
-        [self sheetParam].attributeItems = attributeItems;
-        [self sheetParam].attributeConfirme = attributeConfirme;
-        [self sheetParam].attributeCancel = attributeCancel;
-    
-        NSMutableArray * attributeOptions = [NSMutableArray new];
-        if(attributeConfirme && attributeConfirme.length) [attributeOptions addObject:attributeConfirme];
-        if(attributeCancel && attributeCancel.length) [attributeOptions addObject:attributeCancel];
-        sheetView = [PYSheetSelectorView instanceWithTitle:attributeTitle items:attributeItems selectes:@[] options:attributeOptions multipleSelected:mutipleSeleted];
-        sheetView.frameWidth = boundsWidth();
-        [sheetView synFrame];
-        kAssign(self);
-        sheetView.blockSelectedItems = ^BOOL(PYSheetSelectorView * _Nonnull contextView) {
-            kStrong(self);
-            BOOL flag = YES;
-            if(blcokSelecteds) flag = blcokSelecteds(self);
-            if(flag) [self sheetHidden];
-            return flag;
-        };
-        sheetView.blockSelectedOptions = ^(PYSheetSelectorView * _Nonnull contextView, NSUInteger index) {
-            kStrong(self);
-            if(blcokOpt) blcokOpt(self, index);
-            [self sheetHidden];
-        };
-        sheetView.blockOnSelecting = [self sheetParam].blockSelecting;
+
+    NSMutableArray * attributeOptions = [NSMutableArray new];
+    if([self sheetParam].attributeConfirme && [self sheetParam].attributeConfirme.length) [attributeOptions addObject:[self sheetParam].attributeConfirme];
+    if([self sheetParam].attributeCancel && [self sheetParam].attributeCancel.length) [attributeOptions addObject:[self sheetParam].attributeCancel];
+    NSMutableArray<NSAttributedString *> * attributeItems = [NSMutableArray new];
+    for (NSString * string in itemstrings) {
+        NSAttributedString *item = [PYSheetParam parseItemName:string];
+        [attributeItems addObject:item];
     }
+    sheetView = [PYSheetSelectorView instanceWithTitle:[self sheetParam].attributeTitle items:attributeItems selectes:self.sheetSelectedIndexs options:attributeOptions multipleSelected:([self sheetParam].attributeConfirme && [self sheetParam].attributeConfirme.length)];
+    sheetView.frameWidth = boundsWidth();
+    [sheetView synFrame];
+    kAssign(self);
+    sheetView.blockSelectedOptions = ^(PYSheetSelectorView * _Nonnull contextView, NSUInteger index) {
+        kStrong(self);
+        BOOL isConfirme = NO;
+        if([self sheetParam].attributeConfirme && [self sheetParam].attributeConfirme.length){
+            isConfirme = index == 0;
+        }else{
+            isConfirme = NO;
+        }
+        if([self sheetParam].blockOpt) [self sheetParam].blockOpt(self, isConfirme);
+        [self sheetHidden];
+    };
+    sheetView.blockSelecting = [self sheetParam].blockSelecting;
     [self sheetParam].sheetSelectorView = sheetView;
     [self sheetShow];
 }
 
-
 -(void) sheetHidden{
     [[self sheetParam].showView popupHidden];
-}
--(void) onclickSheet:(UIButton *) button{
-    if([self sheetParam].blockOpt){
-        [self sheetParam].blockOpt(self, (int)button.tag);
-    }
 }
 
 -(PYSheetParam *) sheetParam{

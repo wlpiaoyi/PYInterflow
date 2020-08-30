@@ -57,6 +57,8 @@ extern UIFont * _Nonnull STATIC_SHEET_ITEMFONT;
 extern UIFont * _Nonnull STATIC_SHEET_CONFIRMFONT;
 extern UIFont * _Nonnull STATIC_SHEET_CANCELFONT;
 
+extern UIImage * _Nonnull STATIC_SHEET_IMAGE_LINE;
+
 extern UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
 extern UIColor * _Nonnull STATIC_TOPBAR_BGC;
 extern UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;

@@ -21,6 +21,7 @@ extern CGFloat PYPopupAnimationTime;
  弹出框
  */
 @interface UIView(Popup)
+
 //是否正在进行动画
 @property (nonatomic, readonly) BOOL popupisAnimation;
 //是否显示了

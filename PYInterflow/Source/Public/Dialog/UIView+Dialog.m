@@ -101,7 +101,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width];
     
     [[self paramDialog] mergeTargetView];
-    self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(titleSize.width, dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
+    self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(MAX(titleSize.width, STATIC_DIALOG_MINWIDTH), dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
     [self.superview sendSubviewToBack:self];
     kAssign(self);
     self.dialogShowView.popupBlockEnd = ^(UIView * _Nullable view) {

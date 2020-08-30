@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,13 +18,13 @@
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pB4-mA-Mvf">
                             <rect key="frame" x="0.0" y="0.0" width="80" height="44"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="4GX-um-Q4l"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="ITEM">
-                                <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             </state>
                             <connections>
                                 <action selector="onclickOpt:" destination="iN0-l3-epB" eventType="touchUpInside" id="3Al-kT-jtF"/>
@@ -34,13 +32,13 @@
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Az5-HT-5QV">
                             <rect key="frame" x="240" y="0.0" width="80" height="44"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="80" id="QK6-nM-day"/>
                             </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <state key="normal" title="ITEM">
-                                <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                             </state>
                             <connections>
                                 <action selector="onclickOpt:" destination="iN0-l3-epB" eventType="touchUpInside" id="cgY-mR-pJ6"/>
@@ -53,17 +51,17 @@
                                     <rect key="frame" x="5" y="5" width="150" height="34"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NcA-OL-GKp">
                                     <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                     <connections>
                                         <action selector="onclickOpt:" destination="iN0-l3-epB" eventType="touchUpInside" id="uoL-Vo-i3r"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="prd-Oo-dO1" firstAttribute="leading" secondItem="nlD-OS-E3w" secondAttribute="leading" constant="5" id="7Qq-Lg-UQb"/>
                                 <constraint firstAttribute="bottom" secondItem="NcA-OL-GKp" secondAttribute="bottom" id="BQH-e1-t2u"/>
@@ -75,25 +73,35 @@
                                 <constraint firstAttribute="trailing" secondItem="prd-Oo-dO1" secondAttribute="trailing" constant="5" id="quZ-dT-g9Z"/>
                             </constraints>
                         </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zzH-j7-gaS">
+                            <rect key="frame" x="0.0" y="43.5" width="320" height="0.5"/>
+                            <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="0.5" id="uzf-KG-zQT"/>
+                            </constraints>
+                        </view>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="3ff-jn-RC7"/>
                         <constraint firstAttribute="trailing" secondItem="Az5-HT-5QV" secondAttribute="trailing" id="5sa-Bj-Ptv"/>
                         <constraint firstItem="Az5-HT-5QV" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="66h-Bi-1B2"/>
                         <constraint firstAttribute="bottom" secondItem="Az5-HT-5QV" secondAttribute="bottom" id="FtW-aW-DKz"/>
+                        <constraint firstAttribute="trailing" secondItem="zzH-j7-gaS" secondAttribute="trailing" id="HV0-8g-PmA"/>
+                        <constraint firstAttribute="bottom" secondItem="zzH-j7-gaS" secondAttribute="bottom" id="LS4-el-3Zg"/>
                         <constraint firstItem="Az5-HT-5QV" firstAttribute="leading" secondItem="nlD-OS-E3w" secondAttribute="trailing" id="PEX-ZD-c0e"/>
                         <constraint firstAttribute="bottom" secondItem="pB4-mA-Mvf" secondAttribute="bottom" id="QU2-BG-6j6"/>
                         <constraint firstAttribute="bottom" secondItem="nlD-OS-E3w" secondAttribute="bottom" id="RSP-ZO-7Y4"/>
                         <constraint firstItem="nlD-OS-E3w" firstAttribute="leading" secondItem="pB4-mA-Mvf" secondAttribute="trailing" id="WtK-zh-QP8"/>
                         <constraint firstItem="nlD-OS-E3w" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="h8t-tp-wYe"/>
                         <constraint firstItem="pB4-mA-Mvf" firstAttribute="leading" secondItem="ML3-vJ-nSl" secondAttribute="leading" id="mTA-Mz-ASk"/>
+                        <constraint firstItem="zzH-j7-gaS" firstAttribute="leading" secondItem="ML3-vJ-nSl" secondAttribute="leading" id="nDy-d5-RGf"/>
                         <constraint firstItem="pB4-mA-Mvf" firstAttribute="top" secondItem="ML3-vJ-nSl" secondAttribute="top" id="q2E-IY-y54"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFR-oj-iyZ">
                     <rect key="frame" x="0.0" y="44.5" width="320" height="355.5"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
