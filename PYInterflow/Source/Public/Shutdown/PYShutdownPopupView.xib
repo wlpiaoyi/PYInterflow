@@ -16,9 +16,9 @@
             <subviews>
                 <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7t-dB-xC2">
                     <rect key="frame" x="-100" y="0.0" width="520" height="668"/>
-                    <color key="backgroundColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-iF-N1i">
+                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-iF-N1i">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-KT-MRu">
@@ -40,12 +40,23 @@
                                 <constraint firstAttribute="trailing" secondItem="8zg-fH-nyZ" secondAttribute="trailing" id="yJC-Eg-mDZ"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p0-ui-usC">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="onclickHidden:" destination="iN0-l3-epB" eventType="touchUpInside" id="DFB-Um-xeW"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
+                        <constraint firstAttribute="trailing" secondItem="1p0-ui-usC" secondAttribute="trailing" id="406-S7-tqI"/>
                         <constraint firstItem="ttQ-KT-MRu" firstAttribute="top" secondItem="IpF-iF-N1i" secondAttribute="top" id="aEs-bf-w2K"/>
+                        <constraint firstItem="1p0-ui-usC" firstAttribute="leading" secondItem="IpF-iF-N1i" secondAttribute="leading" id="bls-jz-imd"/>
                         <constraint firstItem="ttQ-KT-MRu" firstAttribute="leading" secondItem="IpF-iF-N1i" secondAttribute="leading" id="gsR-Pj-qeh"/>
                         <constraint firstAttribute="trailing" secondItem="ttQ-KT-MRu" secondAttribute="trailing" id="nvZ-Lm-vTT"/>
+                        <constraint firstAttribute="bottom" secondItem="1p0-ui-usC" secondAttribute="bottom" id="vIA-zD-4id"/>
+                        <constraint firstItem="1p0-ui-usC" firstAttribute="top" secondItem="IpF-iF-N1i" secondAttribute="top" id="z62-EJ-hfz"/>
                     </constraints>
                 </view>
             </subviews>
@@ -68,7 +79,7 @@
                 <outlet property="viewFlow" destination="h7t-dB-xC2" id="IzP-LA-s2b"/>
                 <outlet property="viewPopup" destination="8zg-fH-nyZ" id="6ca-cP-XVJ"/>
             </connections>
-            <point key="canvasLocation" x="-138" y="101"/>
+            <point key="canvasLocation" x="-139.13043478260872" y="100.44642857142857"/>
         </view>
     </objects>
 </document>

@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PYShutdownPopupView : UIView
 
++(instancetype) instance;
+
 -(void) showWithSubView:(nonnull UIView *) subView superView:(nonnull UIView *) superView topItem:(nullable UIView *) topItem topConstant:(CGFloat) topConstant;
 
 -(void) showWithSubView:(nonnull UIView *) subView superView:(nonnull UIView *) superView topConstant:(CGFloat) topConstant;

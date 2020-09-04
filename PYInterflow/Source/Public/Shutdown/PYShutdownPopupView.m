@@ -7,6 +7,7 @@
 //
 
 #import "PYShutdownPopupView.h"
+#import "PYInterflowParams.h"
 
 @implementation PYShutdownPopupView{
     __weak IBOutlet UIView *viewPopup;
@@ -15,7 +16,12 @@
     __weak IBOutlet NSLayoutConstraint *lcPopuptop;
 }
 
++(instancetype) instance{
+    return[STATIC_INTERFLOW_BUNDEL loadNibNamed:NSStringFromClass(self) owner:self options:nil].lastObject;
+}
+
 -(void) addForPopup:(nonnull UIView *) view{
+    
     NSArray<UIView *> * subviews = viewPopup.subviews;
     for (UIView * subview in subviews) {
         [subview py_removeAllLayoutContarint];
@@ -39,15 +45,15 @@
     [superView addSubview:self];
     if(topItem){
         [self py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-            make.top.py_inSafe(YES).py_toItem(topItem).py_constant(topConstant);
+            make.top.py_inArea(YES).py_toItem(topItem).py_constant(topConstant);
         }];
     }else{
         [self py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-            make.top.py_inSafe(YES).py_constant(topConstant);
+            make.top.py_inArea(YES).py_constant(topConstant);
         }];
     }
     [self py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-        make.bottom.left.right.py_inSafe(YES).py_constant(0);
+        make.bottom.left.right.py_inArea(YES).py_constant(0);
     }];
     [self layoutIfNeeded];
     [UIView animateWithDuration:.25f animations:^{
@@ -58,6 +64,9 @@
 
 -(void) showWithSubView:(nonnull UIView *) subView superView:(nonnull UIView *) superView topConstant:(CGFloat) topConstant{
     [self showWithSubView:subView superView:superView topItem:nil topConstant:topConstant];
+}
+- (IBAction)onclickHidden:(id)sender {
+    [self hidden];
 }
 
 -(void) hidden{

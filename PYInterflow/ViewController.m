@@ -49,7 +49,7 @@
         });
         sleep(1);
         threadJoinMain(^{
-            [popupView hidden];
+//            [popupView hidden];
         });
     });
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];

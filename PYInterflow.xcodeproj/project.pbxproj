@@ -103,6 +103,10 @@
 /* Begin PBXFileReference section */
 		1501127F1DF7C2B400A45FA8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1502A589223A3DBF00F0787A /* libpyutilea.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpyutilea.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		15445529250147F00080291A /* NSArray+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PYAutolayout.h"; path = "../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/NSArray+PYAutolayout.h"; sourceTree = "<group>"; };
+		1544552A250147F00080291A /* UIView+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+PYAutolayout.h"; path = "../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/UIView+PYAutolayout.h"; sourceTree = "<group>"; };
+		1544552B250147F00080291A /* PYAutolayoutUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYAutolayoutUtilites.h; path = ../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/PYAutolayoutUtilites.h; sourceTree = "<group>"; };
+		1544552C250147F00080291A /* PYConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYConstraintMaker.h; path = ../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/PYConstraintMaker.h; sourceTree = "<group>"; };
 		155D77BB206F2CB200B2CDDB /* PYMoveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMoveView.h; sourceTree = "<group>"; };
 		155D77BC206F2CB200B2CDDB /* PYMoveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMoveView.m; sourceTree = "<group>"; };
 		155DE3C01DEEBE2D007CD6BF /* PYInterflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PYInterflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -196,9 +200,6 @@
 		15BD295824EBDB6C00E1ADC4 /* PYShutdownPopupView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PYShutdownPopupView.xib; sourceTree = "<group>"; };
 		15BD295A24EBDB9000E1ADC4 /* PYShutdownPopupView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYShutdownPopupView.h; sourceTree = "<group>"; };
 		15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYShutdownPopupView.m; sourceTree = "<group>"; };
-		15BD295D24ECB52000E1ADC4 /* PYAutolayoutUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYAutolayoutUtilites.h; sourceTree = "<group>"; };
-		15BD295E24ECB52000E1ADC4 /* UIView+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+PYAutolayout.h"; sourceTree = "<group>"; };
-		15BD295F24ECB52000E1ADC4 /* PYConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYConstraintMaker.h; sourceTree = "<group>"; };
 		15D5E866224A0BC500F38583 /* PYSheetOptionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYSheetOptionView.h; sourceTree = "<group>"; };
 		15D5E867224A0BC500F38583 /* PYSheetOptionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYSheetOptionView.m; sourceTree = "<group>"; };
 		15D5E869224A0BD300F38583 /* PYSheetOptionView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PYSheetOptionView.xib; sourceTree = "<group>"; };
@@ -250,9 +251,10 @@
 		1502A568223A3D6C00F0787A /* PYUtile */ = {
 			isa = PBXGroup;
 			children = (
-				15BD295D24ECB52000E1ADC4 /* PYAutolayoutUtilites.h */,
-				15BD295F24ECB52000E1ADC4 /* PYConstraintMaker.h */,
-				15BD295E24ECB52000E1ADC4 /* UIView+PYAutolayout.h */,
+				1544552B250147F00080291A /* PYAutolayoutUtilites.h */,
+				1544552C250147F00080291A /* PYConstraintMaker.h */,
+				15445529250147F00080291A /* NSArray+PYAutolayout.h */,
+				1544552A250147F00080291A /* UIView+PYAutolayout.h */,
 				15A91E0E238B9D4500F5518B /* UIButton+PYExpand.h */,
 				15A91E0D238B9CD200F5517B /* NSArray+PYExpand.h */,
 				15A91E0C238B9BAC00F5517B /* pyutilea.h */,
