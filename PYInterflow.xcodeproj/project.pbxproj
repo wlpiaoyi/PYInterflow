@@ -12,6 +12,9 @@
 		15315B9222117ECC00CCC09F /* PYSheetSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E41220D604B00BF3365 /* PYSheetSelectorView.m */; };
 		15315B9322117ECC00CCC09F /* PYSheetItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4A220D683700BF3365 /* PYSheetItemCell.m */; };
 		15315B9422117ECC00CCC09F /* PYSheetItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4F220D8E0900BF3365 /* PYSheetItemsView.m */; };
+		1544553925022B680080291A /* UIView+LeftSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544553825022B680080291A /* UIView+LeftSlide.m */; };
+		1544553A250230030080291A /* UIView+LeftSlide.m in Sources */ = {isa = PBXBuildFile; fileRef = 1544553825022B680080291A /* UIView+LeftSlide.m */; };
+		1544553B2502300F0080291A /* UIView+LeftSlide.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1544553725022B680080291A /* UIView+LeftSlide.h */; };
 		155D77BD206F2CB200B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BE206F2F1C00B2CDDB /* PYMoveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 155D77BC206F2CB200B2CDDB /* PYMoveView.m */; };
 		155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 155D77BB206F2CB200B2CDDB /* PYMoveView.h */; };
@@ -86,6 +89,7 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				1544553B2502300F0080291A /* UIView+LeftSlide.h in CopyFiles */,
 				15EDB02D24F1545000ECBEE2 /* PYShutdownPopupView.h in CopyFiles */,
 				15996E3F220D281C00BF3365 /* UIView+Notify.h in CopyFiles */,
 				155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */,
@@ -107,6 +111,8 @@
 		1544552A250147F00080291A /* UIView+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+PYAutolayout.h"; path = "../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/UIView+PYAutolayout.h"; sourceTree = "<group>"; };
 		1544552B250147F00080291A /* PYAutolayoutUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYAutolayoutUtilites.h; path = ../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/PYAutolayoutUtilites.h; sourceTree = "<group>"; };
 		1544552C250147F00080291A /* PYConstraintMaker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYConstraintMaker.h; path = ../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/PYConstraintMaker.h; sourceTree = "<group>"; };
+		1544553725022B680080291A /* UIView+LeftSlide.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+LeftSlide.h"; sourceTree = "<group>"; };
+		1544553825022B680080291A /* UIView+LeftSlide.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+LeftSlide.m"; sourceTree = "<group>"; };
 		155D77BB206F2CB200B2CDDB /* PYMoveView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYMoveView.h; sourceTree = "<group>"; };
 		155D77BC206F2CB200B2CDDB /* PYMoveView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYMoveView.m; sourceTree = "<group>"; };
 		155DE3C01DEEBE2D007CD6BF /* PYInterflow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PYInterflow.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -304,6 +310,15 @@
 			path = "New Group";
 			sourceTree = "<group>";
 		};
+		1544553625022B030080291A /* Slide */ = {
+			isa = PBXGroup;
+			children = (
+				1544553725022B680080291A /* UIView+LeftSlide.h */,
+				1544553825022B680080291A /* UIView+LeftSlide.m */,
+			);
+			path = Slide;
+			sourceTree = "<group>";
+		};
 		155DE3B71DEEBE2D007CD6BF = {
 			isa = PBXGroup;
 			children = (
@@ -425,6 +440,7 @@
 		15996E2F220D268B00BF3365 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				1544553625022B030080291A /* Slide */,
 				15BD295724EBDB4300E1ADC4 /* Shutdown */,
 				1534C46A21720AC600775C07 /* Popup */,
 				1583E0391DFA51BC00AD48EA /* Basic */,
@@ -678,6 +694,7 @@
 				1583E0591DFA51BC00AD48EA /* PYInterflowParams.m in Sources */,
 				1583E05E1DFA51BC00AD48EA /* PYDialogButtonView.m in Sources */,
 				1583E0641DFA51BC00AD48EA /* PYSheetParam.m in Sources */,
+				1544553925022B680080291A /* UIView+LeftSlide.m in Sources */,
 				155DE3C51DEEBE2D007CD6BF /* main.m in Sources */,
 				15E7148922A0F7AB005822CC /* fishhook.c in Sources */,
 				1583E0601DFA51BC00AD48EA /* PYDialogParam.m in Sources */,
@@ -689,6 +706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1544553A250230030080291A /* UIView+LeftSlide.m in Sources */,
 				15EDB02C24F1543F00ECBEE2 /* PYShutdownPopupView.m in Sources */,
 				15BCAB4C224A18DA00242D4A /* PYSheetOptionView.m in Sources */,
 				15315B9222117ECC00CCC09F /* PYSheetSelectorView.m in Sources */,

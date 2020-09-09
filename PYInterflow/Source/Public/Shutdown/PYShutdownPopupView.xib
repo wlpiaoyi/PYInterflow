@@ -14,9 +14,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <view alpha="0.20000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7t-dB-xC2">
+                <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7t-dB-xC2">
                     <rect key="frame" x="-100" y="0.0" width="520" height="668"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-iF-N1i">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -41,7 +41,7 @@
                             </constraints>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p0-ui-usC">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <rect key="frame" x="0.0" y="100" width="320" height="468"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="onclickHidden:" destination="iN0-l3-epB" eventType="touchUpInside" id="DFB-Um-xeW"/>
@@ -55,8 +55,8 @@
                         <constraint firstItem="1p0-ui-usC" firstAttribute="leading" secondItem="IpF-iF-N1i" secondAttribute="leading" id="bls-jz-imd"/>
                         <constraint firstItem="ttQ-KT-MRu" firstAttribute="leading" secondItem="IpF-iF-N1i" secondAttribute="leading" id="gsR-Pj-qeh"/>
                         <constraint firstAttribute="trailing" secondItem="ttQ-KT-MRu" secondAttribute="trailing" id="nvZ-Lm-vTT"/>
+                        <constraint firstItem="1p0-ui-usC" firstAttribute="top" secondItem="ttQ-KT-MRu" secondAttribute="bottom" id="pgt-Bu-tYv"/>
                         <constraint firstAttribute="bottom" secondItem="1p0-ui-usC" secondAttribute="bottom" id="vIA-zD-4id"/>
-                        <constraint firstItem="1p0-ui-usC" firstAttribute="top" secondItem="IpF-iF-N1i" secondAttribute="top" id="z62-EJ-hfz"/>
                     </constraints>
                 </view>
             </subviews>

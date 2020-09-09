@@ -118,6 +118,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     [self __popupShowForHasContentView:NO windowLevel:UIWindowLevelStatusBar];
 }
 ///<=================================
+
 -(void) notifyHidden{
     [self notifyParams].timeRemainning = 0;
     xPYNotifyUIViewcontrollerHookOrientation.isExcute = false;

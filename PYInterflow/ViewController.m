@@ -19,6 +19,7 @@
 #import "PYShutdownPopupView.h"
 
 #import "PYSheetSelectorView.h"
+#import "UIView+LeftSlide.h"
 
 @interface PYView:UIView
 @end
@@ -39,18 +40,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     threadJoinGlobal(^{
-        sleep(1);
-        PYShutdownPopupView * popupView  = [PYShutdownPopupView loadXib];
+
         threadJoinMain(^{
-            UIView * view  = [UIView new];
-            [view setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor redColor]];
-            view.frameHeight = 200;
-            [popupView showWithSubView:view superView:self.view topItem:nil topConstant:0];
+            UIView * view = [UIView new];
+            [view setCornerRadiusAndBorder:5 borderWidth:5 borderColor:[UIColor redColor]];
+            view.frameWidth = 200;
+            [view leftSlideShow];
         });
         sleep(1);
-        threadJoinMain(^{
-//            [popupView hidden];
-        });
+//        PYShutdownPopupView * popupView  = [PYShutdownPopupView loadXib];
+//        threadJoinMain(^{
+//            UIView * view  = [UIView new];
+//            [view setCornerRadiusAndBorder:2 borderWidth:2 borderColor:[UIColor redColor]];
+//            view.frameHeight = 200;
+//            [popupView showWithSubView:view superView:self.view topItem:nil topConstant:0];
+//        });
+//        sleep(1);
+//        threadJoinMain(^{
+////            [popupView hidden];
+//        });
     });
     self.sheetView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, DisableConstrainsValueMAX, 90)];
 //    PYSheetSelectorView * cView = [PYSheetSelectorView instanceWithTitle:[[NSAttributedString alloc] initWithString:@"title"] items:@[

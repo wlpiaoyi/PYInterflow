@@ -13,3 +13,4 @@
 #import "UIView+Sheet.h"
 #import "UIView+Toast.h"
 #import "UIView+Notify.h"
+#import "UIView+LeftSlide.h"

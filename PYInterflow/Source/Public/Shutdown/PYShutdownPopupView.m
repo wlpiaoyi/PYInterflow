@@ -21,7 +21,6 @@
 }
 
 -(void) addForPopup:(nonnull UIView *) view{
-    
     NSArray<UIView *> * subviews = viewPopup.subviews;
     for (UIView * subview in subviews) {
         [subview py_removeAllLayoutContarint];
@@ -35,7 +34,11 @@
     [view py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
         make.top.bottom.left.right.py_constant(0);
     }];
-    
+}
+
+-(void) setShutdownHeight:(CGFloat)shutdownHeight{
+    _shutdownHeight = shutdownHeight;
+    lcPopupH.constant = shutdownHeight;
 }
 
 -(void) showWithSubView:(nonnull UIView *) subView superView:(nonnull UIView *) superView topItem:(nullable UIView *) topItem topConstant:(CGFloat) topConstant{
@@ -56,6 +59,7 @@
         make.bottom.left.right.py_inArea(YES).py_constant(0);
     }];
     [self layoutIfNeeded];
+    if(_blockBeforeShutdown) _blockBeforeShutdown(self);
     [UIView animateWithDuration:.25f animations:^{
         self->lcPopuptop.constant = 0;
         [self layoutIfNeeded];
