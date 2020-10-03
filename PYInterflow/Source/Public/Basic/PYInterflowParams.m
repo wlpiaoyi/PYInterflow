@@ -10,17 +10,12 @@
 #import "PYUtile.h"
 #import "PYPopupParam.h"
 
+
 void * _Nonnull PY_OBJ_OrgWindow;
 
-void (^BlockDialogButtonStyle)(UIButton * _Nonnull button);
-BOOL STATIC_POPUP_HASEFFECT = NO;
-CGFloat PYPopupEffectCpuUsage = .05;
-CGFloat PYPopupAnimationTime = 10.0;
-CGFloat PYPopupAnimationTimeOffset = .05;
-CGFloat PYPopupEffectBlur = 0.15f;
-
-CGFloat STATIC_POPUP_BORDERWIDTH = 1;
-UIColor * _Nonnull STATIC_POPUP_HIGHLIGHTC;
+@implementation PYInterflowConfValue  @end
+@implementation PYInterflowBaseValue @end
+@implementation PYInterflowPopupValue @end
 
 UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
 UIColor * _Nonnull STATIC_DIALOG_BACKGROUNDC;
@@ -29,13 +24,13 @@ UIFont * _Nonnull STATIC_DIALOG_TITLEFONT;
 UIFont * _Nonnull STATIC_DIALOG_MESSAGEFONT;
 UIFont * _Nonnull STATIC_DIALOG_BUTTONFONT;
 
-CGFloat STATIC_DIALOG_OFFSETBORDER = 20;
+CGFloat STATIC_DIALOG_OFFSETLINE = 5;
+CGFloat STATIC_DIALOG_OFFSETBORDER = 18;
 CGFloat STATIC_DIALOG_MINWIDTH = 260;
 CGFloat STATIC_DIALOG_MAXWIDTH = 300;
 CGFloat STATIC_DIALOG_MAXHEIGHT = 400;
 CGFloat STATIC_DIALOG_WIDTH = 280;
 CGFloat STATIC_DIALOG_OFFSETWIDTH = 2;
-CGFloat STATIC_DIALOG_TITLE_HEIGHT = 44;
 CGFloat STATIC_DIALOG_BUTTON_HEIGHT = 44;
 
 
@@ -52,16 +47,14 @@ UIFont * _Nonnull STATIC_SHEET_TITLEFONT;
 UIFont * _Nonnull STATIC_SHEET_ITEMFONT;
 UIFont * _Nonnull STATIC_SHEET_CANCELFONT;
 UIFont * _Nonnull STATIC_SHEET_CONFIRMFONT;
-UIImage* STATIC_SHEET_IMAGE_LINE;
+UIImage * _Nonnull STATIC_SHEET_IMAGE_LINE;
 
 UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
 UIColor * _Nonnull STATIC_TOPBAR_BGC;
 UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 NSBundle * _Nonnull STATIC_INTERFLOW_BUNDEL;
 
-NSString * STATIC_POPUP_EFFECTE_NOTIFY = @"pypeffn";
-NSString * STATIC_POPUP_SHOW_NOTIFY = @"adsfasdfasdf";
-NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
+PYInterflowConfValue  * xPYInterflowConfValue;
 @implementation PYInterflowParams
 
 +(void) loadInterflowParamsData{
@@ -74,10 +67,22 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
 }
 +(void) loadInterflowParamsData:(nonnull NSBundle *) bundlePath{
     STATIC_INTERFLOW_BUNDEL =  bundlePath;
+    xPYInterflowConfValue = [PYInterflowConfValue new];
+    
+    xPYInterflowConfValue.base = [PYInterflowBaseValue new];
+    xPYInterflowConfValue.base.cpuUseage = .05;
+    xPYInterflowConfValue.base.animationTime = 10.0;
+    xPYInterflowConfValue.base.animationTimeOffset = .05;
+    xPYInterflowConfValue.base.floatEffectBlur = .15;
+    
+    xPYInterflowConfValue.popup = [PYInterflowPopupValue new];
+    xPYInterflowConfValue.popup.borderWidth = 1.0/[UIScreen mainScreen].scale;
+    xPYInterflowConfValue.popup.notifyEffcte = @"notifyEffcte";
+    xPYInterflowConfValue.popup.notifyShow = @"notifyShow";
+    xPYInterflowConfValue.popup.notifyHidden = @"notifyHidden";
+    
     
     kDISPATCH_ONCE_BLOCK(^{
-        STATIC_POPUP_BORDERWIDTH = 1.0/[UIScreen mainScreen].scale;
-        
         STATIC_SHEET_TITLEFONT = [UIFont systemFontOfSize:14];
         STATIC_SHEET_ITEMFONT = [UIFont systemFontOfSize:16];
         STATIC_SHEET_CANCELFONT = [UIFont boldSystemFontOfSize:16];
@@ -135,9 +140,15 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
             else
                 return [UIColor colorWithHexNumber:0x157efaff];
         }];
-        STATIC_EFFECT_TINTC = [UIColor colorWithHexNumber:0x55555533];
+        STATIC_EFFECT_TINTC = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+            if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
+                return[UIColor colorWithHexNumber:0xAAAAAA33];
+            else
+                return [UIColor colorWithHexNumber:0x55555533];
+        }];
         STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
         STATIC_SHEET_TITLEC = [UIColor systemGrayColor];
+        
     } else {
         STATIC_EFFECT_TINTC = [UIColor colorWithHexNumber:0x55555533];
         STATIC_CONTENT_BACKGROUNDCLOLOR = [UIColor colorWithRed:0 green:0 blue:0 alpha:.3];
@@ -145,18 +156,21 @@ NSString * STATIC_POPUP_HIDEEN_NOTIFY = @"adfkididj";
         STATIC_TOPBAR_MESSAGEC = [UIColor colorWithHexNumber:0x000000AA];
         STATIC_SHEET_ITEMSElECTEDC = [UIColor colorWithHexNumber:0xEEEEFFFF];
         STATIC_POPUP_REDC = [UIColor colorWithHexNumber:0xca0814ff];
-        STATIC_POPUP_BLUEC = [UIColor colorWithRGBHex:0x157efaff];
+        STATIC_POPUP_BLUEC = [UIColor colorWithHexNumber:0x157efaff];
+        STATIC_DIALOG_BACKGROUNDC = [UIColor whiteColor];
+        STATIC_SHEET_TITLEC = [UIColor grayColor];
     }
     
-    STATIC_POPUP_HIGHLIGHTC = [UIColor colorWithHexNumber:0x888888AA];
+    xPYInterflowConfValue.popup.colorHighlightBg = [UIColor colorWithHexNumber:0x8888AAAA];
+    xPYInterflowConfValue.popup.colorHighlightTxt = [UIColor colorWithHexNumber:0xDDDDDDFF];
     
     STATIC_TOPBAR_BGC = STATIC_DIALOG_BACKGROUNDC;
     STATIC_SHEET_BACKGROUNDC = STATIC_DIALOG_BACKGROUNDC;
     STATIC_SHEET_ITEMC = STATIC_POPUP_BLUEC;
-    STATIC_SHEET_BACKGROUNDH =  STATIC_POPUP_HIGHLIGHTC;
+    STATIC_SHEET_BACKGROUNDH =  xPYInterflowConfValue.popup.colorHighlightBg;
     
      UIImage * image = [UIImage imageWithSize:CGSizeMake([UIScreen mainScreen].scale, [UIScreen mainScreen].scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
-          [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, [UIScreen mainScreen].scale) endPoint:CGPointMake(rect.size.width, [UIScreen mainScreen].scale) strokeColor:STATIC_POPUP_HIGHLIGHTC.CGColor strokeWidth:1 lengthPointer:nil length:0];
+          [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, [UIScreen mainScreen].scale) endPoint:CGPointMake(rect.size.width, [UIScreen mainScreen].scale) strokeColor:xPYInterflowConfValue.popup.colorHighlightBg.CGColor strokeWidth:1 lengthPointer:nil length:0];
     }];
     image = [image setImageSize:CGSizeMake(1, 1) scale:[UIScreen mainScreen].scale];
     STATIC_SHEET_IMAGE_LINE = image;

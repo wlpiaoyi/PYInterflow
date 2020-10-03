@@ -47,8 +47,8 @@ kPNSNA NSArray<NSLayoutConstraint *> * lcs;
     buttonNext.backgroundColor = buttonPrevious.backgroundColor = [UIColor clearColor];
     [buttonPrevious setBackgroundImage:[UIImage imageWithColor:STATIC_SHEET_BACKGROUNDC] forState:UIControlStateNormal];
     [buttonNext setBackgroundImage:[UIImage imageWithColor:STATIC_SHEET_BACKGROUNDC] forState:UIControlStateNormal];
-    [buttonPrevious setBackgroundImage:[UIImage imageWithColor:STATIC_POPUP_HIGHLIGHTC] forState:UIControlStateHighlighted];
-    [buttonNext setBackgroundImage:[UIImage imageWithColor:STATIC_POPUP_HIGHLIGHTC] forState:UIControlStateHighlighted];
+    [buttonPrevious setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
+    [buttonNext setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
     lc01.constant = lc02.constant = 0;
     lc03.constant = 1.0 / [UIScreen mainScreen].scale;
 }

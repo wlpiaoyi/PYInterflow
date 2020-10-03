@@ -12,6 +12,8 @@
 #import <objc/runtime.h>
 #import "PYDialogMessageView.h"
 #import "PYDialogParam.h"
+void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * button, BOOL isConfirm);
+void (^PY_POPUP_DIALOG_BUTTON_OPTION) (UIButton * button, NSInteger index);
 
 static const void *PYDialogPointer = &PYDialogPointer;
 
@@ -92,13 +94,13 @@ static const void *PYDialogPointer = &PYDialogPointer;
     ((PYDialogMessageView *) view).textAlignment = textAlignment;
 }
 
--(void) dialogShow{
+-(void) __dialogShowConfirm:(BOOL) confirm{
     CGSize dialogSize = self.dialogMessage ? [[self paramDialog] updateMessageView] : CGSizeZero;
     if(CGSizeEqualToSize(dialogSize, CGSizeZero)){
         dialogSize = self.frameSize;
     }
     CGSize titleSize = self.dialogTitle ? [[self paramDialog] updateTitleView] : CGSizeZero;
-    CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width];
+    CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width confirm:confirm];
     
     [[self paramDialog] mergeTargetView];
     self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(MAX(titleSize.width, STATIC_DIALOG_MINWIDTH), dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
@@ -118,6 +120,9 @@ static const void *PYDialogPointer = &PYDialogPointer;
     self.dialogShowView.popupBaseView = self.popupBaseView;
     [self.dialogShowView popupShow];
 }
+-(void) dialogShow{
+    [self __dialogShowConfirm:NO];
+}
 
 -(void) dialogShowWithTitle:(nullable NSString *) title
                         message:(nullable NSString *) message
@@ -132,7 +137,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
         if([NSString isEnabled:buttonConfirm]) block(view, index == 0);
         else block(view, NO);
     };
-    [self dialogShow];
+    [self __dialogShowConfirm:YES];
 }
 
 -(void) dialogShowWithTitle:(nullable NSString *) title message:(nullable NSString *) message block:(nullable PYBlockPopupV_P_V_I) block buttonNames:(nonnull NSArray<NSString*>*)buttonNames{

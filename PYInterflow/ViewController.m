@@ -86,8 +86,26 @@
 //        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //        } buttonNames:@[@"sfadf"]];
-        
-        [alertView dialogShowWithTitle:@"标题" message:@"资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
+        PY_POPUP_DIALOG_BUTTON_CONFIRM = ^(UIButton * button, BOOL isConfirm){
+            if(isConfirm){
+                [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+                    make.left.py_constant(20);
+                    make.right.py_constant(10);
+                    make.top.py_constant(0);
+                    make.height.py_constant(26);
+                }];
+            }else{
+                [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+                    make.left.py_constant(10);
+                    make.right.py_constant(20);
+                    make.top.py_constant(0);
+                    make.height.py_constant(26);
+                }];
+            }
+            [button setCornerRadiusAndBorder:13 borderWidth:1 borderColor:[UIColor darkGrayColor]];
+            button.superview.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+        };
+        [alertView dialogShowWithTitle:@"提示" message:@"资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
         } buttonConfirm:@"确定" buttonCancel:@"取消"];
 //        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
@@ -102,7 +120,7 @@
 - (IBAction)sheet:(id)sender {
     UIView * baseview = [PYView new];//self.sheetView;
     baseview.sheetTitle = @"多选测试";
-//    baseview.sheetConfirme = @"确定";
+    baseview.sheetConfirme = @"确定";
     baseview.sheetCancel = @"取消";
     kAssign(baseview)
     baseview.sheetBlockSelecting = ^BOOL(BOOL isSelected, NSUInteger cureentIndex) {
@@ -135,7 +153,7 @@
     [view toastShow:3 message:@"请输入正确的格式例如"];
 }
 - (IBAction)onclickNotify:(id)sender {
-    UIView * view = self.notifyView;
+    UIView * view = [UIView new]; //self.notifyView;
     [view notifyShow:3 message:@"\n请输入正确的格式例如！请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如请输入正确的格式例如" color:nil blockTap:^(UIView * _Nonnull targetView) {
         NSLog(@"sss");
     }];

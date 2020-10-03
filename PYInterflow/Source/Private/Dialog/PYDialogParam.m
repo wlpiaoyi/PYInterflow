@@ -12,6 +12,7 @@
 #import "PYDialogTitleView.h"
 #import "PYDialogMessageView.h"
 #import "PYDialogButtonView.h"
+#import "UIView+Dialog.h"
 
 @interface PYDialogParam()
 @property (nonatomic, strong, nullable) NSMutableArray<NSLayoutConstraint *> * lcsContext;
@@ -40,8 +41,6 @@
     if(self.titleView == nil){
         self.titleView = [PYDialogTitleView new];
         [self.contextView addSubview: self.titleView];
-//        [PYInterflowParams setView:self.titleView shadowOffset:CGSizeMake(0, 2)];
-        self.lcTitleHeight = [PYViewAutolayoutCenter persistConstraint:self.titleView size:CGSizeMake(DisableConstrainsValueMAX, STATIC_DIALOG_TITLE_HEIGHT)].allValues.firstObject;
         [PYViewAutolayoutCenter persistConstraint:self.titleView relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemNull()];
     }
     ((PYDialogTitleView *)(self.titleView)).attributeTitle = self.attributeTitle;
@@ -59,11 +58,11 @@
     ((PYDialogMessageView *)(self.messageView)).attributeMessage = self.attributeMessage;
     return [PYDialogMessageView getSize:self.attributeMessage];
 }
--(CGSize) updateButtonView:(CGFloat) width{
+-(CGSize) updateButtonView:(CGFloat) width confirm:(BOOL) confirm{
     if(self.buttonView == nil){
-        self.buttonView = [[PYDialogButtonView alloc] initWithTarget:self.targetView action:self.action blockSetButtonLayout:BlockDialogButtonStyle];
+
+        self.buttonView = [[PYDialogButtonView alloc] initWithTarget:self.targetView action:self.action];
         [self.contextView addSubview:self.buttonView];
-//        [PYInterflowParams setView:self.buttonView shadowOffset:CGSizeMake(0, -2)];
         self.lcButtonHeight = [PYViewAutolayoutCenter persistConstraint:self.buttonView size:CGSizeMake(DisableConstrainsValueMAX, 0)].allValues.firstObject;
         [PYViewAutolayoutCenter persistConstraint:self.buttonView relationmargins:UIEdgeInsetsMake(DisableConstrainsValueMAX, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
     }
@@ -71,6 +70,16 @@
     view.normalButtonNames = self.normalButtonNames;
     view.hightLightedButtonNames = self.hightLightedButtonNames;
     view.targetWith = width;
+    view.blockSetButtonLayout = nil;
+    if(confirm){
+        if(PY_POPUP_DIALOG_BUTTON_CONFIRM) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
+            PY_POPUP_DIALOG_BUTTON_CONFIRM(button, index == 0);
+        };
+    }else{
+        if(PY_POPUP_DIALOG_BUTTON_OPTION) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
+            PY_POPUP_DIALOG_BUTTON_OPTION(button, index);
+        };
+    }
     CGSize size = [view reloadButtons];
     self.lcButtonHeight.constant = size.height;
     return size;

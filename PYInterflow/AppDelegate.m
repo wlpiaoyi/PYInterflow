@@ -19,8 +19,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
       
-    STATIC_POPUP_HASEFFECT = YES;
     [PYInterflowParams loadInterflowParamsData];
+    xPYInterflowConfValue.base.hasEffect = YES;
     class_addProtocol([self class], @protocol(UIViewcontrollerHookViewDelegate));
     [UIViewController addDelegateView:self];
     return YES;

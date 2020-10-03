@@ -39,7 +39,7 @@ NSInteger PYDMV_offsetValueNum;
         l.backgroundColor = [UIColor clearColor];
         messageLabel = l;
         CGFloat value = STATIC_DIALOG_OFFSETBORDER;
-        [PYViewAutolayoutCenter persistConstraint:messageLabel relationmargins:UIEdgeInsetsMake(value , value, value, value) relationToItems:PYEdgeInsetsItemNull()];
+        [PYViewAutolayoutCenter persistConstraint:messageLabel relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETLINE , value, value, value) relationToItems:PYEdgeInsetsItemNull()];
         self.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
     }
     return self;
@@ -53,6 +53,7 @@ NSInteger PYDMV_offsetValueNum;
     CGSize contentSize = [PYDialogMessageView getContentSize:attributeMessage];
     lcContentViewW.constant = contentSize.width;
     contentSize.width = 0;
+    contentSize.height -= STATIC_DIALOG_OFFSETLINE + 1;
     scrollView.contentSize = contentSize;
 }
 +(CGSize) getContentSize:(nullable NSAttributedString *) attributeMessage{
@@ -62,10 +63,11 @@ NSInteger PYDMV_offsetValueNum;
     CGFloat value = STATIC_DIALOG_OFFSETBORDER * 2;
     CGSize size = CGSizeMake(STATIC_DIALOG_WIDTH - value, 9999);
     size = [PYUtile getBoundSizeWithAttributeTxt:attributeMessage size:size];
-    size.width +=  1 + value ;
-    size.height +=  1 + value;
+    size.width +=  1 + value;
+    size.height +=  1 + STATIC_DIALOG_OFFSETBORDER  + STATIC_DIALOG_OFFSETLINE;
     return size;
 }
+
 +(CGSize) getSize:(nullable NSAttributedString *) attributeMessage{
     if(attributeMessage == nil || attributeMessage.length == 0){
         return CGSizeMake(0, 0);

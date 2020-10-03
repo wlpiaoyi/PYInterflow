@@ -60,7 +60,7 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
             make.left.right.py_constant(0);
             make.height.py_constant(1);
         }];
-//        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, STATIC_POPUP_BORDERWIDTH)];
+//        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, xPYInterflowConfValue.popup.borderWidth)];
 //        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemMake((__bridge void * _Nullable)(owner->viewTitle), nil, nil, nil)];
         eii.top = (__bridge void * _Nullable)(imageLine);
     }else{
@@ -128,7 +128,7 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     
     CGFloat height = 0;
     if(_title && _title.length){
-        lcTitleH.constant = [PYUtile getBoundSizeWithAttributeTxt:_title size:CGSizeMake(width - 40, 999)].height + 21 + STATIC_POPUP_BORDERWIDTH;
+        lcTitleH.constant = [PYUtile getBoundSizeWithAttributeTxt:_title size:CGSizeMake(width - 40, 999)].height + 21 + xPYInterflowConfValue.popup.borderWidth;
     }
     lcOptionH.constant = [PYSheetItemsView getHeight:width items:_options];
     height += lcTitleH.constant;

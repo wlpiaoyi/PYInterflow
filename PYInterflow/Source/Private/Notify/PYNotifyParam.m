@@ -13,6 +13,7 @@
 #import "PYPopupParam.h"
 
 @interface PYNotifyParam()
+kPNA UIView * targetView;
 @property (nonatomic, assign, nonnull) UIView * contentView;
 @property (nonatomic, assign, nonnull) UIView * baseView;
 @property (nonatomic, strong, nonnull) UILabel * lableMessage;
@@ -23,7 +24,6 @@ kPNSNA UIImageView * imageView;
 
 -(nullable instancetype) initWithTargetView:(nonnull UIView *) targetView{
     if(self = [super init]){
-        
         UIView * nbView = [UIView new];
         nbView.backgroundColor = [UIColor clearColor];
         [targetView addSubview:nbView];

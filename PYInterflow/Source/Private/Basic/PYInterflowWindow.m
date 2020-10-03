@@ -108,12 +108,12 @@ kINITPARAMS{
         _hasEffect = hasEffect;
         if(hasEffect){
             _bgView = [UIImageView new];
-            _bgView.backgroundColor = [UIColor clearColor];
+            _bgView.backgroundColor = [UIColor redColor];
             [self.view addSubview:_bgView];
             [PYViewAutolayoutCenter persistConstraint:_bgView relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
             _bgView.tag = 1862938;
             [_bgView.superview sendSubviewToBack:_bgView];
-            kNOTIF_ADD(self, STATIC_POPUP_EFFECTE_NOTIFY, refresh:);
+            kNOTIF_ADD(self, xPYInterflowConfValue.popup.notifyEffcte, refresh:);
         }
     }
     return self;
@@ -188,7 +188,7 @@ kINITPARAMS{
 
 -(void) dealloc{
     if(_hasEffect){
-        kNOTIF_REMV(self, STATIC_POPUP_EFFECTE_NOTIFY);
+        kNOTIF_REMV(self, xPYInterflowConfValue.popup.notifyEffcte);
     }
 }
 @end

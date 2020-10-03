@@ -68,12 +68,9 @@ UIColor * kPYSheetItemSelectedColor;
         [((NSMutableArray *)self.selectes) removeAllObjects];
         [((NSMutableArray *)self.selectes) addObject:select];
     }
-    NSInteger row = [tableView indexPathForCell:tableView.visibleCells.firstObject].row;
-    for (PYSheetItemCell * cell in tableView.visibleCells) {
-        cell.isSelected = (self.selectes && [self.selectes containsObject:@(row++)]);
-    }
-    [tableView deselectRowAtIndexPath:indexPath animated:self.selectes == nil];
-//    if(self.blockAfterSelectedItems) _blockAfterSelectedItems(self);
+    PYSheetItemCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+    [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    cell.isSelected = self.selectes && [self.selectes containsObject:@(select.intValue)];
 }
 
 -(void) setSelectes:(NSArray<NSNumber *> * _Nullable)selectes{
@@ -97,7 +94,7 @@ UIColor * kPYSheetItemSelectedColor;
     for (NSAttributedString * item in items){
         height += [PYSheetItemCell getHeight:item width:width];
     }
-    return height - STATIC_POPUP_BORDERWIDTH;
+    return height - xPYInterflowConfValue.popup.borderWidth;
 }
 
 -(void) dealloc{

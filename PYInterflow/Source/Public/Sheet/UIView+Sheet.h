@@ -38,7 +38,6 @@ kPNSNA NSString * sheetConfirme;
 kPNSNA NSString * sheetCancel;
 /**
  选择过程中的回调
-
  */
 kPNCNA BOOL(^sheetBlockSelecting)(BOOL isSelected, NSUInteger cureentIndex);
 /**

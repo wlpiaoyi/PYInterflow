@@ -10,10 +10,14 @@
 #import "PYInterflowParams.h"
 #import "pyutilea.h"
 
+extern void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * _Nonnull button, BOOL isConfirm);
+extern void (^PY_POPUP_DIALOG_BUTTON_OPTION) (UIButton * _Nonnull button, NSInteger index);
+
 /**
  对话框
  */
 @interface UIView(Dialog)
+
 kPNSNA id dialogUserInfo;
 #pragma 对话框标题
 kPNSNA id dialogTitle;

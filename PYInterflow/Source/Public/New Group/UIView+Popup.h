@@ -9,7 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "PYInterflowParams.h"
 
-extern CGFloat PYPopupAnimationTime;
 //typedef NS_ENUM(NSInteger, PYPopupEnum) {
 //    PYPopupCenter = 0,
 //    PYPopupLeftIn = 1,

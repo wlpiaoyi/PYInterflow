@@ -11,20 +11,39 @@
 #import <UIKit/UIKit.h>
 #import "pyutilea.h"
 
-extern void (^_Nullable BlockDialogButtonStyle)(UIButton * _Nonnull button);
+@class PYInterflowBaseValue, PYInterflowPopupValue;
 
-extern CGFloat PYPopupEffectCpuUsage;
-extern CGFloat PYPopupAnimationTime;
-extern CGFloat PYPopupAnimationTimeOffset;
-extern CGFloat PYPopupEffectBlur;
+@interface PYInterflowConfValue : NSObject
+kPNSNA PYInterflowBaseValue * base;
+kPNSNA PYInterflowPopupValue * popup;
+@end;
 
-extern NSString * _Nonnull STATIC_POPUP_SHOW_NOTIFY;
-extern NSString * _Nonnull STATIC_POPUP_HIDEEN_NOTIFY;
-extern NSString * _Nonnull STATIC_POPUP_EFFECTE_NOTIFY;
-extern BOOL STATIC_POPUP_HASEFFECT;
+/**
+ 基础配置设置
+ */
+@interface PYInterflowBaseValue : NSObject
+kPNA CGFloat cpuUseage;
+kPNA CGFloat animationTime;
+kPNA CGFloat animationTimeOffset;
+kPNA CGFloat floatEffectBlur;
+kPNA BOOL hasEffect;
+@end
 
-extern CGFloat STATIC_POPUP_BORDERWIDTH;
-extern UIColor * _Nonnull STATIC_POPUP_HIGHLIGHTC;
+/**
+ 基础弹框设置
+ */
+@interface PYInterflowPopupValue : NSObject
+kPNA CGFloat borderWidth;
+kPNSNA UIColor *  colorHighlightBg;
+kPNSNA UIColor *  colorHighlightTxt;
+kPNSNA NSString * notifyShow;
+kPNSNA NSString * notifyHidden;
+kPNSNA NSString * notifyEffcte;
+@end
+
+extern PYInterflowConfValue * _Nonnull xPYInterflowConfValue;
+
+
 
 extern UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
 
@@ -33,13 +52,13 @@ extern UIColor * _Nonnull STATIC_DIALOG_TEXTCLOLOR;
 extern UIFont * _Nonnull STATIC_DIALOG_TITLEFONT;
 extern UIFont * _Nonnull STATIC_DIALOG_MESSAGEFONT;
 extern UIFont * _Nonnull STATIC_DIALOG_BUTTONFONT;
+extern CGFloat STATIC_DIALOG_OFFSETLINE;
 extern CGFloat STATIC_DIALOG_OFFSETBORDER;
 extern CGFloat STATIC_DIALOG_MINWIDTH;
 extern CGFloat STATIC_DIALOG_MAXWIDTH;
 extern CGFloat STATIC_DIALOG_MAXHEIGHT;
 extern CGFloat STATIC_DIALOG_WIDTH;
 extern CGFloat STATIC_DIALOG_OFFSETWIDTH;
-extern CGFloat STATIC_DIALOG_TITLE_HEIGHT;
 extern CGFloat STATIC_DIALOG_BUTTON_HEIGHT;
 
 

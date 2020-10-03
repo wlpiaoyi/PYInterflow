@@ -61,17 +61,17 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PYNotifyHidden" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyHidden) name:@"PYNotifyHidden" object:nil];
-    [self notifyParams].blockTap = blockTap;
-    [self notifyParams].message = attributeMessage;
+    [self notifyMessageParams].blockTap = blockTap;
+    [self notifyMessageParams].message = attributeMessage;
     if(attributeMessage){
-        self.frameSize = [[self notifyParams] updateMessageView];
+        self.frameSize = [[self notifyMessageParams] updateMessageView];
     }
     [self notifyShow];
-    [self notifyParams].timeRemainning = time;
-    if([self notifyParams].timeRemainning > 0){
+    [self notifyMessageParams].timeRemainning = time;
+    if([self notifyMessageParams].timeRemainning > 0){
         dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            while ([self notifyParams].timeRemainning) {
-                [self notifyParams].timeRemainning--;
+            while ([self notifyMessageParams].timeRemainning > 0) {
+                [self notifyMessageParams].timeRemainning--;
                 [NSThread sleepForTimeInterval:1];
             }
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -94,15 +94,15 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     self.popupEdgeInsets = UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
     self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
+        [view.superview layoutIfNeeded];
+        UIView * popupBaseView = view.popupBaseView;
+        if([popupBaseView isKindOfClass:[PYInterflowWindow class]])
+            popupBaseView.frameHeight = view.frameY + view.frameHeight;
         view.layer.transform = CATransform3DMakeTranslation(0, -view.frameHeight - view.frameY, 0);
         [UIView animateWithDuration:.5 animations:^{
             [view resetTransform];
-            if([view.popupBaseView isKindOfClass:[PYInterflowWindow class]])
-                view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         } completion:^(BOOL finished) {
             block(view);
-            if([view.popupBaseView isKindOfClass:[PYInterflowWindow class]])
-                view.popupBaseView.frameHeight = view.frameY + view.frameHeight;
         }];
     })];
     [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
@@ -120,12 +120,13 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
 ///<=================================
 
 -(void) notifyHidden{
-    [self notifyParams].timeRemainning = 0;
+    PYNotifyParam * param = objc_getAssociatedObject(self, PYNotifyPointer);
+    if(param) param.timeRemainning = 0;
     xPYNotifyUIViewcontrollerHookOrientation.isExcute = false;
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self popupHidden];
 }
--(PYNotifyParam *) notifyParams{
+-(PYNotifyParam *) notifyMessageParams{
     PYNotifyParam * param = objc_getAssociatedObject(self, PYNotifyPointer);
     if(param == nil){
         param = [[PYNotifyParam alloc] initWithTargetView:self];

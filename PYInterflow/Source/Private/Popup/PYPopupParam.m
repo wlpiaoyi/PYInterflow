@@ -23,18 +23,18 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
 
 +(UIImage *) IMAGE_BOTTOM_LINE{
     if(PY_POPUP_IMG_BTM_LINE) return PY_POPUP_IMG_BTM_LINE;
-    PY_POPUP_IMG_BTM_LINE = [UIImage  imageWithColor:STATIC_POPUP_HIGHLIGHTC];
+    PY_POPUP_IMG_BTM_LINE = [UIImage  imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg];
     return PY_POPUP_IMG_BTM_LINE;
 }
 
 +(UIImage *) IMAGE_CET_LINE{
     if(PY_POPUP_IMG_CET_LINE) return PY_POPUP_IMG_CET_LINE;
-    PY_POPUP_IMG_CET_LINE = [UIImage  imageWithColor:STATIC_POPUP_HIGHLIGHTC];
+    PY_POPUP_IMG_CET_LINE = [UIImage  imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg];
     return PY_POPUP_IMG_CET_LINE;
 }
 
 +(void) ADD_EFFECT_VALUE{
-    @synchronized(STATIC_POPUP_EFFECTE_NOTIFY){
+    @synchronized(xPYInterflowConfValue.popup.notifyEffcte){
         PYPopupEffectRefreshValue ++;
         threadJoinGlobal(^{
             [self REFRESH_EFFECT];
@@ -42,7 +42,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
     }
 }
 +(void) REV_EFFECT_VALUE{
-    @synchronized(STATIC_POPUP_EFFECTE_NOTIFY){
+    @synchronized(xPYInterflowConfValue.popup.notifyEffcte){
         PYPopupEffectRefreshValue --;
     }
 }
@@ -64,7 +64,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
                     if(cpuUsage > 0) cpuUsage = 0;
                     continue;
                 }
-                if(cpuUsage < PYPopupEffectCpuUsage){
+                if(cpuUsage < xPYInterflowConfValue.base.cpuUseage){
                     timePre = [NSDate timeIntervalSinceReferenceDate];
                     [PYPopupParam REFRESH_EFFECT];
                     cpuUsage = app_cpu_usage();
@@ -72,7 +72,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
                     if(timeInterval < fpsTimeInterval){
                         timeInterval = fpsTimeInterval - timeInterval;
                     }
-                    if(cpuUsage > PYPopupEffectCpuUsage){
+                    if(cpuUsage > xPYInterflowConfValue.base.cpuUseage){
                         timeInterval += cpuUsage * 3;
                     }
 #ifdef DEBUG
@@ -101,10 +101,10 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
         CGRect bounds = window.bounds;
         __block UIImage * image = [window drawViewWithBounds:bounds scale:1];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            image = [image applyEffect:PYPopupEffectBlur tintColor:STATIC_EFFECT_TINTC];
+            image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:STATIC_EFFECT_TINTC];
             PY_POPUP_IMG = image;
             threadJoinMain(^{
-                kNOTIF_POST(STATIC_POPUP_EFFECTE_NOTIFY, PY_POPUP_IMG);
+                kNOTIF_POST(xPYInterflowConfValue.popup.notifyEffcte, PY_POPUP_IMG);
                 dispatch_semaphore_signal(semaphore);
             });
         });
@@ -115,7 +115,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
 -(instancetype) init{
     [PYPopupParam RECIRCLE_REFRESH_EFFECT];
     if(self = [super init]){
-        _hasEffect = STATIC_POPUP_HASEFFECT;
+        _hasEffect = xPYInterflowConfValue.base.hasEffect;
         self.centerPoint = CGPointMake(0, 0);
         self.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
         self.frameOrg = CGRectMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
@@ -144,7 +144,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
         
         self.isAnimationing = true;
         @unsafeify(self);
-        [UIView animateWithDuration:PYPopupAnimationTime * PYPopupAnimationTimeOffset animations:^{
+        [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset animations:^{
             @strongify(self);
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
@@ -203,7 +203,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
         
         self.isAnimationing = true;
         @unsafeify(self);
-        [UIView animateWithDuration:PYPopupAnimationTime * PYPopupAnimationTimeOffset * .2 animations:^{
+        [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset * .2 animations:^{
             
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1.2, 1.2, 1);
@@ -213,7 +213,7 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
             @strongify(self);
             
             @unsafeify(self);
-            [UIView animateWithDuration:PYPopupAnimationTime * PYPopupAnimationTimeOffset animations:^{
+            [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset animations:^{
                 @strongify(self);
                 CATransform3D transformx = CATransform3DIdentity;
                 transformx = CATransform3DScale(transformx, .01, .01, 1);
