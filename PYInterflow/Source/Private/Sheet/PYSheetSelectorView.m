@@ -51,8 +51,8 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
         owner->labelTitle.attributedText = owner->_title;
         owner->viewTitle.hidden = NO;
 
-        UIImageView * imageLine = [[UIImageView alloc] initWithImage:STATIC_SHEET_IMAGE_LINE];
-        imageLine.backgroundColor = STATIC_SHEET_BACKGROUNDC;
+        UIImageView * imageLine = [[UIImageView alloc] initWithImage:xPYInterflowConfValue.sheet.imageLine];
+        imageLine.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
         imageLine.contentMode = UIViewContentModeScaleToFill;
         [owner->viewSelector addSubview: imageLine];
         [imageLine py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
@@ -60,16 +60,14 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
             make.left.right.py_constant(0);
             make.height.py_constant(1);
         }];
-//        [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, xPYInterflowConfValue.popup.borderWidth)];
-//        [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:PYEdgeInsetsItemMake((__bridge void * _Nullable)(owner->viewTitle), nil, nil, nil)];
         eii.top = (__bridge void * _Nullable)(imageLine);
     }else{
         owner->viewTitle.hidden = YES;
     }
-    [owner->viewSelector setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
+    [owner->viewSelector setCornerRadiusAndBorder:10 borderWidth:0 borderColor:nil];
     if(owner->_options && owner->_options.count){
         owner->itemsViewOption = [PYSheetItemsView instanceWithItems:owner->_options selectes:@[] multipleSelected:NO];
-        [owner->viewOption setCornerRadiusAndBorder:5 borderWidth:0 borderColor:nil];
+        [owner->viewOption setCornerRadiusAndBorder:10 borderWidth:0 borderColor:nil];
         owner->itemsViewOption.scrollEnabled = NO;
     }
     [owner->viewSelector addSubview:owner->itemsViewSelector];
@@ -87,7 +85,15 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    viewTitle.backgroundColor = STATIC_SHEET_BACKGROUNDC;
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+    [viewTitle addSubview:effectView];
+    [effectView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+        make.top.left.bottom.right.py_constant(0);
+    }];
+    [effectView.superview sendSubviewToBack:effectView];
+    self.backgroundColor =  viewSelector.backgroundColor = viewOption.backgroundColor = [UIColor clearColor];
+    viewTitle.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
 }
 
 //-(void) setBlockSelectedItems:(BOOL (^)(PYSheetSelectorView * _Nonnull))blockSelectedItems{
@@ -129,7 +135,7 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     CGFloat height = 0;
     if(_title && _title.length){
         lcTitleH.constant = [PYUtile getBoundSizeWithAttributeTxt:_title size:CGSizeMake(width - 40, 999)].height + 21 + xPYInterflowConfValue.popup.borderWidth;
-    }
+    }else lcTitleH.constant = 0;
     lcOptionH.constant = [PYSheetItemsView getHeight:width items:_options];
     height += lcTitleH.constant;
     height += lcOptionTop.constant;

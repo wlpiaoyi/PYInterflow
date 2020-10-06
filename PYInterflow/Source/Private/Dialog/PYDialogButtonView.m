@@ -23,7 +23,7 @@
 -(nullable instancetype) initWithTarget:(nonnull id) target action:(nonnull SEL) action{
     if(self = [super init]){
         lcs = [NSMutableArray new];
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = xPYInterflowConfValue.dialog.colorBg;
         self.target = target;
         self.action = action;
     }
@@ -71,10 +71,10 @@
         UIView *  line;
         if(self.blockSetButtonLayout){
             line = [UIView new];
-            line.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+//            line.backgroundColor = xPYInterflowConfValue.dialog.colorBg;
         }else{
-            line = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
-            line.backgroundColor = [UIColor clearColor];
+            line = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_HORIZONTAL_LINE:xPYInterflowConfValue.dialog.colorBg.CGColor]];
+            line.backgroundColor = xPYInterflowConfValue.popup.colorLine;
         }
         [self addSubview:line];
         [line py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
@@ -84,17 +84,17 @@
         UIView * lineCenter;
         if(self.blockSetButtonLayout){
             lineCenter = [UIView new];
-            lineCenter.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+//            lineCenter.backgroundColor = xPYInterflowConfValue.dialog.colorBg;
         }else{
-            lineCenter = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_CET_LINE]];
-            lineCenter.backgroundColor = [UIColor clearColor];
+            lineCenter = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_VERTICAL_LINE:xPYInterflowConfValue.dialog.colorBg.CGColor]];
+            lineCenter.backgroundColor = xPYInterflowConfValue.popup.colorLine;
         }
         [self addSubview:lineCenter];
         [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter size:CGSizeMake(xPYInterflowConfValue.popup.borderWidth, DisableConstrainsValueMAX)].allValues];
         [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter centerPointer:CGPointMake(0, DisableConstrainsValueMAX)].allValues];
         PYEdgeInsetsItem eii =  PYEdgeInsetsItemNull();
         eii.top = (__bridge void * _Nullable)(line);
-        [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter relationmargins:UIEdgeInsetsMake(1, DisableConstrainsValueMAX, 0, DisableConstrainsValueMAX) relationToItems:eii].allValues];
+        [lcs addObjectsFromArray:[PYViewAutolayoutCenter persistConstraint:lineCenter relationmargins:UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, DisableConstrainsValueMAX) relationToItems:eii].allValues];
         eii = PYEdgeInsetsItemNull();
         eii.top = (__bridge void * _Nullable)(line);
         eii.right = (__bridge void * _Nullable)(lineCenter);
@@ -109,10 +109,9 @@
             UIView *  line;
             if(self.blockSetButtonLayout){
                 line = [UIView new];
-                line.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
             }else{
-                line = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_BOTTOM_LINE]];
-                line.backgroundColor = [UIColor clearColor];
+                line = [[UIImageView alloc] initWithImage:[PYPopupParam IMAGE_HORIZONTAL_LINE:xPYInterflowConfValue.dialog.colorBg.CGColor]];
+                line.backgroundColor = xPYInterflowConfValue.popup.colorLine;
             }
             [self addSubview:line];
             PYEdgeInsetsItem eii = PYEdgeInsetsItemNull();
@@ -121,7 +120,7 @@
             [PYViewAutolayoutCenter persistConstraint:line size:CGSizeMake(DisableConstrainsValueMAX, xPYInterflowConfValue.popup.borderWidth)];
             [PYViewAutolayoutCenter persistConstraint:line relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:eii];
             eii.top = (__bridge void * _Nullable)(line);
-            [PYViewAutolayoutCenter persistConstraint:vBtn size:CGSizeMake(DisableConstrainsValueMAX, STATIC_DIALOG_BUTTON_HEIGHT)];
+            [PYViewAutolayoutCenter persistConstraint:vBtn size:CGSizeMake(DisableConstrainsValueMAX, xPYInterflowConfValue.dialog.buttonHeight)];
             [PYViewAutolayoutCenter persistConstraint:vBtn relationmargins:UIEdgeInsetsMake(0, 0, DisableConstrainsValueMAX, 0) relationToItems:eii];
         }
     }
@@ -141,11 +140,10 @@
     }else if([hightLightedName isKindOfClass:[NSAttributedString class]]){
         [button setAttributedTitle:hightLightedName forState:UIControlStateHighlighted];
     }
-    [button setTitleColor:STATIC_DIALOG_TEXTCLOLOR forState:UIControlStateNormal];
-    [button setTitleColor:STATIC_DIALOG_BACKGROUNDC forState:UIControlStateHighlighted];
-    button.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
     [button setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
-    button.titleLabel.font = STATIC_DIALOG_BUTTONFONT;
+    [button setTitleColor:xPYInterflowConfValue.dialog.colorTxt forState:UIControlStateNormal];
+    [button setTitleColor:xPYInterflowConfValue.dialog.colorBg forState:UIControlStateHighlighted];
+    button.titleLabel.font = xPYInterflowConfValue.dialog.fontButton;
     return button;
 }
 
@@ -163,7 +161,7 @@
         tempw = [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.firstObject size:CGSizeMake(999, 10)].width;
         tempw = MAX(tempw, [PYUtile getBoundSizeWithAttributeTxt:attributeButtonNames.lastObject size:CGSizeMake(999, 10)].width);
         if(tempw < width/2){
-            *sizep =  CGSizeMake(width, STATIC_DIALOG_BUTTON_HEIGHT + xPYInterflowConfValue.popup.borderWidth);
+            *sizep =  CGSizeMake(width, xPYInterflowConfValue.dialog.buttonHeight + xPYInterflowConfValue.popup.borderWidth);
             *columnsp = 2;
             *rows = 1;
             return;
@@ -176,7 +174,7 @@
     
     *columnsp = 1;
     *rows = attributeButtonNames.count;
-    *sizep = CGSizeMake(width, STATIC_DIALOG_BUTTON_HEIGHT * attributeButtonNames.count + (*rows) * xPYInterflowConfValue.popup.borderWidth);
+    *sizep = CGSizeMake(width, xPYInterflowConfValue.dialog.buttonHeight * attributeButtonNames.count + (*rows) * xPYInterflowConfValue.popup.borderWidth);
 }
 
 @end

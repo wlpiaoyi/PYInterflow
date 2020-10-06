@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface PYToastParam : NSObject
+@property (nonatomic, strong, nullable) NSTimer * timer;
+@property (nonatomic, strong, nullable) UIColor * tintColor;
+@property (nonatomic, strong, nullable) UIImage * image;
 @property (nonatomic, strong, nullable) NSAttributedString * message;
-@property (nonatomic, strong, nullable) UIView * messageView;
 -(nullable instancetype) initWithTargetView:(nonnull UIView *) targetView;
 -(CGSize) updateMessageView;
 +(nullable NSMutableAttributedString *) parseTopbarMessage:(nullable NSString *) message;

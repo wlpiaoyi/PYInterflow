@@ -61,6 +61,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[NSNotificationCenter defaultCenter] postNotificationName:@"PYNotifyHidden" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notifyHidden) name:@"PYNotifyHidden" object:nil];
+    [[self notifyMessageParams] loadNotifyView];
     [self notifyMessageParams].blockTap = blockTap;
     [self notifyMessageParams].message = attributeMessage;
     if(attributeMessage){
@@ -129,7 +130,7 @@ static PYNotifyUIViewcontrollerHookOrientation * xPYNotifyUIViewcontrollerHookOr
 -(PYNotifyParam *) notifyMessageParams{
     PYNotifyParam * param = objc_getAssociatedObject(self, PYNotifyPointer);
     if(param == nil){
-        param = [[PYNotifyParam alloc] initWithTargetView:self];
+        param = [[PYNotifyParam alloc] initWithBaseView:self];
         objc_setAssociatedObject(self, PYNotifyPointer, param, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }
     return param;

@@ -28,8 +28,16 @@
         self.action = action;
         self.contextView = [UIView new];
         [self.contextView setBackgroundColor:[UIColor clearColor]];
-        [self.contextView setCornerRadiusAndBorder:5 borderWidth:.5 borderColor:[UIColor clearColor]];
+        [self.contextView setCornerRadiusAndBorder:10 borderWidth:.5 borderColor:[UIColor clearColor]];
         self.showView = [PYMoveView new];
+        UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+        UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        [effectView setCornerRadiusAndBorder:10 borderWidth:.5 borderColor:[UIColor clearColor]];
+        [self.showView addSubview:effectView];
+        [effectView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+            make.top.left.bottom.right.py_constant(0);
+        }];
+        [effectView.superview sendSubviewToBack:effectView];
         self.showView.backgroundColor = [UIColor clearColor];
         [self.showView addSubview:self.contextView];
         [PYViewAutolayoutCenter persistConstraint:self.contextView relationmargins:UIEdgeInsetsMake(0, 0, 0, 0) relationToItems:PYEdgeInsetsItemNull()];
@@ -72,8 +80,10 @@
     view.targetWith = width;
     view.blockSetButtonLayout = nil;
     if(confirm){
+        kAssign(self);
         if(PY_POPUP_DIALOG_BUTTON_CONFIRM) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
-            PY_POPUP_DIALOG_BUTTON_CONFIRM(button, index == 0);
+            kStrong(self);
+            PY_POPUP_DIALOG_BUTTON_CONFIRM(button, self.normalButtonNames.count,  index == 0);
         };
     }else{
         if(PY_POPUP_DIALOG_BUTTON_OPTION) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
@@ -103,7 +113,7 @@
 
 +(nullable NSMutableAttributedString *) parseDialogTitle:(nullable NSString *) title{
     if(title == nil) return nil;
-    return [self parseForAttributeWithName:title font:STATIC_DIALOG_TITLEFONT color:STATIC_DIALOG_TEXTCLOLOR];
+    return [self parseForAttributeWithName:title font:xPYInterflowConfValue.dialog.fontTitle color:xPYInterflowConfValue.dialog.colorTxt];
 }
 +(nullable NSMutableAttributedString *) parseDialogMessage:(nullable NSString *)dialogMessage{
     if(dialogMessage == nil) return nil;
@@ -111,19 +121,19 @@
     NSRange range = NSMakeRange(0, attMsg.length);
     [attMsg removeAttribute:NSForegroundColorAttributeName range:range];
     [attMsg removeAttribute:NSFontAttributeName range:range];
-    [attMsg addAttribute:NSForegroundColorAttributeName value:STATIC_DIALOG_TEXTCLOLOR range:NSMakeRange(0, attMsg.length)];//颜色
-    [attMsg addAttribute:NSFontAttributeName value:STATIC_DIALOG_MESSAGEFONT range:NSMakeRange(0, attMsg.length)];
+    [attMsg addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.dialog.colorTxt range:NSMakeRange(0, attMsg.length)];//颜色
+    [attMsg addAttribute:NSFontAttributeName value:xPYInterflowConfValue.dialog.fontMsg range:NSMakeRange(0, attMsg.length)];
     return attMsg;
 }
 +(nullable NSArray<id> *) parseConfrimName:(nullable NSString *) confirmName cancelName:(nullable NSString *)cancelName{
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     NSAttributedString *attTitle;
-    if([NSString isEnabled:confirmName]){
-        attTitle = [self parseForAttributeWithName:confirmName font:STATIC_DIALOG_BUTTONFONT color:STATIC_POPUP_BLUEC];
+    if([NSString isEnabled:cancelName]){
+        attTitle = [self parseForAttributeWithName:cancelName font:xPYInterflowConfValue.dialog.fontCancel color:xPYInterflowConfValue.dialog.colorCancel];
         [ats addObject:attTitle];
     }
-    if([NSString isEnabled:cancelName]){
-        attTitle = [self parseForAttributeWithName:cancelName font:STATIC_DIALOG_BUTTONFONT color:STATIC_POPUP_REDC];
+    if([NSString isEnabled:confirmName]){
+        attTitle = [self parseForAttributeWithName:confirmName font:xPYInterflowConfValue.dialog.fontConfirm color:xPYInterflowConfValue.dialog.colorConfirme];
         [ats addObject:attTitle];
     }
     return ats;
@@ -131,7 +141,7 @@
 +(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names{
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
-        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:STATIC_DIALOG_BUTTONFONT color:STATIC_DIALOG_TEXTCLOLOR];
+        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:xPYInterflowConfValue.dialog.fontButton color:xPYInterflowConfValue.dialog.colorTxt];
         [ats addObject:attTitle];
     }
     return ats;
@@ -139,7 +149,7 @@
 +(nullable NSArray<id> *) parseHihtLightedButtonName:(nullable NSArray<NSString*> *) names {
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
-        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:STATIC_DIALOG_BUTTONFONT color:STATIC_DIALOG_BACKGROUNDC];
+        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:xPYInterflowConfValue.dialog.fontButton color:xPYInterflowConfValue.popup.colorHighlightTxt];
         [ats addObject:attTitle];
     }
     return ats;

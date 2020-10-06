@@ -10,7 +10,7 @@
 #import "PYInterflowParams.h"
 #import "pyutilea.h"
 
-extern void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * _Nonnull button, BOOL isConfirm);
+extern void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * _Nonnull button, NSInteger count, BOOL isConfirm);
 extern void (^PY_POPUP_DIALOG_BUTTON_OPTION) (UIButton * _Nonnull button, NSInteger index);
 
 /**

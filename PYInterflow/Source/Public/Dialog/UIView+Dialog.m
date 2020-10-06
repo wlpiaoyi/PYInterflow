@@ -12,7 +12,8 @@
 #import <objc/runtime.h>
 #import "PYDialogMessageView.h"
 #import "PYDialogParam.h"
-void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * button, BOOL isConfirm);
+
+void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * button, NSInteger count, BOOL isConfirm);
 void (^PY_POPUP_DIALOG_BUTTON_OPTION) (UIButton * button, NSInteger index);
 
 static const void *PYDialogPointer = &PYDialogPointer;
@@ -103,7 +104,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width confirm:confirm];
     
     [[self paramDialog] mergeTargetView];
-    self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(MAX(titleSize.width, STATIC_DIALOG_MINWIDTH), dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
+    self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(MAX(titleSize.width, xPYInterflowConfValue.dialog.minWidth), dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
     [self.superview sendSubviewToBack:self];
     kAssign(self);
     self.dialogShowView.popupBlockEnd = ^(UIView * _Nullable view) {
@@ -132,10 +133,18 @@ static const void *PYDialogPointer = &PYDialogPointer;
     self.dialogTitle = title;
     self.dialogMessage = message;
     self.dialogNormalNames = [PYDialogParam parseConfrimName:buttonConfirm cancelName:buttonCancel];
-    self.dialogHighlightlNames = [PYDialogParam parseConfrimName:buttonConfirm cancelName:buttonCancel];
+    NSMutableArray * names = [NSMutableArray new];
+    if([NSString isEnabled:buttonCancel]) [names addObject:buttonCancel];
+    if([NSString isEnabled:buttonConfirm]) [names addObject:buttonConfirm];
+    self.dialogHighlightlNames = [PYDialogParam parseHihtLightedButtonName:names];
     self.dialogOptBlock = ^(UIView * _Nonnull view, NSUInteger index) {
-        if([NSString isEnabled:buttonConfirm]) block(view, index == 0);
-        else block(view, NO);
+        BOOL isConfirm = NO;
+        if([NSString isEnabled:buttonConfirm] && [NSString isEnabled:buttonCancel]){
+            isConfirm = index == 1;
+        }else if([NSString isEnabled:buttonConfirm]){
+            isConfirm = YES;
+        }
+        block(view, isConfirm);
     };
     [self __dialogShowConfirm:YES];
 }

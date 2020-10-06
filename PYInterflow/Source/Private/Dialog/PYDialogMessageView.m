@@ -38,9 +38,9 @@ NSInteger PYDMV_offsetValueNum;
         l.textAlignment = NSTextAlignmentLeft;
         l.backgroundColor = [UIColor clearColor];
         messageLabel = l;
-        CGFloat value = STATIC_DIALOG_OFFSETBORDER;
-        [PYViewAutolayoutCenter persistConstraint:messageLabel relationmargins:UIEdgeInsetsMake(STATIC_DIALOG_OFFSETLINE , value, value, value) relationToItems:PYEdgeInsetsItemNull()];
-        self.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+        CGFloat value = xPYInterflowConfValue.dialog.offsetBorder;
+        [PYViewAutolayoutCenter persistConstraint:messageLabel relationmargins:UIEdgeInsetsMake(xPYInterflowConfValue.dialog.offsetLine , value, value, value) relationToItems:PYEdgeInsetsItemNull()];
+        self.backgroundColor = xPYInterflowConfValue.dialog.colorBg;
     }
     return self;
 }
@@ -53,18 +53,18 @@ NSInteger PYDMV_offsetValueNum;
     CGSize contentSize = [PYDialogMessageView getContentSize:attributeMessage];
     lcContentViewW.constant = contentSize.width;
     contentSize.width = 0;
-    contentSize.height -= STATIC_DIALOG_OFFSETLINE + 1;
+    contentSize.height -= xPYInterflowConfValue.dialog.offsetLine + 1;
     scrollView.contentSize = contentSize;
 }
 +(CGSize) getContentSize:(nullable NSAttributedString *) attributeMessage{
     if(attributeMessage == nil || attributeMessage.length == 0){
         return CGSizeMake(0, 0);
     }
-    CGFloat value = STATIC_DIALOG_OFFSETBORDER * 2;
-    CGSize size = CGSizeMake(STATIC_DIALOG_WIDTH - value, 9999);
+    CGFloat value = xPYInterflowConfValue.dialog.offsetBorder * 2;
+    CGSize size = CGSizeMake(xPYInterflowConfValue.dialog.width - value, 9999);
     size = [PYUtile getBoundSizeWithAttributeTxt:attributeMessage size:size];
     size.width +=  1 + value;
-    size.height +=  1 + STATIC_DIALOG_OFFSETBORDER  + STATIC_DIALOG_OFFSETLINE;
+    size.height +=  1 + xPYInterflowConfValue.dialog.offsetBorder  + xPYInterflowConfValue.dialog.offsetLine;
     return size;
 }
 
@@ -73,7 +73,7 @@ NSInteger PYDMV_offsetValueNum;
         return CGSizeMake(0, 0);
     }
     CGSize size = [self getContentSize:attributeMessage];
-    size.height = MIN(size.height, STATIC_DIALOG_MAXHEIGHT);
+    size.height = MIN(size.height, xPYInterflowConfValue.dialog.maxHeight);
     return size;
 }
 @end

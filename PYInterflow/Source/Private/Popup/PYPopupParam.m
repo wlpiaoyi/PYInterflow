@@ -12,25 +12,46 @@
 #import "PYInterflowParams.h"
 #import <objc/runtime.h>
 
+
 static NSInteger PYPopupEffectRefreshValue = 0;
 @implementation PYPopupParam{
     PYInterflowWindow * baseWindow;
 }
 static UIImage * PY_POPUP_IMG;
-static UIImage * PY_POPUP_IMG_BTM_LINE;
-static UIImage * PY_POPUP_IMG_CET_LINE;
+//static UIImage * PY_POPUP_IMG_BTM_LINE;
+//static UIImage * PY_POPUP_IMG_CET_LINE;
 
 
-+(UIImage *) IMAGE_BOTTOM_LINE{
-    if(PY_POPUP_IMG_BTM_LINE) return PY_POPUP_IMG_BTM_LINE;
-    PY_POPUP_IMG_BTM_LINE = [UIImage  imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg];
-    return PY_POPUP_IMG_BTM_LINE;
++(nonnull UIImage *) IMAGE_HORIZONTAL_LINE:(CGColorRef) bgColor{
+    NSInteger scale = [UIScreen mainScreen].scale;
+    UIImage * image = [UIImage imageWithSize:CGSizeMake(scale, scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
+//        CGPoint * pointers = (CGPoint[4]){
+//            CGPointZero,
+//            CGPointMake(0, rect.size.width),
+//            CGPointMake(rect.size.height, rect.size.width),
+//            CGPointMake(0, rect.size.width),
+//        };
+//        [PYGraphicsDraw drawPolygonWithContext:context pointer:pointers pointerLength:4 strokeColor:bgColor fillColor:bgColor strokeWidth:1];
+        [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, 0) endPoint:CGPointMake(rect.size.width, 0) strokeColor:xPYInterflowConfValue.popup.colorLine.CGColor strokeWidth:1 lengthPointer:nil length:0];
+    }];
+    image = [image setImageSize:CGSizeMake(1, 1) scale:scale];
+    return image;
 }
 
-+(UIImage *) IMAGE_CET_LINE{
-    if(PY_POPUP_IMG_CET_LINE) return PY_POPUP_IMG_CET_LINE;
-    PY_POPUP_IMG_CET_LINE = [UIImage  imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg];
-    return PY_POPUP_IMG_CET_LINE;
++(nonnull UIImage *) IMAGE_VERTICAL_LINE:(CGColorRef) bgColor{
+    NSInteger scale = [UIScreen mainScreen].scale;
+    UIImage * image = [UIImage imageWithSize:CGSizeMake(scale, scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
+//        CGPoint * pointers = (CGPoint[4]){
+//            CGPointZero,
+//            CGPointMake(0, rect.size.width),
+//            CGPointMake(rect.size.height, rect.size.width),
+//            CGPointMake(0, rect.size.width),
+//        };
+//        [PYGraphicsDraw drawPolygonWithContext:context pointer:pointers pointerLength:4 strokeColor:bgColor fillColor:bgColor strokeWidth:1];
+        [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, 0) endPoint:CGPointMake(0, rect.size.height) strokeColor:xPYInterflowConfValue.popup.colorLine.CGColor strokeWidth:1 lengthPointer:nil length:0];
+    }];
+    image = [image setImageSize:CGSizeMake(1, 1) scale:scale];
+    return image;
 }
 
 +(void) ADD_EFFECT_VALUE{
@@ -50,62 +71,67 @@ static UIImage * PY_POPUP_IMG_CET_LINE;
 +(void) RECIRCLE_REFRESH_EFFECT{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);
+        dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(queue, ^{
-        
             float cpuUsage = 0;
+            float maxCpuUsage = .6;
             static NSTimeInterval fpsTimeInterval = .05;
             NSTimeInterval timePre = [NSDate timeIntervalSinceReferenceDate];
             NSTimeInterval timeInterval;
+            NSTimeInterval sleep = fpsTimeInterval;
             while (true) {
+                timePre = [NSDate timeIntervalSinceReferenceDate];
                 timeInterval = 0;
                 if(PYPopupEffectRefreshValue < 1){
                     [NSThread sleepForTimeInterval:fpsTimeInterval];
                     if(cpuUsage > 0) cpuUsage = 0;
                     continue;
                 }
-                if(cpuUsage < xPYInterflowConfValue.base.cpuUseage){
-                    timePre = [NSDate timeIntervalSinceReferenceDate];
+                cpuUsage = app_cpu_usage();
+                if(cpuUsage < maxCpuUsage){
+                    sleep = MAX(.035, cpuUsage / 100.);
                     [PYPopupParam REFRESH_EFFECT];
-                    cpuUsage = app_cpu_usage();
-                    timeInterval = [NSDate timeIntervalSinceReferenceDate] - timePre;
-                    if(timeInterval < fpsTimeInterval){
-                        timeInterval = fpsTimeInterval - timeInterval;
+                    if(cpuUsage > maxCpuUsage){
+                        sleep += fpsTimeInterval;
                     }
-                    if(cpuUsage > xPYInterflowConfValue.base.cpuUseage){
-                        timeInterval += cpuUsage * 3;
-                    }
-#ifdef DEBUG
-                    kPrintLogln("popup effect excut for cup usage: %.2f%% time:%ims", cpuUsage * 100, (int)(timeInterval * 1000));
-#endif
                 }else{
-                    cpuUsage = app_cpu_usage();
-                    timeInterval = fpsTimeInterval;
-#ifdef DEBUG
-                    kPrintLogln("popup effect continue for cup usage: %.2f%% time:%ims", cpuUsage * 100, (int)(timeInterval * 1000));
-#endif
+                    sleep = fpsTimeInterval;
+                    kPrintExceptionln("%s","popup effect out for cup usage");
                 }
-                [NSThread sleepForTimeInterval:timeInterval];
+                [NSThread sleepForTimeInterval:sleep];
+#ifdef DEBUG
+                    kPrintLogln("popup effect excut for cup usage: %.2f%% time:%ims sleep:%ims", cpuUsage * 100, (int)(([NSDate timeIntervalSinceReferenceDate] - timePre) * 1000), (int)(sleep * 1000));
+#endif
+                sleep = fpsTimeInterval;
             }
         });
     });
+    
 }
+
 +(void) REFRESH_EFFECT{
-    static dispatch_semaphore_t semaphore;
-    kDISPATCH_ONCE_BLOCK(^{
-        semaphore = dispatch_semaphore_create(1);
-    });
-    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+//    static dispatch_semaphore_t semaphore;
+//    kDISPATCH_ONCE_BLOCK(^{
+//        semaphore = dispatch_semaphore_create(1);
+//    });
+//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     threadJoinMain(^{
         UIWindow * window = [UIApplication sharedApplication].keyWindow;
         CGRect bounds = window.bounds;
-        __block UIImage * image = [window drawViewWithBounds:bounds scale:1];
+        UIGraphicsBeginImageContextWithOptions(bounds.size, NO, .4);
+        [window drawViewHierarchyInRect:bounds  afterScreenUpdates:NO];
+        UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-            image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:STATIC_EFFECT_TINTC];
+//            PY_POPUP_IMG = snapshotImage;
+//            UIImage * image = [UIImage imageWithData:imageData];
+            NSData *imageData = UIImageJPEGRepresentation(snapshotImage, .4);
+            UIImage * image = [UIImage imageWithData:imageData];
+            image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:xPYInterflowConfValue.base.colorEffectTint];;
             PY_POPUP_IMG = image;
+//            dispatch_semaphore_signal(semaphore);
             threadJoinMain(^{
                 kNOTIF_POST(xPYInterflowConfValue.popup.notifyEffcte, PY_POPUP_IMG);
-                dispatch_semaphore_signal(semaphore);
             });
         });
     });

@@ -21,6 +21,17 @@
 #import "PYSheetSelectorView.h"
 #import "UIView+LeftSlide.h"
 
+@interface PYTView : UIView
+
+@end
+
+@implementation PYTView
+
+-(void) dealloc{
+    
+}
+
+@end
 @interface PYView:UIView
 @end
 @implementation PYView
@@ -39,8 +50,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIView * vvv = [UIView new];
+    vvv.frame = CGRectMake(0, 0, 200, 200);
+    vvv.backgroundColor = [UIColor redColor];
+    [self.view addSubview:vvv];
     threadJoinGlobal(^{
-
         threadJoinMain(^{
             UIView * view = [UIView new];
             [view setCornerRadiusAndBorder:5 borderWidth:5 borderColor:[UIColor redColor]];
@@ -48,6 +62,22 @@
             [view leftSlideShow];
         });
         sleep(1);
+        while (true) {
+            
+            threadJoinMain(^{
+                [UIView animateWithDuration:2.5f animations:^{
+                    vvv.frame = CGRectMake(0, 300, 200, 200);
+                } completion:^(BOOL finished) {
+                    [UIView animateWithDuration:2.5f animations:^{
+                        vvv.frame = CGRectMake(0, 0, 200, 200);
+                    } completion:^(BOOL finished) {
+                        
+                    }];
+                }];
+            });
+            [NSThread sleepForTimeInterval:6];
+        }
+        
 //        PYShutdownPopupView * popupView  = [PYShutdownPopupView loadXib];
 //        threadJoinMain(^{
 //            UIView * view  = [UIView new];
@@ -81,37 +111,37 @@
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"标题" message:@"这个是UIAlertController的默认样式" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//        UIView * alertView = self.alertView;
-        UIView * alertView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
+        UIView * alertView = self.alertView;
+//        UIView * alertView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
 //        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //        } buttonNames:@[@"sfadf"]];
-        PY_POPUP_DIALOG_BUTTON_CONFIRM = ^(UIButton * button, BOOL isConfirm){
+        PY_POPUP_DIALOG_BUTTON_CONFIRM = ^(UIButton * button, NSInteger count, BOOL isConfirm){
+            CGFloat offw = count == 1 ? 10 : 0;
             if(isConfirm){
                 [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
                     make.left.py_constant(20);
-                    make.right.py_constant(10);
+                    make.right.py_constant(10 + offw);
                     make.top.py_constant(0);
                     make.height.py_constant(26);
                 }];
             }else{
                 [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-                    make.left.py_constant(10);
+                    make.left.py_constant(10 + offw);
                     make.right.py_constant(20);
                     make.top.py_constant(0);
                     make.height.py_constant(26);
                 }];
             }
             [button setCornerRadiusAndBorder:13 borderWidth:1 borderColor:[UIColor darkGrayColor]];
-            button.superview.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
         };
-        [alertView dialogShowWithTitle:@"提示" message:@"资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
+        [alertView dialogShowWithTitle:@"提示" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
-        } buttonConfirm:@"确定" buttonCancel:@"取消"];
+        } buttonConfirm:@"" buttonCancel:@"取消"];
 //        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //            [view dialogHidden];
-//        } buttonNames:@[@"确认",@"取消"]];
+//        } buttonNames:@[@"确认",@"取消",@"取消"]];
     }];
     [alertController addAction:cancelAction];
     [alertController addAction:okAction];
@@ -136,7 +166,7 @@
         NSArray * a = view.sheetSelectedIndexs;
         NSLog(@"");
     };
-    [baseview sheetShowWithItemstrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"]];
+    [baseview sheetShowWithItemstrings:@[@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa",@"adsfasdf",@"adsfasdf",@"adfa"]];
     baseview.sheetSelectedIndexs = @[@(0),@(6)];
     
     
@@ -149,8 +179,10 @@
 //    });
 }
 - (IBAction)onclickTopbar:(id)sender {
-    UIView * view = [UIView new];//
-    [view toastShow:3 message:@"请输入正确的格式例如"];
+    UIView * view = [PYTView new];//
+//    view.toastHasContent = YES;
+//    view.toastTintColor = [UIColor systemBackgroundColor];
+    [view toastShow:3 message:@"请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如\n请输入正确的格式例如输入正确的格式例如输入正确的格式例如" image:[UIImage imageNamed:@"icon.png"]];
 }
 - (IBAction)onclickNotify:(id)sender {
     UIView * view = [UIView new]; //self.notifyView;

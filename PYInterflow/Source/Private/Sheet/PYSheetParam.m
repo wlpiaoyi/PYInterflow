@@ -118,32 +118,32 @@ kSOULDLAYOUTPForType(PYSheetTableView)
     if(title == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:title];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_SHEET_TITLEC range:range];//颜色
-    [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_TITLEFONT range:range];
+    [attTitle addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.sheet.colorTitle range:range];//颜色
+    [attTitle addAttribute:NSFontAttributeName value:xPYInterflowConfValue.sheet.fontTitle range:range];
     return attTitle;
 }
 +(nullable NSMutableAttributedString*) parseItemName:(nullable NSString *) name{
     if(name == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_SHEET_ITEMC range:range];//颜色
-    [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_ITEMFONT range:range];
+    [attTitle addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.sheet.colorItem range:range];//颜色
+    [attTitle addAttribute:NSFontAttributeName value:xPYInterflowConfValue.sheet.fontItem range:range];
     return attTitle;
 }
 +(nullable NSMutableAttributedString*) parseConfirmName:(nullable NSString *) name{
     if(name == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_POPUP_BLUEC range:range];//颜色
-    [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_CONFIRMFONT range:range];
+    [attTitle addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.sheet.colorConfirme range:range];//颜色
+    [attTitle addAttribute:NSFontAttributeName value:xPYInterflowConfValue.sheet.fontConfirm range:range];
     return attTitle;
 }
 +(nullable NSMutableAttributedString*) parseCancelName:(nullable NSString *) name{
     if(name == nil) return nil;
     NSMutableAttributedString *attTitle = [[NSMutableAttributedString alloc] initWithString:name];
     NSRange range = NSMakeRange(0, attTitle.length);
-    [attTitle addAttribute:NSForegroundColorAttributeName value:STATIC_POPUP_REDC range:range];//颜色
-    [attTitle addAttribute:NSFontAttributeName value:STATIC_SHEET_CANCELFONT range:range];
+    [attTitle addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.sheet.colorCancel range:range];//颜色
+    [attTitle addAttribute:NSFontAttributeName value:xPYInterflowConfValue.sheet.fontCancel range:range];
     return attTitle;
 }
 

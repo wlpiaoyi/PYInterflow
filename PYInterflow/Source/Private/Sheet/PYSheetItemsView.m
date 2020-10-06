@@ -15,16 +15,40 @@ UIColor * kPYSheetItemSelectedColor;
 
 @implementation PYSheetItemsView{
     __weak IBOutlet UITableView * _tableView;
+    __weak UIVisualEffectView * _effectView;
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     [_tableView registerNib:[UINib nibWithNibName:kPYSheetItemCell bundle:STATIC_INTERFLOW_BUNDEL] forCellReuseIdentifier:kPYSheetItemCell];
     self.scrollEnabled = YES;
+    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+//    [effectView setCornerRadiusAndBorder:10 borderWidth:.5 borderColor:[UIColor clearColor]];
+    [self addSubview:effectView];
+    [effectView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+        make.top.left.bottom.right.py_constant(-1);
+    }];
+    [effectView.superview sendSubviewToBack:effectView];
+    _effectView = effectView;
 }
 -(void) setScrollEnabled:(BOOL)scrollEnabled{
     _scrollEnabled = scrollEnabled;
     _tableView.scrollEnabled = scrollEnabled;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    if(scrollView.contentOffset.y < 0){
+        [_effectView py_getAutolayoutRelationTop].constant = -scrollView.contentOffset.y;
+        [_effectView py_getAutolayoutRelationBottom].constant = 0;
+        return;
+    }
+    [_effectView py_getAutolayoutRelationTop].constant = 0;
+    if(scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.frameHeight){
+        [_effectView py_getAutolayoutRelationBottom].constant = -scrollView.contentOffset.y + (scrollView.contentSize.height - scrollView.frameHeight);
+    }else{
+            [_effectView py_getAutolayoutRelationBottom].constant = 0;
+    }
 }
 
 #pragma mark - UITableViewDataSource

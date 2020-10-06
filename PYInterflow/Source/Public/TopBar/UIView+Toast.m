@@ -17,23 +17,17 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 
 @implementation UIView(Toast)
 
+-(void) setToastTintColor:(UIColor *)toastTintColor{
+    [self toastParams].tintColor = toastTintColor;
+}
+
+-(UIColor *) toastTintColor{
+    return [self toastParams].tintColor;
+}
+
+
 -(void) toastShow:(CGFloat) time{
-    [self toastShow:time attributeMessage:nil];
-}
-
--(void) toastShow:(CGFloat) time message:(nullable NSString *) message{
-    [self toastShow:time attributeMessage:[PYToastParam parseTopbarMessage:message]];
-}
-
--(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastHidden" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(toastHidden) name:@"PYToastHidden" object:nil];
-    [self topbarParams].message = attributeMessage;
-    if(attributeMessage){
-        self.frameSize = [[self topbarParams] updateMessageView];
-    }
-    self.popupEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, 50, DisableConstrainsValueMAX);
-    self.popupCenterPoint = CGPointMake(0, DisableConstrainsValueMAX);
+    self.popupCenterPoint = CGPointMake(0, 0);
     self.popupBaseView = [UIApplication sharedApplication].keyWindow;
     
     [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
@@ -56,22 +50,44 @@ const void * PYTopbarPointer = &PYTopbarPointer;
             block(view);
         }];
     })];
-    self.popupHasEffect = NO;
     [self popupShowForHasContentView:NO];
-    if(time > 0){
-        dispatch_async(dispatch_get_global_queue(0, 0), ^{
-            [NSThread sleepForTimeInterval:time];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self toastHidden];
-            });
-        });
+    if (time > 0) {
+        [self toastParams].timer = [NSTimer scheduledTimerWithTimeInterval:time repeats:NO block:^(NSTimer * _Nonnull timer) {
+            [self toastHidden];
+        }];
     }
 }
--(void) toastHidden{
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"PYToastHidden" object:nil];
-    [self popupHidden];
+
+-(void) toastShow:(CGFloat) time message:(nullable NSString *) message{
+    [self toastShow:time message:message image:nil];
 }
--(PYToastParam *) topbarParams{
+
+-(void) toastShow:(CGFloat) time message:(nullable NSString *) message  image:(nullable UIImage *) image{
+    [self toastShow:time attributeMessage:[PYToastParam parseTopbarMessage:message] image:image];
+}
+
+-(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
+    [self toastShow:time attributeMessage:attributeMessage image:nil];
+}
+
+-(void) toastShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage image:(nullable UIImage *) image{
+    if(attributeMessage && attributeMessage.length){
+        [self toastParams].message = attributeMessage;
+    }
+    if(image){
+        [self toastParams].image = image;
+    }
+    self.frameSize = [[self toastParams] updateMessageView];
+    [self toastShow:time];
+    
+}
+
+-(void) toastHidden{
+    [self popupHidden];
+    [[self toastParams].timer invalidate];
+    [self toastParams].timer = nil;
+}
+-(PYToastParam *) toastParams{
     PYToastParam * param = objc_getAssociatedObject(self, PYTopbarPointer);
     if(param == nil){
         param = [[PYToastParam alloc] initWithTargetView:self];
@@ -81,17 +97,3 @@ const void * PYTopbarPointer = &PYTopbarPointer;
 }
 @end
 
-@implementation UIView(Topbar)
-
--(void) topbarShow:(CGFloat) time{
-    [self topbarShow:time attributeMessage:nil];
-}
-
--(void) topbarShow:(CGFloat) time message:(nullable NSString *) message{
-    [self topbarShow:time attributeMessage:[PYToastParam parseTopbarMessage:message]];
-}
-
--(void) topbarShow:(CGFloat) time attributeMessage:(nullable NSAttributedString *) attributeMessage{
-    [self toastShow:time attributeMessage:attributeMessage];
-}
-@end

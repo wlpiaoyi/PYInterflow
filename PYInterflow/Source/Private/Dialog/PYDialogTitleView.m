@@ -19,7 +19,7 @@
 -(instancetype) init{
     if(self = [super init]){
         UIView * titleView = [UIView new];
-        titleView.backgroundColor = STATIC_DIALOG_BACKGROUNDC;
+        titleView.backgroundColor = xPYInterflowConfValue.dialog.colorBg;
         UILabel * l = [UILabel new];
         l.numberOfLines = 1;
         [titleView addSubview:l];
@@ -27,7 +27,7 @@
         l.backgroundColor = [UIColor clearColor];
         labelMessage = l;
         [l py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-            make.top.left.right.py_constant(STATIC_DIALOG_OFFSETBORDER);
+            make.top.left.right.py_constant(xPYInterflowConfValue.dialog.offsetBorder);
             make.bottom.py_constant(0);
         }];
         self.backgroundColor = [UIColor clearColor];
@@ -47,13 +47,13 @@
 +(CGSize) getSize:(nullable NSAttributedString *) attributeTitle{
     CGSize size;
     if(attributeTitle == nil || attributeTitle.length == 0){
-        size = CGSizeMake(STATIC_DIALOG_MINWIDTH, STATIC_DIALOG_OFFSETBORDER);
+        size = CGSizeMake(xPYInterflowConfValue.dialog.minWidth, xPYInterflowConfValue.dialog.offsetBorder);
     }else{
         size = CGSizeMake(999, 0);
         size = [PYUtile getBoundSizeWithAttributeTxt:attributeTitle size:size];
-        size.height += STATIC_DIALOG_OFFSETBORDER;
+        size.height += xPYInterflowConfValue.dialog.offsetBorder;
     }
-    size.width = MIN(MAX(STATIC_DIALOG_MINWIDTH, size.width), STATIC_DIALOG_MAXWIDTH);
+    size.width = MIN(MAX(xPYInterflowConfValue.dialog.minWidth, size.width), xPYInterflowConfValue.dialog.maxWidth);
     return size;
 }
 

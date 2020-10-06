@@ -11,76 +11,111 @@
 #import <UIKit/UIKit.h>
 #import "pyutilea.h"
 
-@class PYInterflowBaseValue, PYInterflowPopupValue;
+@class PYInterflowBaseValue, PYInterflowPopupValue, PYInterflowDialogValue, PYInterflowSheetValue, PYInterflowTopbarValue;
 
 @interface PYInterflowConfValue : NSObject
+
 kPNSNA PYInterflowBaseValue * base;
 kPNSNA PYInterflowPopupValue * popup;
+kPNSNA PYInterflowDialogValue * dialog;
+kPNSNA PYInterflowSheetValue * sheet;
+kPNSNA PYInterflowTopbarValue * toast;
+
 @end;
 
 /**
  基础配置设置
  */
 @interface PYInterflowBaseValue : NSObject
-kPNA CGFloat cpuUseage;
+
+kPNA BOOL hasEffect;
 kPNA CGFloat animationTime;
 kPNA CGFloat animationTimeOffset;
 kPNA CGFloat floatEffectBlur;
-kPNA BOOL hasEffect;
+kPNSNA UIColor *  colorEffectTint;
+kPNSNA UIColor *  colorContentBg;
+
 @end
 
 /**
  基础弹框设置
  */
 @interface PYInterflowPopupValue : NSObject
+
 kPNA CGFloat borderWidth;
+kPNSNA UIColor *  colorLine;
 kPNSNA UIColor *  colorHighlightBg;
 kPNSNA UIColor *  colorHighlightTxt;
 kPNSNA NSString * notifyShow;
 kPNSNA NSString * notifyHidden;
 kPNSNA NSString * notifyEffcte;
+
+@end
+
+/**
+ 对话弹框设置
+ */
+@interface PYInterflowDialogValue : NSObject
+
+kPNA CGFloat offsetLine;
+kPNA CGFloat offsetBorder;
+kPNA CGFloat minWidth;
+kPNA CGFloat maxWidth;
+kPNA CGFloat maxHeight;
+kPNA CGFloat width;
+kPNA CGFloat offsetWith;
+kPNA CGFloat buttonHeight;
+
+kPNSNA UIColor *  colorBg;
+kPNSNA UIColor *  colorTxt;
+kPNSNA UIColor *  colorConfirme;
+kPNSNA UIColor *  colorCancel;
+kPNSNA UIFont *  fontTitle;
+kPNSNA UIFont *  fontMsg;
+kPNSNA UIFont *  fontButton;
+kPNSNA UIFont *  fontConfirm;
+kPNSNA UIFont *  fontCancel;
+
+@end
+
+
+/**
+ 薄片弹框设置
+ */
+@interface PYInterflowSheetValue : NSObject
+
+kPNSNA UIColor *  colorBg;
+kPNSNA UIColor *  colorTitle;
+kPNSNA UIColor *  colorItem;
+kPNSNA UIColor *  colorItemSelected;
+kPNSNA UIColor *  colorConfirme;
+kPNSNA UIColor *  colorCancel;
+
+kPNSNA UIFont *  fontTitle;
+kPNSNA UIFont *  fontItem;
+kPNSNA UIFont *  fontConfirm;
+kPNSNA UIFont *  fontCancel;
+
+kPNSNA UIImage * imageLine;
+
+@end
+
+/**
+ 吐司弹框设置
+ */
+@interface PYInterflowTopbarValue : NSObject
+
+kPNA CGFloat offsetWith;
+
+kPNSNA UIColor *  colorMsg;
+kPNSNA UIColor *  colorBg;
+
+kPNSNA UIFont *  fontMsg;
+
 @end
 
 extern PYInterflowConfValue * _Nonnull xPYInterflowConfValue;
 
-
-
-extern UIColor * _Nonnull STATIC_CONTENT_BACKGROUNDCLOLOR;
-
-extern UIColor * _Nonnull STATIC_DIALOG_BACKGROUNDC;
-extern UIColor * _Nonnull STATIC_DIALOG_TEXTCLOLOR;
-extern UIFont * _Nonnull STATIC_DIALOG_TITLEFONT;
-extern UIFont * _Nonnull STATIC_DIALOG_MESSAGEFONT;
-extern UIFont * _Nonnull STATIC_DIALOG_BUTTONFONT;
-extern CGFloat STATIC_DIALOG_OFFSETLINE;
-extern CGFloat STATIC_DIALOG_OFFSETBORDER;
-extern CGFloat STATIC_DIALOG_MINWIDTH;
-extern CGFloat STATIC_DIALOG_MAXWIDTH;
-extern CGFloat STATIC_DIALOG_MAXHEIGHT;
-extern CGFloat STATIC_DIALOG_WIDTH;
-extern CGFloat STATIC_DIALOG_OFFSETWIDTH;
-extern CGFloat STATIC_DIALOG_BUTTON_HEIGHT;
-
-
-extern UIColor * _Nonnull STATIC_EFFECT_TINTC;
-extern UIColor * _Nonnull STATIC_SHEET_BACKGROUNDH;
-extern UIColor * _Nonnull STATIC_SHEET_BACKGROUNDC;
-extern UIColor * _Nonnull STATIC_SHEET_TITLEC;
-extern UIColor * _Nonnull STATIC_SHEET_ITEMC;
-extern UIColor * _Nonnull STATIC_SHEET_ITEMSElECTEDC;
-extern UIColor * _Nonnull STATIC_POPUP_REDC;
-extern UIColor * _Nonnull STATIC_POPUP_BLUEC;
-
-extern UIFont * _Nonnull STATIC_SHEET_TITLEFONT;
-extern UIFont * _Nonnull STATIC_SHEET_ITEMFONT;
-extern UIFont * _Nonnull STATIC_SHEET_CONFIRMFONT;
-extern UIFont * _Nonnull STATIC_SHEET_CANCELFONT;
-
-extern UIImage * _Nonnull STATIC_SHEET_IMAGE_LINE;
-
-extern UIColor * _Nonnull STATIC_TOPBAR_MESSAGEC;
-extern UIColor * _Nonnull STATIC_TOPBAR_BGC;
-extern UIFont * _Nonnull STATIC_TOPBAR_MESSAGEFONT;
 
 extern NSBundle * _Nonnull STATIC_INTERFLOW_BUNDEL;
 

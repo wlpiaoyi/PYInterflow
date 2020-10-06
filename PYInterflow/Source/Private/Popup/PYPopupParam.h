@@ -46,8 +46,8 @@
 -(nonnull PYBlockPopupV_P_V) creteDefaultBlcokPopupHiddenEndAnmation;
 
 
-+(UIImage *) IMAGE_BOTTOM_LINE;
-+(UIImage *) IMAGE_CET_LINE;
++(nonnull UIImage *) IMAGE_HORIZONTAL_LINE:(CGColorRef _Nonnull) bgColor;
++(nonnull UIImage *) IMAGE_VERTICAL_LINE:(CGColorRef _Nonnull) bgColor;
 
 +(void) ADD_EFFECT_VALUE;
 +(void) REV_EFFECT_VALUE;

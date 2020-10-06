@@ -22,26 +22,28 @@
     self.selectedBackgroundView.backgroundColor = xPYInterflowConfValue.popup.colorHighlightBg;
     self.isSelected = NO;
 
-    imageLine.image = STATIC_SHEET_IMAGE_LINE;
+    imageLine.image = xPYInterflowConfValue.sheet.imageLine;
     imageLine.contentMode = UIViewContentModeScaleToFill;
     imageLine.backgroundColor = [UIColor clearColor];
+    self.contentView.backgroundColor = self.backgroundColor = [UIColor clearColor];
     
 }
 
 -(void) setIsSelected:(BOOL)isSelected{
     _isSelected = isSelected;
-    viewbg.backgroundColor = isSelected ? STATIC_SHEET_ITEMSElECTEDC : STATIC_SHEET_BACKGROUNDC;
-    self.contentView.backgroundColor = self.backgroundColor = viewbg.backgroundColor;
+    viewbg.backgroundColor = isSelected ? xPYInterflowConfValue.sheet.colorItemSelected : xPYInterflowConfValue.sheet.colorBg;
 }
 
 -(void) setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
     if(highlighted){
         NSMutableAttributedString * attributedText = labelItems.attributedText.mutableCopy;
-               [attributedText setAttributes:@{NSForegroundColorAttributeName:xPYInterflowConfValue.popup.colorHighlightTxt} range:NSMakeRange(0, attributedText.length)];
+               [attributedText setAttributes:@{
+                   NSForegroundColorAttributeName:xPYInterflowConfValue.popup.colorHighlightTxt,
+                   NSFontAttributeName:xPYInterflowConfValue.dialog.fontButton,
+               } range:NSMakeRange(0, attributedText.length)];
         labelItems.attributedText = attributedText;
         viewbg.backgroundColor =   xPYInterflowConfValue.popup.colorHighlightBg;
-        self.contentView.backgroundColor = self.backgroundColor = viewbg.backgroundColor;
     }else{
         labelItems.attributedText = _item;
         self.isSelected = self.isSelected;

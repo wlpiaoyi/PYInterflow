@@ -214,7 +214,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
             [button addTarget:self action:@selector(__popupTapContentView) forControlEvents:UIControlEventTouchDown];
             [self.popupContentView addSubview:button];
             [PYViewAutolayoutCenter persistConstraint:button relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
-            self.popupContentView.backgroundColor = STATIC_CONTENT_BACKGROUNDCLOLOR;
+            self.popupContentView.backgroundColor = xPYInterflowConfValue.base.colorContentBg;
             [self.popupContentView addSubview:self];
             [self.popupBaseView addSubview:self.popupContentView];
         }else{

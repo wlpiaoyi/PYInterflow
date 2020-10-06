@@ -43,10 +43,10 @@ kPNSNA NSArray<NSLayoutConstraint *> * lcs;
 
 -(void) awakeFromNib{
     [super awakeFromNib];
-    viewTitle.backgroundColor = STATIC_SHEET_BACKGROUNDC;
+    viewTitle.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
     buttonNext.backgroundColor = buttonPrevious.backgroundColor = [UIColor clearColor];
-    [buttonPrevious setBackgroundImage:[UIImage imageWithColor:STATIC_SHEET_BACKGROUNDC] forState:UIControlStateNormal];
-    [buttonNext setBackgroundImage:[UIImage imageWithColor:STATIC_SHEET_BACKGROUNDC] forState:UIControlStateNormal];
+    [buttonPrevious setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.sheet.colorBg] forState:UIControlStateNormal];
+    [buttonNext setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.sheet.colorBg] forState:UIControlStateNormal];
     [buttonPrevious setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
     [buttonNext setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
     lc01.constant = lc02.constant = 0;

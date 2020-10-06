@@ -20,7 +20,7 @@
 //}
 //@end
 
-@interface PYInterflowController : UIViewController
+@interface PYInterflowController : UIViewController <UIViewHookDelegate>
 kPNAR BOOL hasEffect;
 kPNA PYInterflowWindow * myWindow;
 kPNRNN UIImageView * bgView;
@@ -91,14 +91,17 @@ kINITPARAMS{
 }
 
 +(void) initialize{
-//    kDISPATCH_ONCE_BLOCK(^{
+    kDISPATCH_ONCE_BLOCK(^{
 //        Protocol * protcol = NSProtocolFromString(@"PYKeyboardOptionTag");
 //        if(!protcol) return;
 //        if([[PYInterflowController class] conformsToProtocol:protcol]) return;
 //        class_addProtocol([PYInterflowController class], protcol);
-//    });
+    });
 }
 
+-(void) afterExcuteLayoutSubviewsWithTarget:(nonnull UIView *) target{
+    
+}
 -(BOOL) canTouchHidden{
     return false;
 }
@@ -108,7 +111,8 @@ kINITPARAMS{
         _hasEffect = hasEffect;
         if(hasEffect){
             _bgView = [UIImageView new];
-            _bgView.backgroundColor = [UIColor redColor];
+            
+            _bgView.backgroundColor = [UIColor clearColor];
             [self.view addSubview:_bgView];
             [PYViewAutolayoutCenter persistConstraint:_bgView relationmargins:UIEdgeInsetsZero relationToItems:PYEdgeInsetsItemNull()];
             _bgView.tag = 1862938;
