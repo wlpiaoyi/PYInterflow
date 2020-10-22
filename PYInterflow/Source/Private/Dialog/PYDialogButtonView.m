@@ -141,7 +141,7 @@
         [button setAttributedTitle:hightLightedName forState:UIControlStateHighlighted];
     }
     [button setBackgroundImage:[UIImage imageWithColor:xPYInterflowConfValue.popup.colorHighlightBg] forState:UIControlStateHighlighted];
-    [button setTitleColor:xPYInterflowConfValue.dialog.colorTxt forState:UIControlStateNormal];
+    [button setTitleColor:xPYInterflowConfValue.dialog.colorMessage forState:UIControlStateNormal];
     [button setTitleColor:xPYInterflowConfValue.dialog.colorBg forState:UIControlStateHighlighted];
     button.titleLabel.font = xPYInterflowConfValue.dialog.fontButton;
     return button;

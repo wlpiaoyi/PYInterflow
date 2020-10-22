@@ -123,9 +123,11 @@ kINITPARAMS{
     return self;
 }
 -(void) refresh:(NSNotification *) notify{
-    if(_bgView){
-        _bgView.image = notify.object;
-    }
+    if(!_bgView) return;
+     //Execution was interrupted, reason: EXC_BAD_ACCESS (code=1, address=0x7535464c).
+    // The process has been returned to the state before expression evaluation.
+     UIImage * image = notify.object;
+     _bgView.image = image;
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     threadJoinGlobal(^{

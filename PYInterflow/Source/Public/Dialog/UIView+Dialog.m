@@ -13,7 +13,7 @@
 #import "PYDialogMessageView.h"
 #import "PYDialogParam.h"
 
-void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * button, NSInteger count, BOOL isConfirm);
+void (^PY_POPUP_DIALOG_BUTTON_CONFIRM) (UIButton * button, NSArray<NSString *> * names,  NSInteger index);
 void (^PY_POPUP_DIALOG_BUTTON_OPTION) (UIButton * button, NSInteger index);
 
 static const void *PYDialogPointer = &PYDialogPointer;
@@ -100,7 +100,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
     if(CGSizeEqualToSize(dialogSize, CGSizeZero)){
         dialogSize = self.frameSize;
     }
-    CGSize titleSize = self.dialogTitle ? [[self paramDialog] updateTitleView] : CGSizeZero;
+    CGSize titleSize = [[self paramDialog] updateTitleView];
     CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width confirm:confirm];
     
     [[self paramDialog] mergeTargetView];

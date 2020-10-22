@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
       
     [PYInterflowParams loadInterflowParamsData];
-    xPYInterflowConfValue.base.hasEffect = YES;
+    xPYInterflowConfValue.base.hasEffect = NO;
     class_addProtocol([self class], @protocol(UIViewcontrollerHookViewDelegate));
     [UIViewController addDelegateView:self];
     return YES;

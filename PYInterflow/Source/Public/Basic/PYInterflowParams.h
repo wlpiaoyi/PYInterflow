@@ -29,6 +29,7 @@ kPNSNA PYInterflowTopbarValue * toast;
 @interface PYInterflowBaseValue : NSObject
 
 kPNA BOOL hasEffect;
+kPNA CGFloat maxCpuUsage;
 kPNA CGFloat animationTime;
 kPNA CGFloat animationTimeOffset;
 kPNA CGFloat floatEffectBlur;
@@ -67,11 +68,12 @@ kPNA CGFloat offsetWith;
 kPNA CGFloat buttonHeight;
 
 kPNSNA UIColor *  colorBg;
-kPNSNA UIColor *  colorTxt;
+kPNSNA UIColor *  colorTitle;
+kPNSNA UIColor *  colorMessage;
 kPNSNA UIColor *  colorConfirme;
 kPNSNA UIColor *  colorCancel;
 kPNSNA UIFont *  fontTitle;
-kPNSNA UIFont *  fontMsg;
+kPNSNA UIFont *  fontMessage;
 kPNSNA UIFont *  fontButton;
 kPNSNA UIFont *  fontConfirm;
 kPNSNA UIFont *  fontCancel;

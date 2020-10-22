@@ -97,7 +97,7 @@
 
 +(nullable NSMutableAttributedString *) parseNotifyMessage:(nullable NSString *) message color:(nullable UIColor *) color{
     if(message == nil) return nil;
-    if(!color)color = xPYInterflowConfValue.dialog.colorTxt;
+    if(!color)color = xPYInterflowConfValue.dialog.colorMessage;
     NSMutableAttributedString *attMsg = [[NSMutableAttributedString alloc] initWithString:message];
     NSRange range = NSMakeRange(0, attMsg.length);
     [attMsg removeAttribute:NSForegroundColorAttributeName range:range];

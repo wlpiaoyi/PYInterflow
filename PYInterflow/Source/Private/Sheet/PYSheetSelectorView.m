@@ -52,15 +52,15 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
         owner->viewTitle.hidden = NO;
 
         UIImageView * imageLine = [[UIImageView alloc] initWithImage:xPYInterflowConfValue.sheet.imageLine];
-        imageLine.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
+//        imageLine.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
         imageLine.contentMode = UIViewContentModeScaleToFill;
         [owner->viewSelector addSubview: imageLine];
         [imageLine py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-            make.top.py_toItem(owner->viewTitle).py_constant(0);
+            make.top.py_toItem(owner->viewTitle).py_constant(-1);
             make.left.right.py_constant(0);
             make.height.py_constant(1);
         }];
-        eii.top = (__bridge void * _Nullable)(imageLine);
+        eii.top = (__bridge void * _Nullable)(owner->viewTitle);
     }else{
         owner->viewTitle.hidden = YES;
     }
@@ -96,16 +96,6 @@ kSOULDLAYOUTPForType(PYSheetSelectorView);
     viewTitle.backgroundColor = xPYInterflowConfValue.sheet.colorBg;
 }
 
-//-(void) setBlockSelectedItems:(BOOL (^)(PYSheetSelectorView * _Nonnull))blockSelectedItems{
-//    _blockSelectedItems = blockSelectedItems;
-//    kAssign(self);
-//    itemsViewSelector.blockAfterSelectedItems = ^(PYSheetItemsView * _Nonnull contextView) {
-//        kStrong(self);
-//        self.selectes = contextView.selectes;
-//        if(self.blockSelectedItems) self.blockSelectedItems(self);
-//    };
-//}
-//
 -(void) setBlockSelectedOptions:(void (^)(PYSheetSelectorView * _Nonnull, NSUInteger))blockSelectedOptions{
     _blockSelectedOptions = blockSelectedOptions;
     kAssign(self);

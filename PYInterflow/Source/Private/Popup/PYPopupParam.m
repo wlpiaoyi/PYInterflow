@@ -12,26 +12,67 @@
 #import "PYInterflowParams.h"
 #import <objc/runtime.h>
 
+NSInteger PYPopupEffectRefreshValue = 0;
 
-static NSInteger PYPopupEffectRefreshValue = 0;
+BOOL PYPopupEffectHasLayoutSubViews;
+int PYPopupEffectLayoutSubViewsCount = 0;
+int PYPopupEffectRefreshCount = 0;
+
+//@interface CALayer(PYPopupEffect)
+//+(void) _pypopup_hook_ae86;
+//@end
+//
+//@implementation CALayer(PYPopupEffect)
+//
+//+(void) _pypopup_hook_ae86{
+//    [CALayer hookInstanceOriginalSel:@selector(drawInContext:) exchangeSel:@selector(_pypopup_drawInContext_ae86:)];
+//}
+//
+//-(void) _pypopup_drawInContext_ae86:(CGContextRef)ctx{
+//    [self _pypopup_drawInContext_ae86:ctx];
+//    [self _pypopup_effect_freshDatas_ae86];
+//    NSLog(@"111111");
+//}
+//
+//-(void) _pypopup_effect_freshDatas_ae86{
+//    if(PYPopupEffectRefreshValue <= 0) return;
+//}
+//
+//@end
+
+@interface UIView(PYPopupEffect)
++(void) _pypopup_hook_ae86;
+@end
+
+@implementation UIView(PYPopupEffect)
+
++(void) _pypopup_hook_ae86{
+//    [CALayer _pypopup_hook_ae86];
+    [UIView hookInstanceOriginalSel:@selector(layoutSubviews) exchangeSel:@selector(_pypopup_layoutSubviews_ae86)];
+}
+
+-(void) _pypopup_layoutSubviews_ae86{
+    [self _pypopup_layoutSubviews_ae86];
+    [self _pypopup_effect_freshDatas_ae86];
+}
+-(void) _pypopup_effect_freshDatas_ae86{
+    if(PYPopupEffectRefreshValue <= 0) return;
+    UIView * responder = self;
+    while (responder.superview) responder = responder.superview;
+    if(responder != [UIApplication sharedApplication].keyWindow) return;
+    PYPopupEffectHasLayoutSubViews = YES;
+    PYPopupEffectRefreshCount ++;
+}
+
+@end
+
 @implementation PYPopupParam{
     PYInterflowWindow * baseWindow;
 }
-static UIImage * PY_POPUP_IMG;
-//static UIImage * PY_POPUP_IMG_BTM_LINE;
-//static UIImage * PY_POPUP_IMG_CET_LINE;
-
 
 +(nonnull UIImage *) IMAGE_HORIZONTAL_LINE:(CGColorRef) bgColor{
     NSInteger scale = [UIScreen mainScreen].scale;
     UIImage * image = [UIImage imageWithSize:CGSizeMake(scale, scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
-//        CGPoint * pointers = (CGPoint[4]){
-//            CGPointZero,
-//            CGPointMake(0, rect.size.width),
-//            CGPointMake(rect.size.height, rect.size.width),
-//            CGPointMake(0, rect.size.width),
-//        };
-//        [PYGraphicsDraw drawPolygonWithContext:context pointer:pointers pointerLength:4 strokeColor:bgColor fillColor:bgColor strokeWidth:1];
         [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, 0) endPoint:CGPointMake(rect.size.width, 0) strokeColor:xPYInterflowConfValue.popup.colorLine.CGColor strokeWidth:1 lengthPointer:nil length:0];
     }];
     image = [image setImageSize:CGSizeMake(1, 1) scale:scale];
@@ -41,13 +82,6 @@ static UIImage * PY_POPUP_IMG;
 +(nonnull UIImage *) IMAGE_VERTICAL_LINE:(CGColorRef) bgColor{
     NSInteger scale = [UIScreen mainScreen].scale;
     UIImage * image = [UIImage imageWithSize:CGSizeMake(scale, scale) blockDraw:^(CGContextRef  _Nonnull context, CGRect rect) {
-//        CGPoint * pointers = (CGPoint[4]){
-//            CGPointZero,
-//            CGPointMake(0, rect.size.width),
-//            CGPointMake(rect.size.height, rect.size.width),
-//            CGPointMake(0, rect.size.width),
-//        };
-//        [PYGraphicsDraw drawPolygonWithContext:context pointer:pointers pointerLength:4 strokeColor:bgColor fillColor:bgColor strokeWidth:1];
         [PYGraphicsDraw drawLineWithContext:context startPoint:CGPointMake(0, 0) endPoint:CGPointMake(0, rect.size.height) strokeColor:xPYInterflowConfValue.popup.colorLine.CGColor strokeWidth:1 lengthPointer:nil length:0];
     }];
     image = [image setImageSize:CGSizeMake(1, 1) scale:scale];
@@ -55,6 +89,7 @@ static UIImage * PY_POPUP_IMG;
 }
 
 +(void) ADD_EFFECT_VALUE{
+    if(!xPYInterflowConfValue.base.hasEffect) return;
     @synchronized(xPYInterflowConfValue.popup.notifyEffcte){
         PYPopupEffectRefreshValue ++;
         threadJoinGlobal(^{
@@ -63,18 +98,21 @@ static UIImage * PY_POPUP_IMG;
     }
 }
 +(void) REV_EFFECT_VALUE{
+    if(!xPYInterflowConfValue.base.hasEffect) return;
     @synchronized(xPYInterflowConfValue.popup.notifyEffcte){
         PYPopupEffectRefreshValue --;
     }
 }
 
+
 +(void) RECIRCLE_REFRESH_EFFECT{
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        [UIView _pypopup_hook_ae86];
         dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
         dispatch_async(queue, ^{
             float cpuUsage = 0;
-            float maxCpuUsage = .6;
+            float maxCpuUsage = xPYInterflowConfValue.base.maxCpuUsage;
             static NSTimeInterval fpsTimeInterval = .05;
             NSTimeInterval timePre = [NSDate timeIntervalSinceReferenceDate];
             NSTimeInterval timeInterval;
@@ -87,6 +125,10 @@ static UIImage * PY_POPUP_IMG;
                     if(cpuUsage > 0) cpuUsage = 0;
                     continue;
                 }
+                if(!PYPopupEffectHasLayoutSubViews){
+                    [NSThread sleepForTimeInterval:0.035];
+                    continue;
+                }
                 cpuUsage = app_cpu_usage();
                 if(cpuUsage < maxCpuUsage){
                     sleep = MAX(.035, cpuUsage / 100.);
@@ -96,11 +138,11 @@ static UIImage * PY_POPUP_IMG;
                     }
                 }else{
                     sleep = fpsTimeInterval;
-                    kPrintExceptionln("%s","popup effect out for cup usage");
+                    NSLog(@"%@",@"popup effect out for cup usage");
                 }
                 [NSThread sleepForTimeInterval:sleep];
 #ifdef DEBUG
-                    kPrintLogln("popup effect excut for cup usage: %.2f%% time:%ims sleep:%ims", cpuUsage * 100, (int)(([NSDate timeIntervalSinceReferenceDate] - timePre) * 1000), (int)(sleep * 1000));
+                    NSLog(@"popup effect excut for cup usage: %.2f%% time:%ims sleep:%ims", cpuUsage * 100, (int)(([NSDate timeIntervalSinceReferenceDate] - timePre) * 1000), (int)(sleep * 1000));
 #endif
                 sleep = fpsTimeInterval;
             }
@@ -108,30 +150,36 @@ static UIImage * PY_POPUP_IMG;
     });
     
 }
-
 +(void) REFRESH_EFFECT{
-//    static dispatch_semaphore_t semaphore;
-//    kDISPATCH_ONCE_BLOCK(^{
-//        semaphore = dispatch_semaphore_create(1);
-//    });
-//    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
     threadJoinMain(^{
+        if(PYPopupEffectRefreshCount != 0){
+            PYPopupEffectRefreshCount = 0;
+            int i = PYPopupEffectLayoutSubViewsCount;
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                CGFloat timer = [NSDate timeIntervalSinceReferenceDate];
+                while (i == PYPopupEffectLayoutSubViewsCount && [NSDate timeIntervalSinceReferenceDate] - timer < 3) {
+                    [NSThread sleepForTimeInterval:0.03];
+                }
+                if(i != PYPopupEffectLayoutSubViewsCount){
+                    return;
+                }
+                #ifdef DEBUG
+                NSLog(@"popup effect layout count: %i ", i);
+                #endif
+                PYPopupEffectHasLayoutSubViews = NO;
+                PYPopupEffectRefreshCount = 0;
+            });
+        }
         UIWindow * window = [UIApplication sharedApplication].keyWindow;
         CGRect bounds = window.bounds;
-        UIGraphicsBeginImageContextWithOptions(bounds.size, NO, .4);
-        [window drawViewHierarchyInRect:bounds  afterScreenUpdates:NO];
-        UIImage *snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-        UIGraphicsEndImageContext();
+        UIImage *snapshotImage = [window drawViewWithBounds:bounds scale:[UIScreen mainScreen].scale];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
-//            PY_POPUP_IMG = snapshotImage;
-//            UIImage * image = [UIImage imageWithData:imageData];
-            NSData *imageData = UIImageJPEGRepresentation(snapshotImage, .4);
+            NSData *imageData = UIImageJPEGRepresentation(snapshotImage, 1);
             UIImage * image = [UIImage imageWithData:imageData];
-            image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:xPYInterflowConfValue.base.colorEffectTint];;
-            PY_POPUP_IMG = image;
-//            dispatch_semaphore_signal(semaphore);
+//            UIImage * image = snapshotImage;
+            image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:xPYInterflowConfValue.base.colorEffectTint];
             threadJoinMain(^{
-                kNOTIF_POST(xPYInterflowConfValue.popup.notifyEffcte, PY_POPUP_IMG);
+                kNOTIF_POST(xPYInterflowConfValue.popup.notifyEffcte, image);
             });
         });
     });
@@ -141,7 +189,6 @@ static UIImage * PY_POPUP_IMG;
 -(instancetype) init{
     [PYPopupParam RECIRCLE_REFRESH_EFFECT];
     if(self = [super init]){
-        _hasEffect = xPYInterflowConfValue.base.hasEffect;
         self.centerPoint = CGPointMake(0, 0);
         self.borderEdgeInsets = UIEdgeInsetsMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
         self.frameOrg = CGRectMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX, DisableConstrainsValueMAX);
@@ -152,9 +199,9 @@ static UIImage * PY_POPUP_IMG;
     return self;
 }
 -(PYBlockPopupV_P_V_BK) creteDefaultBlcokPopupShowAnmation{
-    @unsafeify(self);
+    kAssign(self);
     PYBlockPopupV_P_V_BK blockAnimation = ^(UIView *view, PYBlockPopupV_P_V blockEnd){
-        @strongify(self);
+        kStrong(self);
         @synchronized(view) {
             
             CATransform3D transformx = CATransform3DIdentity;
@@ -169,9 +216,9 @@ static UIImage * PY_POPUP_IMG;
         }
         
         self.isAnimationing = true;
-        @unsafeify(self);
+        kAssign(self);
         [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset animations:^{
-            @strongify(self);
+            kStrong(self);
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;

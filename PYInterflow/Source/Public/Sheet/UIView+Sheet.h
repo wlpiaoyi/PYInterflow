@@ -37,11 +37,14 @@ kPNSNA NSString * sheetConfirme;
  */
 kPNSNA NSString * sheetCancel;
 /**
- 选择过程中的回调
+ 单选过程中的回调
  */
-kPNCNA BOOL(^sheetBlockSelecting)(BOOL isSelected, NSUInteger cureentIndex);
+ kPNCNA BOOL(^sheetBlockSingleSelecting)(NSUInteger cureentIndex);
+ /**
+  多选过程中的回调
+  */
+ kPNCNA BOOL(^sheetBlockMutableSelecting)(UIView * _Nonnull view, BOOL isSelected, NSUInteger cureentIndex);
 /**
- 
  */
 kPNCNA void(^sheetBlcokOpt)(UIView * _Nonnull view, BOOL isConfirm);
 

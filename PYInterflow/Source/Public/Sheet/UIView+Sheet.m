@@ -31,13 +31,6 @@ static const void *PYSheetPointer = &PYSheetPointer;
     return [self sheetParam].sheetSelectorView.selectes;
 }
 
--(void) setBlockSelecting:(BOOL (^)(BOOL, NSUInteger))blockSelecting{
-    [self sheetParam].blockSelecting = blockSelecting;
-}
--(BOOL (^)(BOOL, NSUInteger))blockSelecting{
-    return [self sheetParam].blockSelecting;
-}
-
 -(void) setSheetTitle:(NSString *)sheetTitle{
     [self sheetParam].attributeTitle = [NSString isEnabled:sheetTitle] ? [PYSheetParam parseTitleName:sheetTitle] : nil;
 }
@@ -59,11 +52,17 @@ static const void *PYSheetPointer = &PYSheetPointer;
     return [self sheetParam].attributeCancel.string;
 }
 
--(void) setSheetBlockSelecting:(BOOL (^)(BOOL, NSUInteger))sheetBlockSelecting{
-    [self sheetParam].blockSelecting = sheetBlockSelecting;
+-(void) setSheetBlockSingleSelecting:(BOOL (^)(NSUInteger))sheetBlockSingleSelecting{
+    [self sheetParam].blockSingleSelecting = sheetBlockSingleSelecting;
 }
--(BOOL (^)(BOOL, NSUInteger))sheetBlockSelecting{
-    return [self sheetParam].blockSelecting;
+-(BOOL (^)(NSUInteger))sheetBlockSingleSelecting{
+    return [self sheetParam].blockSingleSelecting;
+}
+-(void) setSheetBlockMutableSelecting:(BOOL (^)(UIView *,BOOL, NSUInteger))sheetBlockSelecting{
+    [self sheetParam].blockMutabelSelecting = sheetBlockSelecting;
+}
+-(BOOL (^)(UIView *,BOOL, NSUInteger))sheetBlockMutableSelecting{
+    return [self sheetParam].blockMutabelSelecting;
 }
 
 -(void) setSheetBlcokOpt:(PYBlockPopupV_P_V_B)sheetBlcokOpt{
@@ -147,7 +146,10 @@ static const void *PYSheetPointer = &PYSheetPointer;
         NSAttributedString *item = [PYSheetParam parseItemName:string];
         [attributeItems addObject:item];
     }
-    sheetView = [PYSheetSelectorView instanceWithTitle:[self sheetParam].attributeTitle items:attributeItems selectes:self.sheetSelectedIndexs options:attributeOptions multipleSelected:([self sheetParam].attributeConfirme && [self sheetParam].attributeConfirme.length)];
+    sheetView = [PYSheetSelectorView instanceWithTitle:[self sheetParam].attributeTitle items:attributeItems
+                                                selectes:self.sheetSelectedIndexs
+                                                options:attributeOptions
+                                      multipleSelected:self.sheetBlockSingleSelecting ? NO : YES];
     sheetView.frameWidth = boundsWidth();
     [sheetView synFrame];
     kAssign(self);
@@ -162,7 +164,25 @@ static const void *PYSheetPointer = &PYSheetPointer;
         if([self sheetParam].blockOpt) [self sheetParam].blockOpt(self, isConfirme);
         [self sheetHidden];
     };
-    sheetView.blockSelecting = [self sheetParam].blockSelecting;
+    if([self sheetParam].blockSingleSelecting){
+        sheetView.blockSelecting = ^BOOL(BOOL isSelected, NSUInteger cureentIndex) {
+            kStrong(self);
+            if(!isSelected) return NO;
+            if([self sheetParam].blockSingleSelecting(cureentIndex)){
+                [self sheetHidden];
+                return YES;
+            }else{
+                return NO;
+            }
+        } ;
+    }else if([self sheetParam].blockMutabelSelecting){
+        sheetView.blockSelecting = ^BOOL(BOOL isSelected, NSUInteger cureentIndex) {
+            kStrong(self);
+            return [self sheetParam].blockMutabelSelecting(self, isSelected, cureentIndex);
+        } ;
+    }else{
+        sheetView.blockSelecting = nil;
+    }
     [self sheetParam].sheetSelectorView = sheetView;
     [self sheetShow];
 }

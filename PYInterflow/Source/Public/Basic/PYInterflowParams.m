@@ -40,7 +40,8 @@ PYInterflowConfValue  * xPYInterflowConfValue;
     xPYInterflowConfValue.base = [PYInterflowBaseValue new];
     xPYInterflowConfValue.base.animationTime = 10.0;
     xPYInterflowConfValue.base.animationTimeOffset = .05;
-    xPYInterflowConfValue.base.floatEffectBlur = .14;
+    xPYInterflowConfValue.base.floatEffectBlur = .014;
+    xPYInterflowConfValue.base.maxCpuUsage = 1.5;
     
     xPYInterflowConfValue.popup = [PYInterflowPopupValue new];
     xPYInterflowConfValue.popup.borderWidth = 1.0/[UIScreen mainScreen].scale;
@@ -58,7 +59,7 @@ PYInterflowConfValue  * xPYInterflowConfValue;
     xPYInterflowConfValue.dialog.offsetWith = 2;
     xPYInterflowConfValue.dialog.buttonHeight = 44;
     xPYInterflowConfValue.dialog.fontTitle = [UIFont boldSystemFontOfSize:18];
-    xPYInterflowConfValue.dialog.fontMsg = [UIFont italicSystemFontOfSize:15];
+    xPYInterflowConfValue.dialog.fontMessage = [UIFont italicSystemFontOfSize:15];
     xPYInterflowConfValue.dialog.fontButton = [UIFont boldSystemFontOfSize:18];
     xPYInterflowConfValue.dialog.fontCancel = [UIFont systemFontOfSize:18 weight:UIFontWeightSemibold];
     xPYInterflowConfValue.dialog.fontConfirm = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
@@ -113,7 +114,7 @@ PYInterflowConfValue  * xPYInterflowConfValue;
             else
                 return[UIColor colorWithHexNumber:0xFFFFFF99];
         }];
-        xPYInterflowConfValue.dialog.colorTxt = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
+        xPYInterflowConfValue.dialog.colorMessage = [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull traitCollection) {
             if(UITraitCollection.currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyleDark)
                 return[UIColor colorWithHexNumber:0xDDDDDDFF];
             else
@@ -163,7 +164,7 @@ PYInterflowConfValue  * xPYInterflowConfValue;
         xPYInterflowConfValue.popup.colorLine =  [UIColor colorWithHexNumber:0x666666FF];
         xPYInterflowConfValue.popup.colorHighlightTxt = [UIColor colorWithHexNumber:0x33333355];
         xPYInterflowConfValue.popup.colorHighlightBg = [UIColor colorWithHexNumber:0xAAAABB99];
-        xPYInterflowConfValue.dialog.colorTxt = [UIColor darkGrayColor];
+        xPYInterflowConfValue.dialog.colorMessage = [UIColor darkGrayColor];
         xPYInterflowConfValue.dialog.colorBg = [UIColor colorWithHexNumber:0xFFFFFF99];
         xPYInterflowConfValue.dialog.colorCancel = [UIColor colorWithHexNumber:0xca0814ff];
         xPYInterflowConfValue.dialog.colorConfirme = [UIColor colorWithHexNumber:0x157efaff];
@@ -172,7 +173,8 @@ PYInterflowConfValue  * xPYInterflowConfValue;
         xPYInterflowConfValue.toast.colorBg = [UIColor colorWithHexNumber:0x00000099];
         xPYInterflowConfValue.toast.colorMsg = [UIColor colorWithHexNumber:0xFFFFFFFF];
     }
-    
+
+    xPYInterflowConfValue.dialog.colorTitle = xPYInterflowConfValue.dialog.colorMessage;
     xPYInterflowConfValue.sheet.colorConfirme = xPYInterflowConfValue.dialog.colorConfirme;
     xPYInterflowConfValue.sheet.colorCancel = xPYInterflowConfValue.dialog.colorCancel;
     xPYInterflowConfValue.sheet.colorBg = xPYInterflowConfValue.dialog.colorBg;

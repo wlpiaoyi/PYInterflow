@@ -83,7 +83,11 @@
         kAssign(self);
         if(PY_POPUP_DIALOG_BUTTON_CONFIRM) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
             kStrong(self);
-            PY_POPUP_DIALOG_BUTTON_CONFIRM(button, self.normalButtonNames.count,  index == 0);
+            NSMutableArray * names = @[].mutableCopy;
+            for (NSAttributedString * attributedString in self.normalButtonNames) {
+                [names addObject:attributedString.string];
+            }
+            PY_POPUP_DIALOG_BUTTON_CONFIRM(button, names,  index);
         };
     }else{
         if(PY_POPUP_DIALOG_BUTTON_OPTION) view.blockSetButtonLayout = ^(UIButton * _Nonnull button, NSInteger index) {
@@ -113,7 +117,7 @@
 
 +(nullable NSMutableAttributedString *) parseDialogTitle:(nullable NSString *) title{
     if(title == nil) return nil;
-    return [self parseForAttributeWithName:title font:xPYInterflowConfValue.dialog.fontTitle color:xPYInterflowConfValue.dialog.colorTxt];
+    return [self parseForAttributeWithName:title font:xPYInterflowConfValue.dialog.fontTitle color:xPYInterflowConfValue.dialog.colorTitle];
 }
 +(nullable NSMutableAttributedString *) parseDialogMessage:(nullable NSString *)dialogMessage{
     if(dialogMessage == nil) return nil;
@@ -121,27 +125,27 @@
     NSRange range = NSMakeRange(0, attMsg.length);
     [attMsg removeAttribute:NSForegroundColorAttributeName range:range];
     [attMsg removeAttribute:NSFontAttributeName range:range];
-    [attMsg addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.dialog.colorTxt range:NSMakeRange(0, attMsg.length)];//颜色
-    [attMsg addAttribute:NSFontAttributeName value:xPYInterflowConfValue.dialog.fontMsg range:NSMakeRange(0, attMsg.length)];
+    [attMsg addAttribute:NSForegroundColorAttributeName value:xPYInterflowConfValue.dialog.colorMessage range:NSMakeRange(0, attMsg.length)];//颜色
+    [attMsg addAttribute:NSFontAttributeName value:xPYInterflowConfValue.dialog.fontMessage range:NSMakeRange(0, attMsg.length)];
     return attMsg;
 }
 +(nullable NSArray<id> *) parseConfrimName:(nullable NSString *) confirmName cancelName:(nullable NSString *)cancelName{
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
-    NSAttributedString *attTitle;
+    NSAttributedString *attName;
     if([NSString isEnabled:cancelName]){
-        attTitle = [self parseForAttributeWithName:cancelName font:xPYInterflowConfValue.dialog.fontCancel color:xPYInterflowConfValue.dialog.colorCancel];
-        [ats addObject:attTitle];
+        attName = [self parseForAttributeWithName:cancelName font:xPYInterflowConfValue.dialog.fontCancel color:xPYInterflowConfValue.dialog.colorCancel];
+        [ats addObject:attName];
     }
     if([NSString isEnabled:confirmName]){
-        attTitle = [self parseForAttributeWithName:confirmName font:xPYInterflowConfValue.dialog.fontConfirm color:xPYInterflowConfValue.dialog.colorConfirme];
-        [ats addObject:attTitle];
+        attName = [self parseForAttributeWithName:confirmName font:xPYInterflowConfValue.dialog.fontConfirm color:xPYInterflowConfValue.dialog.colorConfirme];
+        [ats addObject:attName];
     }
     return ats;
 }
 +(nullable NSArray<id> *) parseNormalButtonNames:(nullable NSArray<NSString*> *) names{
     NSMutableArray<NSAttributedString *> * ats = [NSMutableArray new];
     for (NSString * name in names) {
-        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:xPYInterflowConfValue.dialog.fontButton color:xPYInterflowConfValue.dialog.colorTxt];
+        NSAttributedString *attTitle = [self parseForAttributeWithName:name font:xPYInterflowConfValue.dialog.fontButton color:xPYInterflowConfValue.dialog.colorMessage];
         [ats addObject:attTitle];
     }
     return ats;

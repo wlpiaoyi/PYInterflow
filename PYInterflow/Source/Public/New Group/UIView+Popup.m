@@ -191,7 +191,7 @@ static const void *UIViewPopupPointer = &UIViewPopupPointer;
         if (self.popupIsShow) return NO;
         else self.popupIsShow = true;
         kNOTIF_POST(xPYInterflowConfValue.popup.notifyShow, self);
-        
+        self.popupHasEffect = hasContentView && xPYInterflowConfValue.popup.notifyEffcte;
         if (self.popupBaseView == nil){
             self.popupBaseView =  [PYInterflowWindow instanceForFrame:[UIScreen mainScreen].bounds hasEffect:self.popupHasEffect];
         }
