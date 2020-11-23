@@ -14,7 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PYShutdownPopupView : UIView
 
 kPNA CGFloat shutdownHeight;
-kPNCNA void (^blockBeforeShutdown) (PYShutdownPopupView * shutdownPopupView);
+kPNCNA void (^blockBeforeShutdownShow) (PYShutdownPopupView * shutdownPopupView);
+kPNCNA void (^blockAfterShutdownHidden) (PYShutdownPopupView * shutdownPopupView);
 
 +(instancetype) instance;
 

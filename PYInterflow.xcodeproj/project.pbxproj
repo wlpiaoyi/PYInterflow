@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		150112801DF7C2B400A45FA8 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 1501127F1DF7C2B400A45FA8 /* icon.png */; };
 		1502A58A223A3DBF00F0787A /* libpyutilea.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1502A589223A3DBF00F0787A /* libpyutilea.a */; };
+		1507A522256A7A7500F12FA5 /* UIView+Shutdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507A521256A7A7500F12FA5 /* UIView+Shutdown.m */; };
+		1507A524256A850200F12FA5 /* PYShutdownPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */; };
+		1507A525256A850200F12FA5 /* UIView+Shutdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507A521256A7A7500F12FA5 /* UIView+Shutdown.m */; };
+		1507A526256A851500F12FA5 /* UIView+Shutdown.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1507A520256A7A7500F12FA5 /* UIView+Shutdown.h */; };
+		1507A52D256A8DB800F12FA5 /* PYShutdownItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507A52C256A8DB800F12FA5 /* PYShutdownItemView.m */; };
+		150A26EF256A90500094CCEB /* PYShutdownItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 150A26ED256A90500094CCEB /* PYShutdownItemCell.m */; };
+		150A26F0256A90500094CCEB /* PYShutdownItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 150A26EE256A90500094CCEB /* PYShutdownItemCell.xib */; };
 		15315B9222117ECC00CCC09F /* PYSheetSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E41220D604B00BF3365 /* PYSheetSelectorView.m */; };
 		15315B9322117ECC00CCC09F /* PYSheetItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4A220D683700BF3365 /* PYSheetItemCell.m */; };
 		15315B9422117ECC00CCC09F /* PYSheetItemsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15996E4F220D8E0900BF3365 /* PYSheetItemsView.m */; };
@@ -71,6 +78,8 @@
 		15BCAB4C224A18DA00242D4A /* PYSheetOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D5E867224A0BC500F38583 /* PYSheetOptionView.m */; };
 		15BD295924EBDB6C00E1ADC4 /* PYShutdownPopupView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15BD295824EBDB6C00E1ADC4 /* PYShutdownPopupView.xib */; };
 		15BD295C24EBDB9000E1ADC4 /* PYShutdownPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */; };
+		15C3CC1E256AA4C1005BAA8F /* PYShutdownItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1507A52C256A8DB800F12FA5 /* PYShutdownItemView.m */; };
+		15C3CC1F256AA4C1005BAA8F /* PYShutdownItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 150A26ED256A90500094CCEB /* PYShutdownItemCell.m */; };
 		15D5E868224A0BC500F38583 /* PYSheetOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D5E867224A0BC500F38583 /* PYSheetOptionView.m */; };
 		15D5E86A224A0BD300F38583 /* PYSheetOptionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15D5E869224A0BD300F38583 /* PYSheetOptionView.xib */; };
 		15E7148922A0F7AB005822CC /* fishhook.c in Sources */ = {isa = PBXBuildFile; fileRef = 15E7148622A0F7AB005822CC /* fishhook.c */; };
@@ -78,8 +87,6 @@
 		15E7148D22A0F933005822CC /* py_check_debugger.c in Sources */ = {isa = PBXBuildFile; fileRef = 15E7148C22A0F933005822CC /* py_check_debugger.c */; };
 		15E7149022A0FD1F005822CC /* py_reverse_debugger.c in Sources */ = {isa = PBXBuildFile; fileRef = 15E7148F22A0FD1F005822CC /* py_reverse_debugger.c */; };
 		15EABAF320A2A90C0073D4EF /* PYInterflow.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 15EABAF220A2A90C0073D4EF /* PYInterflow.bundle */; };
-		15EDB02C24F1543F00ECBEE2 /* PYShutdownPopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */; };
-		15EDB02D24F1545000ECBEE2 /* PYShutdownPopupView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 15BD295A24EBDB9000E1ADC4 /* PYShutdownPopupView.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,8 +96,8 @@
 			dstPath = "$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				1507A526256A851500F12FA5 /* UIView+Shutdown.h in CopyFiles */,
 				1544553B2502300F0080291A /* UIView+LeftSlide.h in CopyFiles */,
-				15EDB02D24F1545000ECBEE2 /* PYShutdownPopupView.h in CopyFiles */,
 				15996E3F220D281C00BF3365 /* UIView+Notify.h in CopyFiles */,
 				155D77BF206F2F3400B2CDDB /* PYMoveView.h in CopyFiles */,
 				1583E0D21DFA824200AD48EA /* UIView+Toast.h in CopyFiles */,
@@ -107,6 +114,13 @@
 /* Begin PBXFileReference section */
 		1501127F1DF7C2B400A45FA8 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
 		1502A589223A3DBF00F0787A /* libpyutilea.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libpyutilea.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1507A520256A7A7500F12FA5 /* UIView+Shutdown.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+Shutdown.h"; sourceTree = "<group>"; };
+		1507A521256A7A7500F12FA5 /* UIView+Shutdown.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shutdown.m"; sourceTree = "<group>"; };
+		1507A52B256A8DB800F12FA5 /* PYShutdownItemView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYShutdownItemView.h; sourceTree = "<group>"; };
+		1507A52C256A8DB800F12FA5 /* PYShutdownItemView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYShutdownItemView.m; sourceTree = "<group>"; };
+		150A26EC256A90500094CCEB /* PYShutdownItemCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PYShutdownItemCell.h; sourceTree = "<group>"; };
+		150A26ED256A90500094CCEB /* PYShutdownItemCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PYShutdownItemCell.m; sourceTree = "<group>"; };
+		150A26EE256A90500094CCEB /* PYShutdownItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PYShutdownItemCell.xib; sourceTree = "<group>"; };
 		15445529250147F00080291A /* NSArray+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSArray+PYAutolayout.h"; path = "../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/NSArray+PYAutolayout.h"; sourceTree = "<group>"; };
 		1544552A250147F00080291A /* UIView+PYAutolayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+PYAutolayout.h"; path = "../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/UIView+PYAutolayout.h"; sourceTree = "<group>"; };
 		1544552B250147F00080291A /* PYAutolayoutUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYAutolayoutUtilites.h; path = ../../../PYUtile/PYUtile/Source/Public/ViewAutolayout/PYAutolayoutUtilites.h; sourceTree = "<group>"; };
@@ -300,6 +314,21 @@
 			path = PYUtile;
 			sourceTree = "<group>";
 		};
+		1507A523256A84B900F12FA5 /* Shutdown */ = {
+			isa = PBXGroup;
+			children = (
+				15BD295A24EBDB9000E1ADC4 /* PYShutdownPopupView.h */,
+				15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */,
+				15BD295824EBDB6C00E1ADC4 /* PYShutdownPopupView.xib */,
+				1507A52B256A8DB800F12FA5 /* PYShutdownItemView.h */,
+				1507A52C256A8DB800F12FA5 /* PYShutdownItemView.m */,
+				150A26EC256A90500094CCEB /* PYShutdownItemCell.h */,
+				150A26ED256A90500094CCEB /* PYShutdownItemCell.m */,
+				150A26EE256A90500094CCEB /* PYShutdownItemCell.xib */,
+			);
+			path = Shutdown;
+			sourceTree = "<group>";
+		};
 		1534C46A21720AC600775C07 /* Popup */ = {
 			isa = PBXGroup;
 			children = (
@@ -455,6 +484,7 @@
 		15996E30220D269E00BF3365 /* Private */ = {
 			isa = PBXGroup;
 			children = (
+				1507A523256A84B900F12FA5 /* Shutdown */,
 				15996E3E220D280B00BF3365 /* Popup */,
 				15996E3B220D27AC00BF3365 /* Toast */,
 				15996E3A220D279300BF3365 /* Sheet */,
@@ -540,9 +570,8 @@
 		15BD295724EBDB4300E1ADC4 /* Shutdown */ = {
 			isa = PBXGroup;
 			children = (
-				15BD295A24EBDB9000E1ADC4 /* PYShutdownPopupView.h */,
-				15BD295B24EBDB9000E1ADC4 /* PYShutdownPopupView.m */,
-				15BD295824EBDB6C00E1ADC4 /* PYShutdownPopupView.xib */,
+				1507A520256A7A7500F12FA5 /* UIView+Shutdown.h */,
+				1507A521256A7A7500F12FA5 /* UIView+Shutdown.m */,
 			);
 			path = Shutdown;
 			sourceTree = "<group>";
@@ -656,6 +685,7 @@
 				15E7148A22A0F7AB005822CC /* LICENSE in Resources */,
 				155DE3D01DEEBE2D007CD6BF /* Assets.xcassets in Resources */,
 				15996E78220E76DE00BF3365 /* PYSheetItemsView.xib in Resources */,
+				150A26F0256A90500094CCEB /* PYShutdownItemCell.xib in Resources */,
 				15BD295924EBDB6C00E1ADC4 /* PYShutdownPopupView.xib in Resources */,
 				15D5E86A224A0BD300F38583 /* PYSheetOptionView.xib in Resources */,
 				155DE3CE1DEEBE2D007CD6BF /* Main.storyboard in Resources */,
@@ -673,6 +703,7 @@
 				155D77BD206F2CB200B2CDDB /* PYMoveView.m in Sources */,
 				1583E05B1DFA51BC00AD48EA /* UIView+Popup.m in Sources */,
 				1583E05D1DFA51BC00AD48EA /* PYPopupParam.m in Sources */,
+				150A26EF256A90500094CCEB /* PYShutdownItemCell.m in Sources */,
 				15996E36220D270900BF3365 /* PYNotifyParam.m in Sources */,
 				15A91CDE238ABE5400F5517B /* SceneDelegate.m in Sources */,
 				15E7149022A0FD1F005822CC /* py_reverse_debugger.c in Sources */,
@@ -689,7 +720,9 @@
 				15BD295C24EBDB9000E1ADC4 /* PYShutdownPopupView.m in Sources */,
 				1583E0621DFA51BC00AD48EA /* UIView+Dialog.m in Sources */,
 				15D5E868224A0BC500F38583 /* PYSheetOptionView.m in Sources */,
+				1507A52D256A8DB800F12FA5 /* PYShutdownItemView.m in Sources */,
 				15996E4C220D683700BF3365 /* PYSheetItemCell.m in Sources */,
+				1507A522256A7A7500F12FA5 /* UIView+Shutdown.m in Sources */,
 				1583E0611DFA51BC00AD48EA /* PYDialogTitleView.m in Sources */,
 				1583E0591DFA51BC00AD48EA /* PYInterflowParams.m in Sources */,
 				1583E05E1DFA51BC00AD48EA /* PYDialogButtonView.m in Sources */,
@@ -706,8 +739,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15C3CC1E256AA4C1005BAA8F /* PYShutdownItemView.m in Sources */,
+				15C3CC1F256AA4C1005BAA8F /* PYShutdownItemCell.m in Sources */,
+				1507A524256A850200F12FA5 /* PYShutdownPopupView.m in Sources */,
+				1507A525256A850200F12FA5 /* UIView+Shutdown.m in Sources */,
 				1544553A250230030080291A /* UIView+LeftSlide.m in Sources */,
-				15EDB02C24F1543F00ECBEE2 /* PYShutdownPopupView.m in Sources */,
 				15BCAB4C224A18DA00242D4A /* PYSheetOptionView.m in Sources */,
 				15315B9222117ECC00CCC09F /* PYSheetSelectorView.m in Sources */,
 				15315B9322117ECC00CCC09F /* PYSheetItemCell.m in Sources */,

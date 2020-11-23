@@ -15,6 +15,7 @@
 #import "UIView+sheet.h"
 #import "UIView+Toast.h"
 #import "UIView+Notify.h"
+#import "UIView+Shutdown.h"
 #import "pyutilea.h"
 #import "PYShutdownPopupView.h"
 
@@ -52,6 +53,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    PYView * shutdownView = [PYView new];
+//    shutdownView.backgroundColor  = [UIColor redColor];
+//    shutdownView.shutdownHeight = 100;
+    shutdownView.shutdownItems = @[@"111",@"222",@"222",@"222",@"222",@"222",@"222",@"333",@"333",@"333",@"333",@"333",@"333",@"333"];
+    shutdownView.blockShutdownSelectedItem = ^(UIView * _Nonnull view) {
+        NSLog(@"%ld", view.shutdownSelectedIndex);
+//        [view shutdownHidden];
+    };
+    [shutdownView shutdownShowWithSuperView:self.view topConstant:100];
     [self.webView loadRequest:[[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:@"https://www.baidu.com"]]];
 //    UIView * vvv = [UIView new];
 //    vvv.frame = CGRectMake(0, 0, 200, 200);

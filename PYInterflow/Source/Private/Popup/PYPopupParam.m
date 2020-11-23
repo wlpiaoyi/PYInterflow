@@ -18,28 +18,6 @@ BOOL PYPopupEffectHasLayoutSubViews;
 int PYPopupEffectLayoutSubViewsCount = 0;
 int PYPopupEffectRefreshCount = 0;
 
-//@interface CALayer(PYPopupEffect)
-//+(void) _pypopup_hook_ae86;
-//@end
-//
-//@implementation CALayer(PYPopupEffect)
-//
-//+(void) _pypopup_hook_ae86{
-//    [CALayer hookInstanceOriginalSel:@selector(drawInContext:) exchangeSel:@selector(_pypopup_drawInContext_ae86:)];
-//}
-//
-//-(void) _pypopup_drawInContext_ae86:(CGContextRef)ctx{
-//    [self _pypopup_drawInContext_ae86:ctx];
-//    [self _pypopup_effect_freshDatas_ae86];
-//    NSLog(@"111111");
-//}
-//
-//-(void) _pypopup_effect_freshDatas_ae86{
-//    if(PYPopupEffectRefreshValue <= 0) return;
-//}
-//
-//@end
-
 @interface UIView(PYPopupEffect)
 +(void) _pypopup_hook_ae86;
 @end
@@ -176,7 +154,6 @@ int PYPopupEffectRefreshCount = 0;
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             NSData *imageData = UIImageJPEGRepresentation(snapshotImage, 1);
             UIImage * image = [UIImage imageWithData:imageData];
-//            UIImage * image = snapshotImage;
             image = [image applyEffect:xPYInterflowConfValue.base.floatEffectBlur tintColor:xPYInterflowConfValue.base.colorEffectTint];
             threadJoinMain(^{
                 kNOTIF_POST(xPYInterflowConfValue.popup.notifyEffcte, image);

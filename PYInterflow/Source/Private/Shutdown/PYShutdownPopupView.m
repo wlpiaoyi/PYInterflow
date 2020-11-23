@@ -59,7 +59,7 @@
         make.bottom.left.right.py_inArea(YES).py_constant(0);
     }];
     [self layoutIfNeeded];
-    if(_blockBeforeShutdown) _blockBeforeShutdown(self);
+    if(_blockBeforeShutdownShow) _blockBeforeShutdownShow(self);
     [UIView animateWithDuration:.25f animations:^{
         self->lcPopuptop.constant = 0;
         [self layoutIfNeeded];
@@ -80,8 +80,12 @@
     } completion:^(BOOL finished) {
         [self py_removeAllLayoutContarint];
         [self removeFromSuperview];
+        if(self.blockAfterShutdownHidden) self.blockAfterShutdownHidden(self);
     }];
 }
 
+-(void) dealloc{
+    
+}
 
 @end

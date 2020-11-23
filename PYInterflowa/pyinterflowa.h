@@ -14,3 +14,4 @@
 #import "UIView+Toast.h"
 #import "UIView+Notify.h"
 #import "UIView+LeftSlide.h"
+#import "UIView+Shutdown.h"
