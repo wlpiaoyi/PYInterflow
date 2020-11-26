@@ -8,34 +8,77 @@
 
 #import "UIView+LeftSlide.h"
 
+static const void *UIViewLeftSlideCtxViewPointer = &UIViewLeftSlideCtxViewPointer;
+
+@interface UIView (LeftSlide)
+
+kPNA UIView * leftSildeCtxView;
+
+@end
+
 @implementation UIView (LeftSlide)
 
+-(UIView *) leftSildeCtxView{
+    UIView * leftSildeCtxView = objc_getAssociatedObject(self, UIViewLeftSlideCtxViewPointer);
+    return leftSildeCtxView;
+}
+
+-(void) setLeftSildeCtxView:(UIView *)leftSildeCtxView{
+    objc_setAssociatedObject(self, UIViewLeftSlideCtxViewPointer, leftSildeCtxView, OBJC_ASSOCIATION_ASSIGN);
+}
+
 -(void) leftSlideShow{
-    self.frameSize = CGSizeMake(self.frameWidth, DisableConstrainsValueMAX);
-    self.popupEdgeInsets = UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, 0);
-    self.popupCenterPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    UIView * leftSlideView = [UIView new];
+    leftSlideView.frameSize = CGSizeMake(self.frameWidth, DisableConstrainsValueMAX);
+    leftSlideView.popupEdgeInsets = UIEdgeInsetsMake(0, DisableConstrainsValueMAX, 0, 0);
+    leftSlideView.popupCenterPoint = CGPointMake(DisableConstrainsValueMAX, DisableConstrainsValueMAX);
+    [leftSlideView addSubview:self];
+    [self py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+        make.top.left.bottom.right.py_constant(0);
+    }];
+    
+    UIView * topView = topView = [UIView new];
+    [leftSlideView addSubview:topView];
     kAssign(self);
-    [self setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
+    [topView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
         kStrong(self);
-        view.layer.transform = CATransform3DMakeTranslation(self.frameWidth, 0, 0);
+        make.left.right.py_constant(0);
+        make.bottom.py_toItem(self).py_constant(0);
+        make.height.py_constant(100);
+    }];
+    UIView * bottomView = [UIView new];
+    [leftSlideView addSubview:bottomView];
+    self.leftSildeCtxView = leftSlideView;
+    
+    [bottomView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+        make.left.right.py_constant(0);
+        make.top.py_toItem(self).py_constant(0);
+        make.height.py_constant(100);
+    }];
+    topView.backgroundColor = self.backgroundColor;
+    bottomView.backgroundColor = self.backgroundColor;
+    [leftSlideView setBlockShowAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
+        kStrong(self);
+        view.layer.transform = CATransform3DMakeTranslation(self.leftSildeCtxView.frameWidth, 0, 0);
           [UIView animateWithDuration:.5 animations:^{
               [view resetTransform];
           } completion:^(BOOL finished) {
               block(view);
           }];
-      })];
-      [self setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
-          kStrong(self);
-          [view resetTransform];
-          [UIView animateWithDuration:.5 animations:^{
-              view.layer.transform = CATransform3DMakeTranslation(self.frameWidth, 0, 0);
-          } completion:^(BOOL finished) {
-              block(view);
-          }];
-      })];
-    [self popupShow];
+        })];
+    [leftSlideView setBlockHiddenAnimation:(^(UIView * _Nonnull view, PYBlockPopupV_P_V _Nullable block){
+        kStrong(self);
+        [view resetTransform];
+        [UIView animateWithDuration:.5 animations:^{
+            view.layer.transform = CATransform3DMakeTranslation(self.leftSildeCtxView.frameWidth, 0, 0);
+        } completion:^(BOOL finished) {
+            block(view);
+            self.leftSildeCtxView = nil;
+        }];
+    })];
+    [leftSlideView popupShow];
 }
 -(void) leftSlideHidden{
-    [self popupHidden];
+    [self.leftSildeCtxView popupHidden];
 }
 @end

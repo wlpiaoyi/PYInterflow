@@ -102,6 +102,7 @@ kINITPARAMS{
 -(void) afterExcuteLayoutSubviewsWithTarget:(nonnull UIView *) target{
     
 }
+
 -(BOOL) canTouchHidden{
     return false;
 }
@@ -124,10 +125,10 @@ kINITPARAMS{
 }
 -(void) refresh:(NSNotification *) notify{
     if(!_bgView) return;
-     //Execution was interrupted, reason: EXC_BAD_ACCESS (code=1, address=0x7535464c).
+    //Execution was interrupted, reason: EXC_BAD_ACCESS (code=1, address=0x7535464c).
     // The process has been returned to the state before expression evaluation.
-     UIImage * image = notify.object;
-     _bgView.image = image;
+    UIImage * image = notify.object;
+    _bgView.image = image;
 }
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id <UIViewControllerTransitionCoordinator>)coordinator{
     threadJoinGlobal(^{
@@ -137,6 +138,7 @@ kINITPARAMS{
         });
     });
 }
+
 
 - (BOOL)prefersStatusBarHidden {
     UIViewController * orgVc = [PYUtile getCurrentController];
@@ -183,7 +185,7 @@ kINITPARAMS{
     UIViewController * orgVc = [PYUtile getCurrentController];
     UIInterfaceOrientation result;
     if(__preferredInterfaceOrientationForPresentation){
-         result = [super preferredInterfaceOrientationForPresentation];
+        result = [super preferredInterfaceOrientationForPresentation];
     }else{
         __preferredInterfaceOrientationForPresentation = true;
         result = [orgVc preferredInterfaceOrientationForPresentation];
@@ -197,4 +199,5 @@ kINITPARAMS{
         kNOTIF_REMV(self, xPYInterflowConfValue.popup.notifyEffcte);
     }
 }
+
 @end

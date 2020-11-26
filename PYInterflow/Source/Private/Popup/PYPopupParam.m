@@ -148,7 +148,7 @@ int PYPopupEffectRefreshCount = 0;
                 PYPopupEffectRefreshCount = 0;
             });
         }
-        UIWindow * window = [UIApplication sharedApplication].keyWindow;
+        UIWindow * window = [PYUtile getCurrenWindow];
         CGRect bounds = window.bounds;
         UIImage *snapshotImage = [window drawViewWithBounds:bounds scale:[UIScreen mainScreen].scale];
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{

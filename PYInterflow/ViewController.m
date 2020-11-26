@@ -69,10 +69,11 @@
 //    [self.view addSubview:vvv];
 //    threadJoinGlobal(^{
 //        threadJoinMain(^{
-//            UIView * view = [UIView new];
-//            [view setCornerRadiusAndBorder:5 borderWidth:5 borderColor:[UIColor redColor]];
-//            view.frameWidth = 200;
-//            [view leftSlideShow];
+            UIView * view = [UIView new];
+    view.backgroundColor = [UIColor greenColor];
+            [view setCornerRadiusAndBorder:5 borderWidth:5 borderColor:[UIColor redColor]];
+            view.frameWidth = 200;
+            [view leftSlideShow];
 //        });
 //        sleep(1);
 //        while (true) {
@@ -170,23 +171,24 @@
     baseview.sheetCancel = @"取消";
 //    kAssign(baseview)
     
-    baseview.sheetBlockSingleSelecting = ^BOOL(NSUInteger cureentIndex) {
-        return YES;
-    };
+//    baseview.sheetBlockSingleSelecting = ^BOOL(NSUInteger cureentIndex) {
+//        return YES;
+//    };
     baseview.sheetBlockMutableSelecting = ^BOOL(UIView * _Nonnull view, BOOL isSelected, NSUInteger cureentIndex) {
 //        kStrong(baseview);
-        NSArray * a = view.sheetSelectedIndexs;
-        if(!isSelected && view.sheetSelectedIndexs.count == 1){
-            view.sheetSelectedIndexs = @[@(0)];
-            return NO;
-        }
-        return YES;
+//        NSArray * a = view.sheetSelectedIndexs;
+//        if(!isSelected && view.sheetSelectedIndexs.count == 1){
+//            view.sheetSelectedIndexs = @[@(0)];
+//            return NO;
+//        }
+        return NO;
     };
-    baseview.sheetBlcokOpt = ^(UIView * _Nonnull view, BOOL isConfirm) {
-        NSArray * a = view.sheetSelectedIndexs;
-        NSLog(@"");
-    };
+//    baseview.sheetBlcokOpt = ^(UIView * _Nonnull view, BOOL isConfirm) {
+//        NSArray * a = view.sheetSelectedIndexs;
+//        NSLog(@"");
+//    };
     [baseview sheetShowWithItemstrings:@[@"adsfasdf",@"adsfasdf"]];
+    baseview.sheetSelectedIndexs = @[].mutableCopy;
 //    baseview.sheetSelectedIndexs = @[@(0),@(6)];
     
     

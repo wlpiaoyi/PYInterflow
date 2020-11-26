@@ -95,6 +95,7 @@ UIColor * kPYSheetItemSelectedColor;
     PYSheetItemCell * cell = [tableView cellForRowAtIndexPath:indexPath];
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     cell.isSelected = self.selectes && [self.selectes containsObject:@(select.intValue)];
+    [tableView reloadData];
 }
 
 -(void) setSelectes:(NSArray<NSNumber *> * _Nullable)selectes{
