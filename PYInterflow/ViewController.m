@@ -53,6 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     PYView * shutdownView = [PYView new];
 //    shutdownView.backgroundColor  = [UIColor redColor];
 //    shutdownView.shutdownHeight = 100;
@@ -152,9 +153,12 @@
 //                   }];
 //               }
 //        };
-        [alertView dialogShowWithTitle:nil message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
+        [alertView dialogShowWithTitle:nil message:@"资金在途" block:^(UIView * _Nonnull view, BOOL isConfirm) {
             [view dialogHidden];
-        } buttonConfirm:@"确定" buttonCancel:@"取消"];
+        } buttonConfirm:@"确定确定" buttonCancel:@"确定取消确定"];
+        alertView.popupBlockTap = ^(UIView * _Nullable view) {
+            
+        };
 //        [alertView dialogShowWithTitle:@"我的" message:@"资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途，预计72小时内到账资金在途" block:^(UIView * _Nonnull view, NSUInteger index) {
 //
 //            [view dialogHidden];

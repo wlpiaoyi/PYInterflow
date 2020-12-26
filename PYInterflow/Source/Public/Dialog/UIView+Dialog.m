@@ -101,7 +101,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
         dialogSize = self.frameSize;
     }
     CGSize titleSize = [[self paramDialog] updateTitleView];
-    CGSize buttonSize = [[self paramDialog] updateButtonView:dialogSize.width confirm:confirm];
+    CGSize buttonSize = [[self paramDialog] updateButtonView:MAX(xPYInterflowConfValue.dialog.minWidth, dialogSize.width) confirm:confirm];
     
     [[self paramDialog] mergeTargetView];
     self.dialogShowView.frameSize = CGSizeMake(MAX(MAX(MAX(titleSize.width, xPYInterflowConfValue.dialog.minWidth), dialogSize.width), buttonSize.width) ,  titleSize.height + dialogSize.height + buttonSize.height);
