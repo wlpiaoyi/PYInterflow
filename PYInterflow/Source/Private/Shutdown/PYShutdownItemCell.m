@@ -7,6 +7,7 @@
 //
 
 #import "PYShutdownItemCell.h"
+#import "PYInterflowParams.h"
 
 @implementation PYShutdownItemCell{
     __weak IBOutlet UILabel *labelItem;
@@ -16,6 +17,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    if(xPYInterflowConfValue.shutdown.colorTitle)
+        labelItem.textColor = xPYInterflowConfValue.shutdown.colorTitle;
+    if(xPYInterflowConfValue.shutdown.imageTag)
+        imageTag.image = xPYInterflowConfValue.shutdown.imageTag;
     colorNormal = labelItem.textColor;
 }
 

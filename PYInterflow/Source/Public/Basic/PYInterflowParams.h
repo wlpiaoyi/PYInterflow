@@ -11,17 +11,28 @@
 #import <UIKit/UIKit.h>
 #import "pyutilea.h"
 
-@class PYInterflowBaseValue, PYInterflowPopupValue, PYInterflowDialogValue, PYInterflowSheetValue, PYInterflowTopbarValue;
+@class PYInterflowBaseValue, PYInterflowPopupValue, PYInterflowDialogValue, PYInterflowSheetValue, PYInterflowTopbarValue, PYInterflowShutdownValue;
 
 @interface PYInterflowConfValue : NSObject
 
 kPNSNA PYInterflowBaseValue * base;
+kPNSNA PYInterflowShutdownValue * shutdown;
 kPNSNA PYInterflowPopupValue * popup;
 kPNSNA PYInterflowDialogValue * dialog;
 kPNSNA PYInterflowSheetValue * sheet;
 kPNSNA PYInterflowTopbarValue * toast;
 
 @end;
+
+/**
+ 下拉框设置
+ */
+@interface PYInterflowShutdownValue : NSObject
+
+kPNSNA UIColor *  colorTitle;
+kPNSNA UIImage *  imageTag;
+
+@end
 
 /**
  基础配置设置

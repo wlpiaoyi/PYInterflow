@@ -13,7 +13,8 @@
 
 void * _Nonnull PY_OBJ_OrgWindow;
 
-@implementation PYInterflowConfValue  @end
+@implementation PYInterflowConfValue @end
+@implementation PYInterflowShutdownValue @end
 @implementation PYInterflowBaseValue @end
 @implementation PYInterflowPopupValue @end
 @implementation PYInterflowDialogValue @end
@@ -42,6 +43,8 @@ PYInterflowConfValue  * xPYInterflowConfValue;
     xPYInterflowConfValue.base.animationTimeOffset = .05;
     xPYInterflowConfValue.base.floatEffectBlur = .014;
     xPYInterflowConfValue.base.maxCpuUsage = 1.5;
+    
+    xPYInterflowConfValue.shutdown = [PYInterflowShutdownValue new];
     
     xPYInterflowConfValue.popup = [PYInterflowPopupValue new];
     xPYInterflowConfValue.popup.borderWidth = 1.0/[UIScreen mainScreen].scale;
