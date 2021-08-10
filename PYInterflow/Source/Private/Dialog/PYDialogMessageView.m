@@ -70,10 +70,10 @@ NSInteger PYDMV_offsetValueNum;
 
 +(CGSize) getSize:(nullable NSAttributedString *) attributeMessage{
     if(attributeMessage == nil || attributeMessage.length == 0){
-        return CGSizeMake(0, 0);
+        return CGSizeMake(0, xPYInterflowConfValue.dialog.minHeight);
     }
     CGSize size = [self getContentSize:attributeMessage];
-    size.height = MIN(size.height, xPYInterflowConfValue.dialog.maxHeight);
+    size.height = MAX(xPYInterflowConfValue.dialog.minHeight, MIN(size.height, xPYInterflowConfValue.dialog.maxHeight));
     return size;
 }
 @end

@@ -211,7 +211,6 @@
 		15A91E02238B9ABC00F5517B /* NSDate+PYExpand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDate+PYExpand.h"; path = "../../../PYUtile/PYUtile/Source/Public/Expand/NSDate+PYExpand.h"; sourceTree = "<group>"; };
 		15A91E03238B9ABC00F5517B /* PYKeyboardNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYKeyboardNotification.h; path = ../../../PYUtile/PYUtile/Source/Public/Notification/PYKeyboardNotification.h; sourceTree = "<group>"; };
 		15A91E04238B9ABD00F5517B /* PYOrientationNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYOrientationNotification.h; path = ../../../PYUtile/PYUtile/Source/Public/Notification/PYOrientationNotification.h; sourceTree = "<group>"; };
-		15A91E05238B9ABD00F5517B /* metamacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metamacros.h; path = ../../../../git/transferpassengerforios/Transfer/Transfer/Lib/PYLib/pyutile/pyutilea/metamacros.h; sourceTree = "<group>"; };
 		15A91E06238B9ABD00F5517B /* UIViewController+Hook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Hook.h"; path = "../../../PYUtile/PYUtile/Source/Public/Hook/UIViewController+Hook.h"; sourceTree = "<group>"; };
 		15A91E07238B9ABD00F5517B /* PYInvoke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PYInvoke.h; path = ../../../PYUtile/PYUtile/Source/Public/Invoke/PYInvoke.h; sourceTree = "<group>"; };
 		15A91E0C238B9BAC00F5517B /* pyutilea.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pyutilea.h; path = ../../../PYUtile/pyutilea/pyutilea.h; sourceTree = "<group>"; };
@@ -279,7 +278,6 @@
 				15A91E0D238B9CD200F5517B /* NSArray+PYExpand.h */,
 				15A91E0C238B9BAC00F5517B /* pyutilea.h */,
 				15A91DF1238B9ABA00F5517B /* EXTScope.h */,
-				15A91E05238B9ABD00F5517B /* metamacros.h */,
 				15A91DF4238B9ABB00F5517B /* metamacros.h */,
 				15A91DEC238B9ABA00F5517B /* NSData+PYExpand.h */,
 				15A91E02238B9ABC00F5517B /* NSDate+PYExpand.h */,
@@ -643,7 +641,7 @@
 				TargetAttributes = {
 					155DE3BF1DEEBE2D007CD6BF = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = TVXZ27JPZ9;
+						DevelopmentTeam = 495X2M9F8V;
 						ProvisioningStyle = Automatic;
 					};
 					1583E07D1DFA7E2800AD48EA = {
@@ -901,7 +899,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TVXZ27JPZ9;
+				DEVELOPMENT_TEAM = 495X2M9F8V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -928,7 +926,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = TVXZ27JPZ9;
+				DEVELOPMENT_TEAM = 495X2M9F8V;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",

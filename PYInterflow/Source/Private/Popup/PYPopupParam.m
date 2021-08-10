@@ -180,7 +180,6 @@ int PYPopupEffectRefreshCount = 0;
     PYBlockPopupV_P_V_BK blockAnimation = ^(UIView *view, PYBlockPopupV_P_V blockEnd){
         kStrong(self);
         @synchronized(view) {
-            
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 2, 2, 1);
             view.layer.transform = transformx;
@@ -191,11 +190,25 @@ int PYPopupEffectRefreshCount = 0;
                 self.baseView.hidden = false;
             }
         }
-        
-        self.isAnimationing = true;
-        kAssign(self);
-        [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset animations:^{
-            kStrong(self);
+        if(xPYInterflowConfValue.base.hasAnimation){
+            self.isAnimationing = true;
+            kAssign(self);
+            [UIView animateWithDuration:xPYInterflowConfValue.base.animationTime * xPYInterflowConfValue.base.animationTimeOffset animations:^{
+                kStrong(self);
+                CATransform3D transformx = CATransform3DIdentity;
+                transformx = CATransform3DScale(transformx, 1, 1, 1);
+                view.layer.transform = transformx;
+                view.alpha = 1;
+                if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
+                    [self baseView].alpha = 1;
+                }
+            } completion:^(BOOL finished) {
+                if (!view) return;
+                @synchronized(view) {
+                    if(blockEnd)blockEnd(view);
+                }
+            }];
+        }else{
             CATransform3D transformx = CATransform3DIdentity;
             transformx = CATransform3DScale(transformx, 1, 1, 1);
             view.layer.transform = transformx;
@@ -203,12 +216,8 @@ int PYPopupEffectRefreshCount = 0;
             if([self.baseView isKindOfClass:[PYInterflowWindow class]]){
                 [self baseView].alpha = 1;
             }
-        } completion:^(BOOL finished) {
-            if (!view) return;
-            @synchronized(view) {
-                if(blockEnd)blockEnd(view);
-            }
-        }];
+            if(blockEnd)blockEnd(view);
+        }
         
     };
     return blockAnimation;

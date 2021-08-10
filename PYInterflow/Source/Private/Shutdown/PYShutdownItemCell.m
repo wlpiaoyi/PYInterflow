@@ -11,6 +11,7 @@
 
 @implementation PYShutdownItemCell{
     __weak IBOutlet UILabel *labelItem;
+    __weak IBOutlet UIView *viewSelected;
     __weak IBOutlet UIImageView *imageTag;
     UIColor * colorNormal;
 }
@@ -22,6 +23,7 @@
     if(xPYInterflowConfValue.shutdown.imageTag)
         imageTag.image = xPYInterflowConfValue.shutdown.imageTag;
     colorNormal = labelItem.textColor;
+    self.isSelectedItem = NO;
 }
 
 -(void) setItem:(NSString *)item{
@@ -32,6 +34,7 @@
     _isSelectedItem = isSelectedItem;
     imageTag.hidden = !_isSelectedItem;
     labelItem.textColor = _isSelectedItem ? colorNormal : [UIColor darkGrayColor];
+    viewSelected.hidden = isSelectedItem == NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

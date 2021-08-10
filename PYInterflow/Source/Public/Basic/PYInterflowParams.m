@@ -15,7 +15,13 @@ void * _Nonnull PY_OBJ_OrgWindow;
 
 @implementation PYInterflowConfValue @end
 @implementation PYInterflowShutdownValue @end
-@implementation PYInterflowBaseValue @end
+@implementation PYInterflowBaseValue
+-(instancetype) init{
+    self = [super init];
+    self.hasAnimation = YES;
+    return self;
+}
+@end
 @implementation PYInterflowPopupValue @end
 @implementation PYInterflowDialogValue @end
 @implementation PYInterflowSheetValue @end
@@ -57,6 +63,7 @@ PYInterflowConfValue  * xPYInterflowConfValue;
     xPYInterflowConfValue.dialog.offsetBorder = 18;
     xPYInterflowConfValue.dialog.minWidth = 260;
     xPYInterflowConfValue.dialog.maxWidth = 300;
+    xPYInterflowConfValue.dialog.minHeight = 10;
     xPYInterflowConfValue.dialog.maxHeight = 400;
     xPYInterflowConfValue.dialog.width = 280;
     xPYInterflowConfValue.dialog.offsetWith = 2;

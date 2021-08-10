@@ -96,7 +96,7 @@ static const void *PYDialogPointer = &PYDialogPointer;
 }
 
 -(void) __dialogShowConfirm:(BOOL) confirm{
-    CGSize dialogSize = self.dialogMessage ? [[self paramDialog] updateMessageView] : CGSizeZero;
+    CGSize dialogSize = [[self paramDialog] updateMessageView];
     if(CGSizeEqualToSize(dialogSize, CGSizeZero)){
         dialogSize = self.frameSize;
     }

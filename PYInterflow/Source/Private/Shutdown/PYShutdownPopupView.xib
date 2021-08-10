@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -16,10 +17,10 @@
             <subviews>
                 <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h7t-dB-xC2">
                     <rect key="frame" x="-100" y="0.0" width="520" height="668"/>
-                    <color key="backgroundColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                 </view>
                 <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IpF-iF-N1i">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="668"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ttQ-KT-MRu">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
@@ -40,15 +41,15 @@
                                 <constraint firstAttribute="trailing" secondItem="8zg-fH-nyZ" secondAttribute="trailing" id="yJC-Eg-mDZ"/>
                             </constraints>
                         </view>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p0-ui-usC">
-                            <rect key="frame" x="0.0" y="100" width="320" height="468"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1p0-ui-usC">
+                            <rect key="frame" x="0.0" y="100" width="320" height="568"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="onclickHidden:" destination="iN0-l3-epB" eventType="touchUpInside" id="DFB-Um-xeW"/>
                             </connections>
                         </button>
                     </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="1p0-ui-usC" secondAttribute="trailing" id="406-S7-tqI"/>
                         <constraint firstItem="ttQ-KT-MRu" firstAttribute="top" secondItem="IpF-iF-N1i" secondAttribute="top" id="aEs-bf-w2K"/>
@@ -60,10 +61,11 @@
                     </constraints>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="IpF-iF-N1i" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="6mi-of-gkZ"/>
-                <constraint firstItem="IpF-iF-N1i" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="Eya-hW-Lry"/>
+                <constraint firstItem="IpF-iF-N1i" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="100" id="Eya-hW-Lry"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="h7t-dB-xC2" secondAttribute="bottom" constant="-100" id="H27-EJ-0ZU"/>
                 <constraint firstItem="IpF-iF-N1i" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="R29-ln-0u2"/>
                 <constraint firstItem="h7t-dB-xC2" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RVX-JJ-7ok"/>
@@ -72,7 +74,6 @@
                 <constraint firstItem="h7t-dB-xC2" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="-100" id="uML-zg-QLB"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="lcPopupH" destination="RPf-e9-O87" id="JLf-jw-ypT"/>
                 <outlet property="lcPopuptop" destination="2Li-v4-ZKB" id="tDr-hI-vm8"/>
@@ -82,4 +83,9 @@
             <point key="canvasLocation" x="-139.13043478260872" y="100.44642857142857"/>
         </view>
     </objects>
+    <resources>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

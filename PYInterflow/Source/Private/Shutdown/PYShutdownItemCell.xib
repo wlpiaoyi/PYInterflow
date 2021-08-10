@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -17,6 +17,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8P1-8K-HJK">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <color key="backgroundColor" red="0.96862745098039216" green="0.96862745098039216" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwi-pS-jIo">
                         <rect key="frame" x="15" y="0.0" width="290" height="44"/>
                         <subviews>
@@ -28,8 +32,8 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zon-e9-8eZ">
-                                <rect key="frame" x="0.0" y="0.0" width="264" height="44"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <rect key="frame" x="5" y="0.0" width="259" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" systemColor="linkColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -37,7 +41,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="zwv-2W-6TM" secondAttribute="trailing" id="4jI-0a-Cq7"/>
-                            <constraint firstItem="zon-e9-8eZ" firstAttribute="leading" secondItem="xwi-pS-jIo" secondAttribute="leading" id="MX6-Gx-t8R"/>
+                            <constraint firstItem="zon-e9-8eZ" firstAttribute="leading" secondItem="xwi-pS-jIo" secondAttribute="leading" constant="5" id="MX6-Gx-t8R"/>
                             <constraint firstItem="zon-e9-8eZ" firstAttribute="top" secondItem="xwi-pS-jIo" secondAttribute="top" id="Mt4-Z7-xqi"/>
                             <constraint firstItem="zwv-2W-6TM" firstAttribute="leading" secondItem="zon-e9-8eZ" secondAttribute="trailing" constant="10" id="RbV-w9-jMl"/>
                             <constraint firstItem="zwv-2W-6TM" firstAttribute="centerY" secondItem="xwi-pS-jIo" secondAttribute="centerY" id="a9E-28-Bi8"/>
@@ -47,7 +51,11 @@
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
+                    <constraint firstItem="8P1-8K-HJK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6qN-09-4o0"/>
                     <constraint firstItem="xwi-pS-jIo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Ba4-yQ-oFl"/>
+                    <constraint firstItem="8P1-8K-HJK" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="KXD-rA-zk6"/>
+                    <constraint firstAttribute="trailing" secondItem="8P1-8K-HJK" secondAttribute="trailing" id="Lnc-LE-KxA"/>
+                    <constraint firstAttribute="bottom" secondItem="8P1-8K-HJK" secondAttribute="bottom" id="MaV-NJ-UfQ"/>
                     <constraint firstAttribute="trailing" secondItem="xwi-pS-jIo" secondAttribute="trailing" constant="15" id="bPs-ag-e9e"/>
                     <constraint firstAttribute="bottom" secondItem="xwi-pS-jIo" secondAttribute="bottom" id="rUt-Ga-hAs"/>
                     <constraint firstItem="xwi-pS-jIo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="vbZ-po-xY5"/>
@@ -57,6 +65,7 @@
             <connections>
                 <outlet property="imageTag" destination="zwv-2W-6TM" id="c66-7U-nNI"/>
                 <outlet property="labelItem" destination="zon-e9-8eZ" id="xbR-3c-y0I"/>
+                <outlet property="viewSelected" destination="8P1-8K-HJK" id="rsU-Pc-1EM"/>
             </connections>
             <point key="canvasLocation" x="139" y="96"/>
         </tableViewCell>

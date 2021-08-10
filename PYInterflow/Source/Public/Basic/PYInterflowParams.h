@@ -40,6 +40,7 @@ kPNSNA UIImage *  imageTag;
 @interface PYInterflowBaseValue : NSObject
 
 kPNA BOOL hasEffect;
+kPNA BOOL hasAnimation;
 kPNA CGFloat maxCpuUsage;
 kPNA CGFloat animationTime;
 kPNA CGFloat animationTimeOffset;
@@ -74,6 +75,7 @@ kPNA CGFloat offsetBorder;
 kPNA CGFloat minWidth;
 kPNA CGFloat maxWidth;
 kPNA CGFloat maxHeight;
+kPNA CGFloat minHeight;
 kPNA CGFloat width;
 kPNA CGFloat offsetWith;
 kPNA CGFloat buttonHeight;

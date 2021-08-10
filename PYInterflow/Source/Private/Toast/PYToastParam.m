@@ -34,14 +34,14 @@
     if(_contentView) return _contentView;
     UIView * contentView = [UIView new];
     contentView.backgroundColor = [UIColor clearColor];
-    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
-    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
-    [effectView setCornerRadiusAndBorder:10 borderWidth:0 borderColor:nil];
-    [contentView addSubview:effectView];
-    [effectView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-        make.top.left.bottom.right.py_constant(0);
-    }];
-    [effectView.superview sendSubviewToBack:effectView];
+//    UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleRegular];
+//    UIVisualEffectView *effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+//    [effectView setCornerRadiusAndBorder:10 borderWidth:0 borderColor:nil];
+//    [contentView addSubview:effectView];
+//    [effectView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
+//        make.top.left.bottom.right.py_constant(0);
+//    }];
+//    [effectView.superview sendSubviewToBack:effectView];
     [self.baseView addSubview:contentView];
     [contentView py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
         make.top.left.bottom.right.py_constant(0);
