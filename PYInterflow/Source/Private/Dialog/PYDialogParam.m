@@ -57,6 +57,9 @@
     return  size;
 }
 -(CGSize) updateMessageView{
+    if(self.attributeMessage == nil || self.attributeMessage.length == 0){
+        return CGSizeZero;
+    }
     if(self.messageView == nil){
         self.messageView = [PYDialogMessageView new];
         [self.targetView addSubview:self.messageView];

@@ -126,36 +126,14 @@
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
     UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"好的" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         UIView * alertView = [PYView new];// self.alertView;
-//        UIView * alertView = [[PYView alloc] initWithFrame:CGRectMake(0, 0, 300, 100)];
-//        [alertView dialogShowWithTitle:@"xxx" block:^(UIView * _Nonnull view, NSUInteger index) {
-//
-//        } buttonNames:@[@"sfadf"]];
-//        PY_POPUP_DIALOG_BUTTON_CONFIRM = ^(UIButton * button, NSArray<NSString *> * names,  NSInteger index){
-//            [button setCornerRadiusAndBorder:13 borderWidth:1 borderColor:[UIColor darkGrayColor]];
-//            BOOL isConfirm = NO;
-//            CGFloat offw = names.count == 1 ? 10 : 0;
-//            if(names.count == 2){
-//                isConfirm = index == 1;
-//            }
-//            if(isConfirm){
-//                   [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-//                       make.left.py_constant(10 + offw);
-//                       make.right.py_constant(20);
-//                       make.top.py_constant(0);
-//                       make.height.py_constant(26);
-//                   }];
-//               }else{
-//                   [button py_makeConstraints:^(PYConstraintMaker * _Nonnull make) {
-//                       make.left.py_constant(20);
-//                       make.right.py_constant(10 + offw);
-//                       make.top.py_constant(0);
-//                       make.height.py_constant(26);
-//                   }];
-//               }
-//        };
-        [alertView dialogShowWithTitle:@"资金在途" message:nil block:^(UIView * _Nonnull view, BOOL isConfirm) {
-            [view dialogHidden];
-        } buttonConfirm:@"确定确定" buttonCancel:@"确定取消确定"];
+        alertView.backgroundColor = [UIColor greenColor];
+        alertView.frameHeight = 50;
+        [alertView dialogShowWithTitle:nil block:^(UIView * _Nonnull view, NSUInteger index) {
+            
+        } buttonNames:@[@"确定"]];
+//        [alertView dialogShowWithTitle:@"资金在途" message:nil block:^(UIView * _Nonnull view, BOOL isConfirm) {
+//            [view dialogHidden];
+//        } buttonConfirm:@"确定确定" buttonCancel:@"确定取消确定"];
         alertView.popupBlockTap = ^(UIView * _Nullable view) {
             
         };
